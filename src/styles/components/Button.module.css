@@ -1,0 +1,35 @@
+.button {
+  width: 100%;
+  max-width: 36rem;
+  height: 48px;
+  margin: 0 auto;
+  border-radius: 4px;
+  color: var(--white);
+  font-size: 1.2em;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+}
+.green {
+  background-color: var(--green);
+}
+.green:hover {
+  background-color: var(--lightgreen);
+}
+.green:active {
+  background-color: var(--lightgreen);
+}
+.red {
+  background-color: var(--red);
+}
+.red:hover {
+  background-color: var(--lightred);
+}
+.red:active {
+  background-color: var(--lightred);
+}
+.button:disabled {
+  color: var(--lightgray);
+  background-color: var(--darksnow);
+  cursor: not-allowed;
+}

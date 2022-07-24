@@ -1,0 +1,14 @@
+.notice {
+  width:100%;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8em;
+  text-align: center;
+  line-height: 1.8em;
+  margin-bottom: 7%;
+}
+.strong {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2em;
+}

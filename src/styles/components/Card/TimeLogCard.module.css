@@ -1,0 +1,61 @@
+.time-log-wrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  background-color: white;
+  border-radius: inherit;
+  height: 100%;
+  max-height: 55rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  transform: rotateY(-180deg);
+}
+
+table{
+  border-collapse: collapse;
+}
+
+ tr,th {
+  width:200px;
+  height: 20px;
+};
+
+.timeLogWrpaper{
+
+  height: 100%;
+  padding-top:40px;
+  
+}
+
+.timeLogTitleWrapper
+{
+  display:flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 10px;
+}
+
+.timeLogTitleWrapper strong{
+  font-size: 10px;
+}
+
+.timeLogTable
+{
+  font-size: 12px;
+}
+
+.row{
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+
+.menuIcon{
+  position: absolute;
+  top:10px;
+  right:10px;
+}
