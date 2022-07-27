@@ -5,7 +5,9 @@ const MainHeader = () => {
   return (
     <header className={classes.header}>
       <span className={classes.logo}>42 logo</span>
-      <h1 className={classes.title}>Check-in Cluster</h1>
+      <h1 className={classes.title}>
+        24hours-are-not- <br></br> enough
+      </h1>
     </header>
   );
 };

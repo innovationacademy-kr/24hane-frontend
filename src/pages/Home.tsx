@@ -15,7 +15,7 @@ const Home = () => {
 
   const init = useCallback(async () => {
     const data = await getIsLogin();
-    if (data.status === 200) dispatch(setIsLogin());
+    if (data.status === 200) dispatch(setIsLogin(true));
   }, [dispatch]);
 
   const handleLogin = () => {

@@ -56,7 +56,7 @@ html {
   .wrapper {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	margin: 0 auto;
 	padding: 1.8rem;
 	background-color: var(--black);

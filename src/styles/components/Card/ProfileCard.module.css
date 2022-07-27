@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: 2.4rem;
   width: 100%;
-  max-height: 55rem;
+  min-height: 55rem;
   transform: rotateY(0deg);
   backface-visibility: hidden;
   background-color: var(--white);
@@ -75,4 +75,9 @@
 .profile-wrapper div[role=status] {
   top:10px;
   right:calc(20%);
+}
+
+p{
+  font-size: 10px;
+  text-align: center;
 }

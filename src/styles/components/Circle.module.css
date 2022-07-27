@@ -19,3 +19,7 @@
 .orange {
   background-color: var(--orange);
 }
+
+.lightgray {
+  background-color: var(--lightgray);
+}

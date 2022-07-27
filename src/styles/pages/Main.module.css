@@ -4,6 +4,7 @@ footer {
 
 .card{
 	position: relative;
+	min-height: 55rem;
 }
 
 .card-wrapper {
