@@ -5,7 +5,7 @@ import logo from "assets/42-logo-black.png";
 import Circle from "components/common/Circle";
 import MenuIcon from "components/common/MenuIcon";
 import { useAppSelector } from "app/features/hooks";
-import { userDurationsType, userType } from "types/User";
+import { userType } from "types/User";
 
 type UserCircleProps = {
   state: string | null;
