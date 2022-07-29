@@ -8,7 +8,7 @@ import { setMonthDurationTime, setTodayDurationTime } from "app/features/user/du
 
 const data: userType = {
   login: "minjupar",
-  profile: "https://cdn.intra.42.fr/users/minjupar.jpg",
+  profileImage: "https://cdn.intra.42.fr/users/minjupar.jpg",
   isLogin: true,
   isAdmin: false,
   inoutState: "OUT",
@@ -22,20 +22,21 @@ const durationaTimes: userDurationsType = {
 const Main = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    const { login, profileImage, isAdmin, inoutState } = data;
     //TODO :user데이터 가져와서 저장하는 로직 추가
-    //TODO :오늘,내일 누적시간 가져오는 로직
+    //TODO :오늘, 내일 누적시간 가져오는 로직 추가
+    //TODO :개포, 서초 인원 가져오는 로직 추가
 
     const initData = {
-      login: data.login,
-      profile: data.profile,
-      isAdmin: data.isAdmin,
-      inoutState: data.inoutState,
+      login,
+      profileImage,
+      isAdmin,
+      inoutState,
     };
+    dispatch(setInit(initData));
 
     dispatch(setTodayDurationTime(durationaTimes.todayDurationTime));
     dispatch(setMonthDurationTime(durationaTimes.monthDurationTime));
-
-    dispatch(setInit(initData));
   }, [dispatch]);
 
   return (

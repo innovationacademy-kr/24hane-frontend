@@ -5,7 +5,7 @@ type userState = userType;
 
 const initialState: userState = {
   login: "",
-  profile: "",
+  profileImage: "",
   isLogin: false,
   isAdmin: true,
   inoutState: "OUT",
@@ -20,8 +20,8 @@ export const userSlice = createSlice({
     },
 
     setInit: (state, payload: PayloadAction<Omit<userState, "isLogin">>) => {
-      const { profile, isAdmin, inoutState, login } = payload.payload;
-      state.profile = profile;
+      const { profileImage, isAdmin, inoutState, login } = payload.payload;
+      state.profileImage = profileImage;
       state.isAdmin = isAdmin;
       state.inoutState = inoutState;
       state.login = login;

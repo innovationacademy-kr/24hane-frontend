@@ -8,6 +8,7 @@ type DurationProps = {
 const timeFomat = (time: number) => {
   return time < 10 ? `0${time}` : time;
 };
+
 function DurationTime({ startTime }: DurationProps) {
   //const durationTime = useTimer(startTime);
   return (

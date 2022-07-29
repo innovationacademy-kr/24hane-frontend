@@ -4,3 +4,10 @@ export type LogType = {
   checkoutAt: string;
   durationTime: number;
 };
+
+// export type LogType = {
+//   id: number;
+//   checkinAt: Date;
+//   checkoutAt: Date;
+//   durationTime: number;
+// };

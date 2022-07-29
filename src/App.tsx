@@ -1,7 +1,11 @@
 import React from "react";
+import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 
+export const env = process.env.NODE_ENV;
+
 const App = () => {
+  const { version } = packageJson;
   return (
     <>
       <title>24hoursnotenough</title>
@@ -11,7 +15,7 @@ const App = () => {
       />
       <main className='wrapper'>
         <AppRouter />
-        <footer className='footer'>v3.0.0</footer>
+        <footer className='footer'>{`${env === "development" ? env : ""} v${version}`}</footer>
       </main>
     </>
   );

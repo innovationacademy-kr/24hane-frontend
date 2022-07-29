@@ -2,7 +2,7 @@ export type userType = {
   login: string;
   isLogin: boolean;
   isAdmin: boolean;
-  profile: string;
+  profileImage: string;
   inoutState: "IN" | "OUT";
 };
 

@@ -192,6 +192,7 @@ function LogCardContents() {
     setLogs([...logsData]);
   }, []);
 
+  //console.log(dayjs.unix(1318781876).format("MM월DD일 HH:mm"));
   const accTime = logs.reduce((ac, cur) => ac + cur.durationTime, 0);
   return (
     <>
@@ -210,11 +211,23 @@ function LogCardContents() {
           </thead>
           <tbody>
             {logs.map((log: any) => {
+              const 입실날 = dayjs(log.checkinAt).format("MM월DD일 ");
+              const 입실시간 = dayjs(log.checkinAt).format("HH:mm");
+              const 퇴실날 = dayjs(log.checkoutAt).format("MM월DD일");
+              const 퇴실시간 = dayjs(log.checkoutAt).format("HH:mm");
               return (
                 <tr key={log.id} className={classes.row}>
-                  <td>{dayjs(log.checkinAt).format("MM월DD일 HH:mm")}</td>
-                  <td>{dayjs(log.checkoutAt).format("MM월DD일 HH:mm")}</td>
-                  <td>{timeFormat(log.durationTime)}</td>
+                  <td>
+                    <p>{입실날}</p>
+                    <strong>{입실시간}</strong>
+                  </td>
+                  <td>
+                    <p>{퇴실날}</p>
+                    <strong>{퇴실시간}</strong>
+                  </td>
+                  <td>
+                    <strong>{timeFormat(log.durationTime)}</strong>
+                  </td>
                 </tr>
               );
             })}
