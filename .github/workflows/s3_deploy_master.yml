@@ -1,8 +1,8 @@
-name: workflow for S3 Deploy Main
+name: workflow for S3 Deploy Master
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   run:
     runs-on: ubuntu-latest
