@@ -17,7 +17,7 @@
   background-color: var(--lightgreen);
 }
 .green:active {
-  background-color: var(--lightgreen);
+  background-color: (--lightgreen);
 }
 .red {
   background-color: var(--red);

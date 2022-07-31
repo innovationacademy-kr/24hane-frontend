@@ -14,8 +14,10 @@ const Home = () => {
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
 
   const init = useCallback(async () => {
-    const data = await getIsLogin();
-    if (data.status === 200) dispatch(setIsLogin(true));
+    try {
+      const data = await getIsLogin();
+      if (data.status === 200) dispatch(setIsLogin(true));
+    } catch (e) {}
   }, [dispatch]);
 
   const handleLogin = () => {

@@ -6,6 +6,7 @@ import Circle from "components/common/Circle";
 import MenuIcon from "components/common/MenuIcon";
 import { useAppSelector } from "app/features/hooks";
 import { userType } from "types/User";
+import SettingButton from "components/Card/SettingButton";
 
 type UserCircleProps = {
   state: string | null;
@@ -33,7 +34,7 @@ type ProfileCardProps = {
 
 function ProfileCard({ handleFlip }: ProfileCardProps) {
   const user = useAppSelector((state) => state.user);
-  const { profileImage, login, inoutState } = user;
+  const { profileImage, login, inoutState, isAdmin } = user;
 
   return (
     <div className={classes.profileCard}>
@@ -41,7 +42,10 @@ function ProfileCard({ handleFlip }: ProfileCardProps) {
       <img className={classes.logo} alt='logo' src={logo} />
       <Profile profileImage={profileImage} login={login} inoutState={inoutState} />
       <CardContents />
-      <p>입퇴실 시 카드 태깅을 꼭 해주세요!</p>
+      <div>
+        <p>입퇴실 시 카드 태깅을 꼭 해주세요!</p>
+        {isAdmin ? <SettingButton /> : null}
+      </div>
     </div>
   );
 }

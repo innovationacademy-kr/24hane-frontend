@@ -7,7 +7,7 @@ const initialState: userState = {
   login: "",
   profileImage: "",
   isLogin: false,
-  isAdmin: true,
+  isAdmin: false,
   inoutState: "OUT",
 };
 

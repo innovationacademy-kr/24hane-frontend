@@ -1,3 +1,4 @@
+
 .profileCard {
   display: flex;
   flex-direction: column;
@@ -81,4 +82,10 @@
 p{
   font-size: 10px;
   text-align: center;
+}
+.settingButton{
+  position: absolute;
+  right: 10px;
+  bottom:10px;
+ 
 }

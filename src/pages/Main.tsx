@@ -5,12 +5,14 @@ import { useDispatch } from "react-redux";
 import { setInit } from "app/features/user/userSlice";
 import { userDurationsType, userType } from "types/User";
 import { setMonthDurationTime, setTodayDurationTime } from "app/features/user/durationTimes";
+import { useAppSelector } from "app/features/hooks";
+import { useNavigate } from "react-router-dom";
 
 const data: userType = {
   login: "minjupar",
   profileImage: "https://cdn.intra.42.fr/users/minjupar.jpg",
   isLogin: true,
-  isAdmin: false,
+  isAdmin: true,
   inoutState: "OUT",
 };
 
@@ -20,7 +22,15 @@ const durationaTimes: userDurationsType = {
 };
 
 const Main = () => {
+  const isLogin = useAppSelector((state) => state.user.isLogin);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(isLogin);
+    if (!isLogin) navigate("/");
+  });
+
   useEffect(() => {
     const { login, profileImage, isAdmin, inoutState } = data;
     //TODO :user데이터 가져와서 저장하는 로직 추가
