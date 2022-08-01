@@ -3,10 +3,10 @@ import CardContents from "components/Card/CardContents";
 import classes from "styles/components/Card/ProfileCard.module.css";
 import logo from "assets/42-logo-black.png";
 import Circle from "components/common/Circle";
-import MenuIcon from "components/common/MenuIcon";
 import { useAppSelector } from "app/features/hooks";
 import { userType } from "types/User";
 import SettingButton from "components/Card/SettingButton";
+import Icon from "components/common/Icon";
 
 type UserCircleProps = {
   state: string | null;
@@ -38,7 +38,7 @@ function ProfileCard({ handleFlip }: ProfileCardProps) {
 
   return (
     <div className={classes.profileCard}>
-      <MenuIcon classname={classes.menuIcon} handleOnclick={handleFlip} />
+      <Icon name='menu' classname={classes.menuIcon} handleOnclick={handleFlip} />
       <img className={classes.logo} alt='logo' src={logo} />
       <Profile profileImage={profileImage} login={login} inoutState={inoutState} />
       <CardContents />

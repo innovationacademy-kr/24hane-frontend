@@ -1,10 +1,26 @@
-import React from "react";
+import { getIsLogin } from "api/api";
+import { setIsLogin } from "app/features/user/userSlice";
+import React, { useCallback, useEffect } from "react";
 import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 
-export const env = process.env.NODE_ENV;
+export const env = process.env.REACT_APP_ENV;
 
 const App = () => {
+  const init = useCallback(async () => {
+    try {
+      const data = await getIsLogin();
+      if (data.status === 200) dispatch(setIsLogin(true));
+      else dispatch(setIsLogin(false));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    init();
+  }, [init]);
+
   const { version } = packageJson;
   return (
     <>
@@ -22,3 +38,6 @@ const App = () => {
 };
 
 export default App;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}

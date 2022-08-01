@@ -11,7 +11,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       REACT_APP_API_URL: ${{secrets.REACT_APP_API_URL_DEV}}
       REACT_APP_COOKIE_DOMAIN: ${{secrets.REACT_APP_COOKIE_DOMAIN}}
-      NODE_ENV: ${{secrets.NODE_ENV_DEV}}
+      REACT_APP_ENV: ${{secrets.REACT_APP_ENV_DEV}}
 
     steps:
       - uses: actions/checkout@v2
