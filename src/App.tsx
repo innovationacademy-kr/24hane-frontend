@@ -2,7 +2,7 @@ import React from "react";
 import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 
-export const env = process.env.NODE_ENV;
+export const env = process.env.REACT_APP_ENV;
 
 const App = () => {
   const { version } = packageJson;
