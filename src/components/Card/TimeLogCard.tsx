@@ -9,6 +9,7 @@ import Icon from "components/common/Icon";
 import { getLogsmonth, InOutLog } from "api/logsAPI";
 import { getToday } from "utils/time";
 import axios, { AxiosError } from "axios";
+import { FORM_URL } from "utils/const/const";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
@@ -263,7 +264,7 @@ function LogCardContents() {
           </tbody>
         </table>
       </div>
-      <a href='#!' target='_blank'>
+      <a href={FORM_URL} rel='noreferrer' target='_blank'>
         문의하기
       </a>
     </>
