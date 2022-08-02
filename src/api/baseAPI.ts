@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { IS_LOGIN_STATUS } from "utils/const/const";
+import { STATUS_204_NO_CONTENT } from "utils/const/const";
 
 export const VERSION_PATH = "v1";
 export const makeAPIPath = (path: string) => `${VERSION_PATH}/${path}`;
@@ -11,6 +11,6 @@ export const instance = axios.create({
 
 instance.interceptors.response.use((response: AxiosResponse) => {
   console.log(response);
-  if (response.status === IS_LOGIN_STATUS) return { status: IS_LOGIN_STATUS };
+  if (response.status === STATUS_204_NO_CONTENT) return { status: STATUS_204_NO_CONTENT };
   else return response.data;
 });

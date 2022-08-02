@@ -1,4 +1,4 @@
-import { instance } from "./api";
+import { instance } from "api/baseAPI";
 
 type IsLoginResponse = {
   status: number;

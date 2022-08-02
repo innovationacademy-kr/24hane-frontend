@@ -15,10 +15,6 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setIsLogin: (state, payload: PayloadAction<boolean>) => {
-      state.isLogin = payload.payload;
-    },
-
     setInit: (state, payload: PayloadAction<Omit<userState, "isLogin">>) => {
       const { profileImage, isAdmin, inoutState, login } = payload.payload;
       state.profileImage = profileImage;
@@ -26,8 +22,24 @@ export const userSlice = createSlice({
       state.inoutState = inoutState;
       state.login = login;
     },
+    setLogin: (state, payload: PayloadAction<Pick<userState, "login">>) => {
+      state.login = payload.payload.login;
+    },
+    setProfileImage: (state, payload: PayloadAction<Pick<userState, "profileImage">>) => {
+      state.profileImage = payload.payload.profileImage;
+    },
+    setIsLogin: (state, payload: PayloadAction<Pick<userState, "isLogin">>) => {
+      state.isLogin = payload.payload.isLogin;
+    },
+    setIsAdmin: (state, payload: PayloadAction<Pick<userState, "isAdmin">>) => {
+      state.isAdmin = payload.payload.isAdmin;
+    },
+    setInoutState: (state, payload: PayloadAction<Pick<userState, "inoutState">>) => {
+      state.inoutState = payload.payload.inoutState;
+    },
   },
 });
 
-export const { setIsLogin, setInit } = userSlice.actions;
+export const { setInit, setLogin, setProfileImage, setIsLogin, setIsAdmin, setInoutState } =
+  userSlice.actions;
 export default userSlice.reducer;

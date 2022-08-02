@@ -1,4 +1,4 @@
-import { instance, makeAPIPath } from "./api";
+import { instance, makeAPIPath } from "./baseAPI";
 
 export type LogsResponse = {
   login: string;
@@ -12,12 +12,14 @@ export type InoutLog = {
   durationSecond: number;
 };
 
-export const getLgosDay = (year: number, month: number, day: number) => {
-  return instance.get(makeAPIPath(`tag-log/perday?year=${year}&month=${month}&day=${day}`));
-};
-
-export const getLgosmonth = (year: number, month: number, day: number) => {
+export const getLogsDay = (year: number, month: number, day: number) => {
   return instance.get<never, LogsResponse>(
     makeAPIPath(`tag-log/perday?year=${year}&month=${month}&day=${day}`),
+  );
+};
+
+export const getLogsmonth = (year: number, month: number) => {
+  return instance.get<never, LogsResponse>(
+    makeAPIPath(`tag-log/perday?year=${year}&month=${month}`),
   );
 };

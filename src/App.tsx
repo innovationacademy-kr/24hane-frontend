@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { getIsLogin } from "api/userAPI";
 import { setIsLogin } from "app/features/user/userSlice";
 import { useDispatch } from "react-redux";
-import { IS_LOGIN_STATUS } from "utils/const/const";
+import { STATUS_204_NO_CONTENT } from "utils/const/const";
 import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 
@@ -12,10 +12,9 @@ const App = () => {
   const dispatch = useDispatch();
   const init = useCallback(async () => {
     try {
-      const data = await getIsLogin();
-      console.log(data);
-      if (data.status === IS_LOGIN_STATUS) dispatch(setIsLogin(true));
-      // else dispatch(setIsLogin(false));
+      const { status } = await getIsLogin();
+      if (status === STATUS_204_NO_CONTENT) dispatch(setIsLogin(true));
+      else dispatch(setIsLogin(false));
     } catch (e) {
       console.log(e);
     }

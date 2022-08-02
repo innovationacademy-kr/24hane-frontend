@@ -6,7 +6,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import classes from "styles/components/Card/TimeLogCard.module.css";
 import { CardProps } from "./Card";
 import Icon from "components/common/Icon";
-import { getLgosmonth, InoutLog } from "api/logsAPI";
+import { getLogsmonth, InoutLog } from "api/logsAPI";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
@@ -203,7 +203,7 @@ function LogCardContents() {
       const day = now.getDate();
       const month = now.getMonth() + 1;
 
-      const data = await getLgosmonth(year, month, day);
+      const data = await getLogsmonth(year, month, day);
       setLogs(data.inoutLogs);
     } catch (e) {
       console.log(e);
