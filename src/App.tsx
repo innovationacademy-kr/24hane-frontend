@@ -1,21 +1,24 @@
 import { getIsLogin } from "api/api";
 import { setIsLogin } from "app/features/user/userSlice";
 import React, { useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 
 export const env = process.env.REACT_APP_ENV;
 
 const App = () => {
+  const dispatch = useDispatch();
   const init = useCallback(async () => {
     try {
       const data = await getIsLogin();
+      console.log(data);
       if (data.status === 200) dispatch(setIsLogin(true));
       else dispatch(setIsLogin(false));
     } catch (e) {
       console.log(e);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     init();
@@ -38,6 +41,3 @@ const App = () => {
 };
 
 export default App;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}

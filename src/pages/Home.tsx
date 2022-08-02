@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import Button from "components/common/Button";
 import MainHeader from "components/layout/MainHeader";
 import MainNotice from "components/layout/MainNotice";
