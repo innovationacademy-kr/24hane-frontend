@@ -3,12 +3,13 @@ import Button from "components/common/Button";
 import MainHeader from "components/layout/MainHeader";
 import MainNotice from "components/layout/MainNotice";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "app/features/store";
+import useUser from "utils/hooks/useUser";
 
 const Home = () => {
   const navigate = useNavigate();
-  const isLogin = useSelector((state: RootState) => state.user.isLogin);
+  const {
+    user: { isLogin },
+  } = useUser();
 
   const handleLogin = () => {
     window.location.href = `${

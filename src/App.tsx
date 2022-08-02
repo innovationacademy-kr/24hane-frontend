@@ -1,24 +1,23 @@
 import React, { useCallback, useEffect } from "react";
 import { getIsLogin } from "api/userAPI";
-import { setIsLogin } from "app/features/user/userSlice";
-import { useDispatch } from "react-redux";
 import { STATUS_204_NO_CONTENT } from "utils/const/const";
 import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
+import useUser from "utils/hooks/useUser";
 
 export const env = process.env.REACT_APP_ENV;
 
 const App = () => {
-  const dispatch = useDispatch();
+  const { login, logout } = useUser();
   const initLogin = useCallback(async () => {
     try {
       const { status } = await getIsLogin();
-      if (status === STATUS_204_NO_CONTENT) dispatch(setIsLogin(true));
-      else dispatch(setIsLogin(false));
+      if (status === STATUS_204_NO_CONTENT) login();
+      else logout();
     } catch (e) {
       console.log(e);
     }
-  }, [dispatch]);
+  }, [login, logout]);
 
   useEffect(() => {
     initLogin();

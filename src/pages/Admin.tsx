@@ -48,11 +48,11 @@ const Admin = () => {
           </thead>
           <tbody>
             {tableBody.map((data, index) => {
-              const [id, login, seconds] = data;
+              const [id, loginID, seconds] = data;
               return (
                 <tr key={id}>
                   <td>{index}</td>
-                  <td>{login}</td>
+                  <td>{loginID}</td>
                   <td>{seconds}</td>
                 </tr>
               );

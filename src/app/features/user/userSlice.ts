@@ -4,7 +4,7 @@ import { userType } from "types/User";
 type userState = userType;
 
 const initialState: userState = {
-  login: "",
+  loginID: "",
   profileImage: "",
   isLogin: undefined,
   isAdmin: false,
@@ -16,14 +16,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setInit: (state, payload: PayloadAction<Omit<userState, "isLogin">>) => {
-      const { profileImage, isAdmin, inoutState, login } = payload.payload;
+      const { profileImage, isAdmin, inoutState, loginID } = payload.payload;
       state.profileImage = profileImage;
       state.isAdmin = isAdmin;
       state.inoutState = inoutState;
-      state.login = login;
+      state.loginID = loginID;
     },
-    setLogin: (state, payload: PayloadAction<string>) => {
-      state.login = payload.payload;
+    setLoginID: (state, payload: PayloadAction<string>) => {
+      state.loginID = payload.payload;
     },
     setProfileImage: (state, payload: PayloadAction<string>) => {
       state.profileImage = payload.payload;
@@ -40,6 +40,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setInit, setLogin, setProfileImage, setIsLogin, setIsAdmin, setInoutState } =
+export const { setInit, setLoginID, setProfileImage, setIsLogin, setIsAdmin, setInoutState } =
   userSlice.actions;
 export default userSlice.reducer;

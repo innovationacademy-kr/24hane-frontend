@@ -1,5 +1,5 @@
 export type userType = {
-  login: string;
+  loginID: string;
   isLogin: boolean | undefined;
   isAdmin: boolean;
   profileImage: string;
