@@ -60,11 +60,11 @@ thead
 
 .timeLogTable
 {
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .timeLogTable strong{
-  font-size:10px;
+  font-size:11px;
 }
 
 .row{
@@ -74,6 +74,7 @@ thead
 }
 
 .row p{
+  font-size: 11px;
   margin-bottom: 0.1rem;
 }
 

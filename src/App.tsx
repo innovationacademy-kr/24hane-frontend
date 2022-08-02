@@ -16,6 +16,7 @@ const App = () => {
       else logout();
     } catch (e) {
       console.log(e);
+      logout();
     }
   }, [login, logout]);
 
