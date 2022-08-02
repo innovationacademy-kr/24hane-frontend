@@ -1,7 +1,8 @@
-import { getIsLogin } from "api/api";
-import { setIsLogin } from "app/features/user/userSlice";
 import React, { useCallback, useEffect } from "react";
+import { getIsLogin } from "api/userAPI";
+import { setIsLogin } from "app/features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { IS_LOGIN_STATUS } from "utils/const/const";
 import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 
@@ -13,8 +14,8 @@ const App = () => {
     try {
       const data = await getIsLogin();
       console.log(data);
-      if (data.status === 200) dispatch(setIsLogin(true));
-      else dispatch(setIsLogin(false));
+      if (data.status === IS_LOGIN_STATUS) dispatch(setIsLogin(true));
+      // else dispatch(setIsLogin(false));
     } catch (e) {
       console.log(e);
     }
