@@ -22,17 +22,17 @@ export const userSlice = createSlice({
       state.inoutState = inoutState;
       state.login = login;
     },
-    setLogin: (state, payload: PayloadAction<Pick<userState, "login">>) => {
-      state.login = payload.payload.login;
+    setLogin: (state, payload: PayloadAction<string>) => {
+      state.login = payload.payload;
     },
-    setProfileImage: (state, payload: PayloadAction<Pick<userState, "profileImage">>) => {
-      state.profileImage = payload.payload.profileImage;
+    setProfileImage: (state, payload: PayloadAction<string>) => {
+      state.profileImage = payload.payload;
     },
-    setIsLogin: (state, payload: PayloadAction<Pick<userState, "isLogin">>) => {
-      state.isLogin = payload.payload.isLogin;
+    setIsLogin: (state, payload: PayloadAction<boolean>) => {
+      state.isLogin = payload.payload;
     },
-    setIsAdmin: (state, payload: PayloadAction<Pick<userState, "isAdmin">>) => {
-      state.isAdmin = payload.payload.isAdmin;
+    setIsAdmin: (state, payload: PayloadAction<boolean>) => {
+      state.isAdmin = payload.payload;
     },
     setInoutState: (state, payload: PayloadAction<Pick<userState, "inoutState">>) => {
       state.inoutState = payload.payload.inoutState;

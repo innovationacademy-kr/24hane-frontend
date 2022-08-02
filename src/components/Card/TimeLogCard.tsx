@@ -6,17 +6,19 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import classes from "styles/components/Card/TimeLogCard.module.css";
 import { CardProps } from "./Card";
 import Icon from "components/common/Icon";
-import { getLogsmonth, InoutLog } from "api/logsAPI";
+import { getLogsmonth, InOutLog } from "api/logsAPI";
+import { getToday } from "utils/time";
+import axios, { AxiosError } from "axios";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
 
 const timeFormat = (seconds: number) => {
   const tempHours = Math.floor(seconds / 3600);
-  const temppMinuts = (seconds % 3600) / 60;
+  const tempMinuts = Math.floor((seconds % 3600) / 60);
 
   const hours = tempHours < 10 ? `0${tempHours}` : tempHours;
-  const minutes = temppMinuts < 10 ? `0${temppMinuts}` : temppMinuts;
+  const minutes = tempMinuts < 10 ? `0${tempMinuts}` : tempMinuts;
   return `${hours}시간${minutes}분`;
 };
 
@@ -194,20 +196,19 @@ const timeStampToFormatTime = (timeStamp: number) => {
 };
 
 function LogCardContents() {
-  const [logs, setLogs] = useState<InoutLog[]>([]);
+  const [logs, setLogs] = useState<InOutLog[]>([]);
 
   const fetchLogs = async () => {
     try {
-      const now = new Date();
-      const year = now.getFullYear();
-      const day = now.getDate();
-      const month = now.getMonth() + 1;
+      const { year, month } = getToday();
 
-      const data = await getLogsmonth(year, month, day);
-      setLogs(data.inoutLogs);
+      const { inOutLogs } = await getLogsmonth(year, month);
+      inOutLogs && setLogs(inOutLogs);
     } catch (e) {
-      console.log(e);
-      alert("유저 정보가 올바르지 않습니다.\n 반복될 경우 관리자에게 요청해주세요");
+      const error = e as Error | AxiosError;
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+      }
     }
   };
   useEffect(() => {
@@ -215,8 +216,8 @@ function LogCardContents() {
   }, []);
 
   //console.log(dayjs.unix(1318781876).format("MM월DD일 HH:mm"));
-  const accTime = logs.reduce((ac, cur) => ac + cur.durationSecond, 0);
   console.log(logs);
+  const accTime = logs.reduce((ac, cur) => ac + cur.durationSecond, 0);
   return (
     <>
       <div className={classes.timeLogContents}>
@@ -233,27 +234,31 @@ function LogCardContents() {
             </tr>
           </thead>
           <tbody>
-            {logs.map((log: InoutLog, index) => {
-              const 입실날 = timeStampToFormatDay(log.inTimeStamp);
-              const 입실시간 = timeStampToFormatTime(log.inTimeStamp);
-              const 퇴실날 = timeStampToFormatDay(log.outTImeStamp);
-              const 퇴실시간 = timeStampToFormatTime(log.outTImeStamp);
-              return (
-                <tr key={index} className={classes.row}>
-                  <td>
-                    <p>{입실날}</p>
-                    <strong>{입실시간}</strong>
-                  </td>
-                  <td>
-                    <p>{퇴실날}</p>
-                    <strong>{퇴실시간}</strong>
-                  </td>
-                  <td>
-                    <strong>{timeFormat(log.durationSecond)}</strong>
-                  </td>
-                </tr>
-              );
-            })}
+            {logs.length > 0 ? (
+              logs.map((log: InOutLog, index) => {
+                const 입실날 = timeStampToFormatDay(log.inTimeStamp);
+                const 입실시간 = timeStampToFormatTime(log.inTimeStamp);
+                const 퇴실날 = timeStampToFormatDay(log.outTimeStamp);
+                const 퇴실시간 = timeStampToFormatTime(log.outTimeStamp);
+                return (
+                  <tr key={index} className={classes.row}>
+                    <td>
+                      <p>{입실날}</p>
+                      <strong>{입실시간}</strong>
+                    </td>
+                    <td>
+                      <p>{퇴실날}</p>
+                      <strong>{퇴실시간}</strong>
+                    </td>
+                    <td>
+                      <strong>{timeFormat(log.durationSecond)}</strong>
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <p>데이터가 없습니다.</p>
+            )}
           </tbody>
         </table>
       </div>

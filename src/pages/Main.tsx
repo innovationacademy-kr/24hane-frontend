@@ -7,7 +7,7 @@ import { userDurationsType } from "types/User";
 import { setMonthDurationTime, setTodayDurationTime } from "app/features/user/durationTimes";
 import { useAppSelector } from "app/features/hooks";
 import { useNavigate } from "react-router-dom";
-import { getLogsDay, getLogsmonth } from "api/logsAPI";
+import { getLogsDay } from "api/logsAPI";
 import { getToday } from "utils/time";
 
 const durationaTimes: userDurationsType = {
@@ -22,17 +22,15 @@ const Main = () => {
 
   const getUserData = useCallback(async () => {
     try {
+      //TODO: main API로 변경
       const { year, month, day } = getToday();
-      const [{ login, profileImage }, { inoutLogs: monthInOutLogs }] = await Promise.all([
-        getLogsDay(year, month, day),
-        getLogsmonth(year, month),
-      ]);
-      dispatch(setLogin({ login }));
-      dispatch(setProfileImage({ profileImage }));
+      const { login, profileImage } = await getLogsDay(year, month, day);
+
+      dispatch(setLogin(login));
+      dispatch(setProfileImage(profileImage));
 
       dispatch(setTodayDurationTime(durationaTimes.todayDurationTime));
       dispatch(setMonthDurationTime(durationaTimes.monthDurationTime));
-      console.log(monthInOutLogs);
     } catch (e) {
       console.log(e);
     }
@@ -40,15 +38,9 @@ const Main = () => {
 
   useEffect(() => {
     console.log(isLogin);
-    if (!isLogin) navigate("/");
-  });
-
-  useEffect(() => {
-    //TODO :user데이터 가져와서 저장하는 로직 추가
-    //TODO :오늘, 내일 누적시간 가져오는 로직 추가
-    //TODO :개포, 서초 인원 가져오는 로직 추가
-    getUserData();
-  }, [getUserData]);
+    if (isLogin) getUserData();
+    else navigate("/");
+  }, [getUserData, isLogin, navigate]);
 
   return (
     <>

@@ -3,12 +3,12 @@ import { instance, makeAPIPath } from "./baseAPI";
 export type LogsResponse = {
   login: string;
   profileImage: string;
-  inoutLogs: InoutLog[];
+  inOutLogs: InOutLog[];
 };
 
-export type InoutLog = {
+export type InOutLog = {
   inTimeStamp: number;
-  outTImeStamp: number;
+  outTimeStamp: number;
   durationSecond: number;
 };
 
@@ -20,6 +20,6 @@ export const getLogsDay = (year: number, month: number, day: number) => {
 
 export const getLogsmonth = (year: number, month: number) => {
   return instance.get<never, LogsResponse>(
-    makeAPIPath(`tag-log/perday?year=${year}&month=${month}`),
+    makeAPIPath(`tag-log/permonth?year=${year}&month=${month}`),
   );
 };

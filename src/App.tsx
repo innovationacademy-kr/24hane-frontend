@@ -10,7 +10,7 @@ export const env = process.env.REACT_APP_ENV;
 
 const App = () => {
   const dispatch = useDispatch();
-  const init = useCallback(async () => {
+  const initLogin = useCallback(async () => {
     try {
       const { status } = await getIsLogin();
       if (status === STATUS_204_NO_CONTENT) dispatch(setIsLogin(true));
@@ -21,8 +21,8 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    init();
-  }, [init]);
+    initLogin();
+  }, [initLogin]);
 
   const { version } = packageJson;
   return (
