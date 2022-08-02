@@ -1,6 +1,6 @@
 export type userType = {
   login: string;
-  isLogin: boolean;
+  isLogin: boolean | undefined;
   isAdmin: boolean;
   profileImage: string;
   inoutState: "IN" | "OUT";

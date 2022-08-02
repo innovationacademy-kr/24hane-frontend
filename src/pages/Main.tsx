@@ -38,8 +38,9 @@ const Main = () => {
 
   useEffect(() => {
     console.log(isLogin);
-    if (isLogin) getUserData();
-    else navigate("/");
+    if (isLogin === undefined) return;
+    else if (isLogin === true) getUserData();
+    else if (isLogin === false) navigate("/");
   }, [getUserData, isLogin, navigate]);
 
   return (

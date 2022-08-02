@@ -6,7 +6,7 @@ type userState = userType;
 const initialState: userState = {
   login: "",
   profileImage: "",
-  isLogin: false,
+  isLogin: undefined,
   isAdmin: false,
   inoutState: "OUT",
 };
