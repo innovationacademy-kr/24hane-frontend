@@ -1,7 +1,7 @@
 import { instance, makeAPIPath } from "./baseAPI";
 
 export type LogsResponse = {
-  login: string;
+  login: string; //loginID 로 변경해서 사용
   profileImage: string;
   inOutLogs: InOutLog[];
 };

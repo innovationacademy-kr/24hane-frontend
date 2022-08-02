@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getLogsDay } from "api/logsAPI";
 import { getToday } from "utils/time";
 import useUser from "utils/hooks/useUser";
-import useDurataionTimes from "utils/hooks/useDurationTImes";
+import useDurataionTimes from "utils/hooks/useDurationTimes";
 
 const durationaTimes: userDurationsType = {
   todayDurationTime: 2000,

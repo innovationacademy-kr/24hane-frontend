@@ -16,9 +16,9 @@ function UserCircle({ state }: UserCircleProps) {
   return <Circle color={color} />;
 }
 
-type ProfileProps = Pick<userType, "profileImage" | "login" | "inoutState">;
+type ProfileProps = Pick<userType, "profileImage" | "loginID" | "inoutState">;
 
-function Profile({ profileImage, login: userId, inoutState: state }: ProfileProps) {
+function Profile({ profileImage, loginID: userId, inoutState: state }: ProfileProps) {
   return (
     <div className={classes["profile-wrapper"]}>
       <UserCircle state={state} />
@@ -34,13 +34,13 @@ type ProfileCardProps = {
 
 function ProfileCard({ handleFlip }: ProfileCardProps) {
   const user = useAppSelector((state) => state.user);
-  const { profileImage, login, inoutState, isAdmin } = user;
+  const { profileImage, loginID, inoutState, isAdmin } = user;
 
   return (
     <div className={classes.profileCard}>
       <Icon name='menu' classname={classes.menuIcon} handleOnclick={handleFlip} />
       <img className={classes.logo} alt='logo' src={logo} />
-      <Profile profileImage={profileImage} login={login} inoutState={inoutState} />
+      <Profile profileImage={profileImage} loginID={loginID} inoutState={inoutState} />
       <CardContents />
       <div>
         <p>입퇴실 시 카드 태깅을 꼭 해주세요!</p>
