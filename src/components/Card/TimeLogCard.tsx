@@ -16,10 +16,11 @@ dayjs.locale("ko");
 const timeFormat = (seconds: number) => {
   const tempHours = Math.floor(seconds / 3600);
   const tempMinuts = Math.floor((seconds % 3600) / 60);
+  const tempSeconds = Math.floor(seconds % (3600 * 60));
 
-  const hours = tempHours < 10 ? `0${tempHours}` : tempHours;
-  const minutes = tempMinuts < 10 ? `0${tempMinuts}` : tempMinuts;
-  return `${hours}시간${minutes}분`;
+  return `${tempHours < 10 ? `0${tempHours}` : tempHours}시간${
+    tempMinuts < 10 ? `0${tempMinuts}` : tempMinuts
+  }분${tempSeconds < 10 ? `0${tempSeconds}` : tempSeconds}초`;
 };
 
 // const logsData = [
@@ -188,11 +189,11 @@ const timeFormat = (seconds: number) => {
 // ];
 
 const timeStampToFormatDay = (timeStamp: number) => {
-  return dayjs.unix(1318781876).format("MM월DD일");
+  return dayjs.unix(timeStamp).format("MM월DD일");
 };
 
 const timeStampToFormatTime = (timeStamp: number) => {
-  return dayjs.unix(1318781876).format("HH:mm");
+  return dayjs.unix(timeStamp).format("HH:mm:ss");
 };
 
 function LogCardContents() {
