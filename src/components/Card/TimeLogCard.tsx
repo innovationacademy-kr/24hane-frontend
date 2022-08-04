@@ -259,7 +259,11 @@ function LogCardContents() {
                 );
               })
             ) : (
-              <p>데이터가 없습니다.</p>
+              <tr>
+                <td>
+                  <p>데이터가 없습니다.</p>
+                </td>
+              </tr>
             )}
           </tbody>
         </table>

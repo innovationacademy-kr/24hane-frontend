@@ -17,6 +17,7 @@ const useUser = () => {
 
   const userInit = useCallback(
     (param: Omit<userType, "isLogin">) => {
+      console.log("param", param);
       const { loginID, profileImage, isAdmin, inoutState } = param;
       dispath(setInit({ loginID, profileImage, isAdmin, inoutState }));
     },
@@ -47,7 +48,7 @@ const useUser = () => {
 
   const handleIsAdmin = useCallback(
     (param: boolean) => {
-      dispath(setIsAdmin(true));
+      dispath(setIsAdmin(param));
     },
     [dispath],
   );

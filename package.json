@@ -25,7 +25,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HTTPS=false SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem react-scripts start",
     "build:prod": "react-scripts build",
     "build:dev": "react-scripts build",
     "build:local": "env-cmd  -f .env.development.local react-scripts build",

@@ -10,7 +10,6 @@ export const instance = axios.create({
 });
 
 instance.interceptors.response.use((response: AxiosResponse) => {
-  console.log(response);
   if (response.status === STATUS_204_NO_CONTENT) return { status: STATUS_204_NO_CONTENT };
   else return response.data;
 });
