@@ -4,21 +4,25 @@ import { STATUS_204_NO_CONTENT } from "utils/const/const";
 import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 import useUser from "utils/hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 export const env = process.env.REACT_APP_ENV;
 
 const App = () => {
+  const navigate = useNavigate();
   const { login, logout } = useUser();
   const initLogin = useCallback(async () => {
     try {
       const { status } = await getIsLogin();
-      if (status === STATUS_204_NO_CONTENT) login();
-      else logout();
+      if (status === STATUS_204_NO_CONTENT) {
+        login();
+        navigate("/main");
+      } else logout();
     } catch (e) {
       console.log(e);
       logout();
     }
-  }, [login, logout]);
+  }, [login, logout, navigate]);
 
   useEffect(() => {
     initLogin();
