@@ -1,4 +1,4 @@
-export const getToday = () => {
+export const todayUtils = () => {
   const now = new Date();
   return {
     year: now.getFullYear(),

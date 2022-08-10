@@ -11,7 +11,7 @@ const Error = ({ statusCode = "404", message = "notFound" }: ErrorProps) => {
     <>
       <span className={classes.logo}>42 logo</span>
       <div>
-        <h1 className={classes.title}>
+        <h1>
           {statusCode}
           <br></br>
           {message} ErrorPage

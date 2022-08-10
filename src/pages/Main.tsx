@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import * as Sentry from "@sentry/react";
 
 import Card from "components/Card/Card";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +29,7 @@ const Main = () => {
       setMonthDurationTime(accumulationTimes.monthAccumationTime);
     } catch (e) {
       console.log(e);
+      Sentry.captureException(`Catched Error : ${e}`);
     }
   }, [setMonthDurationTime, setTodayDurationTime, userInit]);
 
