@@ -5,8 +5,7 @@ export const sentryInit = () => {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
     integrations: [new BrowserTracing()],
-    normalizeDepth: 0,
-
+    normalizeDepth: 6,
     // We recommend adjusting this value in production, or using tracesSampler
     // for finer control
   });

@@ -7,6 +7,7 @@ import AppRouter from "./routes/AppRouter";
 import useUser from "utils/hooks/useUser";
 import { sentryInit } from "utils/Sentry";
 import { errorUtils } from "utils/error";
+import axios from "axios";
 
 export const env = process.env.REACT_APP_ENV;
 
@@ -19,6 +20,7 @@ const App = () => {
         login();
       } else logout();
     } catch (e) {
+      if (axios.isAxiosError(e) && e.response?.status === 401) return;
       errorUtils(e);
       logout();
     }

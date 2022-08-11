@@ -18,7 +18,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (isLogin) navigate("/main");
+    if (isLogin) {
+      navigate("/main");
+    }
   }, [isLogin, navigate]);
 
   return (
