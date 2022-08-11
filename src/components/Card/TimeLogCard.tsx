@@ -10,7 +10,7 @@ import { CardProps } from "./Card";
 import Icon from "components/common/Icon";
 import { getLogsmonth, InOutLog } from "api/logsAPI";
 import { todayUtils } from "utils/time";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { FORM_URL } from "utils/const/const";
 
 dayjs.extend(localizedFormat);
