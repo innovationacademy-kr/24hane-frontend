@@ -21,7 +21,7 @@ jobs:
         run: yarn
 
       - name: Build dev
-        run: yarn build:dev
+        run: CI=false yarn build:dev
 
       - name: Deploy
         uses: reggionick/s3-deploy@v3
