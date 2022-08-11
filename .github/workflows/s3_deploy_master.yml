@@ -1,0 +1,35 @@
+name: workflow for S3 Deploy Master
+on:
+  push:
+    branches:
+      - master
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      REACT_APP_API_URL: ${{secrets.REACT_APP_API_URL}}
+      REACT_APP_COOKIE_DOMAIN: ${{secrets.REACT_APP_COOKIE_DOMAIN}}
+      REACT_APP_ENV: ${{secrets.REACT_APP_ENV}}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build Production
+        run: yarn build:prod
+
+      - name: Deploy
+        uses: reggionick/s3-deploy@v3
+        with:
+          folder: build
+          bucket: ${{ secrets.S3_BUCKET }}
+          bucket-region: ${{secrets.DEFAULT_BUCKET_REGION}}
+          dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+          invalidation: /*
+          delete-removed: true
+          no-cache: true
+          private: true

@@ -1,0 +1,22 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  margin-bottom: 1.7rem;
+  padding: 1.4rem 1.6rem;
+  box-sizing: border-box;
+}
+.title {
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.count {
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: 0.8rem;
+}
