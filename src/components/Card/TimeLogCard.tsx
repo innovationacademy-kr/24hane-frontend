@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import * as Sentry from "@sentry/react";
-
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
@@ -12,6 +10,7 @@ import { getLogsmonth, InOutLog } from "api/logsAPI";
 import { todayUtils } from "utils/time";
 import { AxiosError } from "axios";
 import { FORM_URL } from "utils/const/const";
+import { errorUtils } from "utils/error";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
@@ -46,8 +45,7 @@ function LogCardContents() {
     } catch (e) {
       const error = e as Error | AxiosError;
 
-      console.log(error);
-      Sentry.captureException(error);
+      errorUtils(error);
     }
   };
   useEffect(() => {
