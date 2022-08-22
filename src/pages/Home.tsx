@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Button from "components/common/Button";
 import MainHeader from "components/layout/MainHeader";
-import MainNotice from "components/layout/MainNotice";
 import { useNavigate } from "react-router-dom";
 import useUser from "utils/hooks/useUser";
+import HomeContents from "components/layout/HomeContents";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,11 +25,9 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <MainHeader />
-        <MainNotice />
-        <Button type='button' onClick={handleLogin} text='LOG IN' />
-      </div>
+      <MainHeader />
+      <HomeContents />
+      <Button type='button' onClick={handleLogin} text='LOG IN' />
     </>
   );
 };

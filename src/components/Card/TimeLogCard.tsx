@@ -15,7 +15,7 @@ import { errorUtils } from "utils/error";
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
 
-const timeFormat = (seconds: number) => {
+const timeFormatKor = (seconds: number) => {
   const tempHours = Math.floor(seconds / 3600);
   const tempMinuts = Math.floor((seconds / 60) % 60);
   const tempSeconds = Math.floor(seconds % 60);
@@ -25,8 +25,18 @@ const timeFormat = (seconds: number) => {
   }분${tempSeconds < 10 ? `0${tempSeconds}` : tempSeconds}초`;
 };
 
+const timeFormat = (seconds: number) => {
+  const tempHours = Math.floor(seconds / 3600);
+  const tempMinuts = Math.floor((seconds / 60) % 60);
+  const tempSeconds = Math.floor(seconds % 60);
+
+  return `${tempHours < 10 ? `0${tempHours}` : tempHours}:${
+    tempMinuts < 10 ? `0${tempMinuts}` : tempMinuts
+  }:${tempSeconds < 10 ? `0${tempSeconds}` : tempSeconds}`;
+};
+
 const timeStampToFormatDay = (timeStamp: number) => {
-  return dayjs.unix(timeStamp).format("MM월DD일");
+  return dayjs.unix(timeStamp).format("MM/DD");
 };
 
 const timeStampToFormatTime = (timeStamp: number) => {
@@ -58,8 +68,7 @@ function LogCardContents() {
     <>
       <div className={classes.timeLogContents}>
         <div className={classes.timeLogTitleWrapper}>
-          <p>총 누적 시간 : {timeFormat(accTime)}</p>
-          <strong>이번달</strong>
+          <strong>이번달 총 누적 시간 : {timeFormatKor(accTime)}</strong>
         </div>
         <table className={classes.timeLogTable}>
           <thead>

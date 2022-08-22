@@ -1,13 +1,17 @@
 .header {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 8% 0 16%;
 }
 
-.logo {
+.logo42seoul {
+  position: absolute;
+  top: -20px;
+  right: 0;
   display: inline-block;
-  width: 100%;
+  width: 30%;
   height: 50px;
   background: url("../../assets/42-logo-white.png") center/contain no-repeat;
   color: transparent;
@@ -19,4 +23,3 @@
   text-align: center;
   margin: 0.7rem 0;
 }
-
