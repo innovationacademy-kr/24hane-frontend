@@ -1,14 +1,10 @@
 import React from "react";
-import { env } from "App";
-import packageJson from "../../package.json";
-import clasees from "styles/components/Footer.module.css";
+import styles from "styles/components/Footer.module.css";
 function Footer() {
-  const { version } = packageJson;
-
   return (
     <footer>
-      <div className={clasees.footer}>
-        <ul className={clasees.footerWrapper}>
+      <div className={styles.footer}>
+        <ul className={styles.footerWrapper}>
           <li>
             <a href='https://github.com/innovationacademy-kr/42checkin_v3-frontend'>
               FrontGithub&ensp;|
@@ -19,7 +15,11 @@ function Footer() {
               BackendGithub&ensp;|
             </a>
           </li>
-          <li>PageGuide</li>
+          <li>
+            <a href='https://spot-tomato-468.notion.site/2022-42-SEOUL-bf0513c7197f4f71b4be968b8a2cd75a'>
+              PageGuid
+            </a>
+          </li>
           <li>© 2022 24HANE</li>
         </ul>
       </div>
