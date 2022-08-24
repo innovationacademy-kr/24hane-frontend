@@ -18,9 +18,14 @@ const App = () => {
       const { status } = await getIsLogin();
       if (status === STATUS_204_NO_CONTENT) {
         login();
-      } else logout();
+      } else {
+        logout();
+      }
     } catch (e) {
-      if (axios.isAxiosError(e) && e.response?.status === 401) return;
+      if (axios.isAxiosError(e) && e.response?.status === 401) {
+        logout();
+        return;
+      }
       errorUtils(e);
       logout();
     }
