@@ -17,7 +17,7 @@ function Footer() {
           </li>
           <li>
             <a href='https://spot-tomato-468.notion.site/2022-42-SEOUL-bf0513c7197f4f71b4be968b8a2cd75a'>
-              PageGuid
+              PageGuide
             </a>
           </li>
           <li>© 2022 24HANE</li>
