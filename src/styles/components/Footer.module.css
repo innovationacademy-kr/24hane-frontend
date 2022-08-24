@@ -1,0 +1,25 @@
+footer {
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+ul {
+  font-size: 0;
+}
+
+li {
+  float: left;
+  margin: 3px;
+  font-size: 1rem;
+}
+
+li > a {
+  color: #fff;
+}
+
+li:last-child {
+  clear: both;
+}

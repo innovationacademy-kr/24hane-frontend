@@ -2,12 +2,12 @@ import React, { useCallback, useEffect } from "react";
 
 import { getIsLogin } from "api/userAPI";
 import { STATUS_204_NO_CONTENT } from "utils/const/const";
-import packageJson from "../package.json";
 import AppRouter from "./routes/AppRouter";
 import useUser from "utils/hooks/useUser";
 import { sentryInit } from "utils/Sentry";
 import { errorUtils } from "utils/error";
 import axios from "axios";
+import Footer from "components/Footer";
 
 export const env = process.env.REACT_APP_ENV;
 
@@ -30,7 +30,6 @@ const App = () => {
     initLogin();
   }, [initLogin]);
 
-  const { version } = packageJson;
   sentryInit();
   return (
     <>
@@ -41,7 +40,7 @@ const App = () => {
       />
       <main className='wrapper'>
         <AppRouter />
-        <footer className='footer'>{`${env === "development" ? env : ""} v${version}`}</footer>
+        <Footer />
       </main>
     </>
   );

@@ -1,18 +1,19 @@
-table{
+a {
+  margin-top: 10px;
+}
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+table {
   border-collapse: collapse;
 }
 
-tr,th {
+tr,
+th {
   font-weight: 400;
-  width:200px;
-  height: 35px;
-};
-
-thead
-{
-  border-top-color:#D9D9D9;
-  border-top-style: solid;
-  border-top-width: 1px;
+  width: 200px;
+  height: 50px;
 }
 
 .timeLogCard {
@@ -31,60 +32,58 @@ thead
   flex-direction: column;
   backface-visibility: hidden;
   transform: rotateY(-180deg);
-  font-size: 11px;
+  font-size: 12px;
 }
 
-.timeLogContents{
+.timeLogContents {
   overflow: scroll;
   height: 100%;
-  padding-top:40px;
+  padding-top: 25px;
   margin-bottom: 5px;
+  min-height: 470px;
 }
 
-.timeLogTitleWrapper
-{
-  display:flex;
+.timeLogTitleWrapper {
+  display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  font-size: 11px;
 }
 
-.timeLogTitleWrapper p{
+.timeLogTitleWrapper p {
   display: inline-block;
   font-weight: 400;
 }
 
-.timeLogTitleWrapper strong{
-  font-size: 10px;
+.timeLogTitleWrapper strong {
+  font-size: 12.5px;
 }
 
-.timeLogTable
-{
-  font-size: 13px;
+.timeLogTable {
+  font-size: 15px;
 }
 
-.timeLogTable strong{
-  font-size:11px;
+.timeLogTable strong {
+  font-size: 14px;
 }
 
-.row{
-  border-top-color:#D9D9D9;
+.row {
+  border-top-color: #d9d9d9;
   border-top-style: solid;
   border-top-width: 1px;
 }
 
-.row p{
-  font-size: 11px;
+.row p {
+  font-size: 14px;
   margin-bottom: 0.1rem;
 }
 
-.menuIcon{
+.menuIcon {
   cursor: pointer;
   position: absolute;
-  top:10px;
-  right:10px;
+  top: 10px;
+  right: 10px;
 }
 
-.noData{
+.noData {
   width: 100%;
 }
