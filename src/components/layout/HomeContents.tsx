@@ -11,7 +11,7 @@ function Logo() {
       xmlns='http://www.w3.org/2000/svg'
     >
       <g id='Group 2'>
-        <rect id='box' x='2.5' y='2.5' width='645' height='195' stroke='#FFFEFE' stroke-width='5' />
+        <rect id='box' x='2.5' y='2.5' width='645' height='195' stroke='#FFFEFE' strokeWidth='5' />
         <g id='text'>
           <path
             id='24 Hours'

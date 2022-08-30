@@ -18,15 +18,17 @@ const Main = () => {
 
   const getUserData = useCallback(async () => {
     try {
-      const [userInfo, accumulationTimes] = await Promise.all([
+      const [useInfoResponse, accumulationTimesResponse] = await Promise.all([
         getUserInfo(),
         getAccumulationTimes(),
       ]);
-      const { login: loginID, profileImage, isAdmin, inoutState } = userInfo;
+      const { login: loginID, profileImage, isAdmin, inoutState } = useInfoResponse.data;
       userInit({ loginID, profileImage, isAdmin, inoutState });
 
-      setTodayDurationTime(accumulationTimes.todayAccumationTime);
-      setMonthDurationTime(accumulationTimes.monthAccumationTime);
+      const { todayAccumationTime, monthAccumationTime } = accumulationTimesResponse.data;
+
+      setTodayDurationTime(todayAccumationTime);
+      setMonthDurationTime(monthAccumationTime);
     } catch (e) {
       errorUtils(e);
     }
