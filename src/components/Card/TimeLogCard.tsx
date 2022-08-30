@@ -49,12 +49,13 @@ function LogCardContents() {
   const fetchLogs = async () => {
     try {
       const { year, month } = todayUtils();
+      const {
+        data: { inOutLogs },
+      } = await getLogsmonth(year, month);
 
-      const { inOutLogs } = await getLogsmonth(year, month);
       inOutLogs && setLogs(inOutLogs);
     } catch (e) {
       const error = e as Error | AxiosError;
-
       errorUtils(error);
     }
   };
@@ -62,7 +63,6 @@ function LogCardContents() {
     fetchLogs();
   }, []);
 
-  //console.log(dayjs.unix(1318781876).format("MM월DD일 HH:mm"));
   const accTime = logs.reduce((ac, cur) => ac + cur.durationSecond, 0);
   return (
     <>

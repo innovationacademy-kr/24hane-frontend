@@ -9,6 +9,7 @@ import {
 } from "app/features/user/userSlice";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { userType } from "types/User";
 
 const useUser = () => {
@@ -25,10 +26,12 @@ const useUser = () => {
 
   const login = useCallback(() => {
     dispath(setIsLogin(true));
+    // navigate("/main");
   }, [dispath]);
 
   const logout = useCallback(() => {
     dispath(setIsLogin(false));
+    // navigate("/", { replace: true });
   }, [dispath]);
 
   const handleProfileImage = useCallback(
