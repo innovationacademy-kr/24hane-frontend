@@ -13,13 +13,9 @@ export type InOutLog = {
 };
 
 export const getLogsDay = (year: number, month: number, day: number) => {
-  return instance.get<never, LogsResponse>(
-    makeAPIPath(`tag-log/perday?year=${year}&month=${month}&day=${day}`),
-  );
+  return instance.get(makeAPIPath(`tag-log/perday?year=${year}&month=${month}&day=${day}`));
 };
 
 export const getLogsmonth = (year: number, month: number) => {
-  return instance.get<never, LogsResponse>(
-    makeAPIPath(`tag-log/permonth?year=${year}&month=${month}`),
-  );
+  return instance.get(makeAPIPath(`tag-log/permonth?year=${year}&month=${month}`));
 };
