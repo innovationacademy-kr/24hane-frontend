@@ -19,7 +19,14 @@ const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-        <Route path='/admin' element={<Admin />} />
+        <Route
+          path='/admin'
+          element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
         <Route path='*' element={<Error />} />
       </Routes>
     </BrowserRouter>
