@@ -25,7 +25,7 @@ import React from "react";
 // ];
 
 const Admin = () => {
-  return null;
+  return <></>;
   // const navigate = useNavigate();
   // const user = useAppSelector((state) => state.user);
   // const tableRow = csvData[0];

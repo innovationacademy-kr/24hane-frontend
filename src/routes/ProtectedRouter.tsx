@@ -1,6 +1,7 @@
 import { getIsLogin } from "api/userAPI";
 import axios from "axios";
-import { ReactElement, useCallback, useEffect } from "react";
+import Home from "pages/Home";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 type ProtectedRouteProps = {
@@ -8,11 +9,13 @@ type ProtectedRouteProps = {
 };
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
   const initLogin = useCallback(async () => {
     try {
       await getIsLogin();
+      setIsSuccess(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
@@ -27,5 +30,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     initLogin();
   });
 
-  return children;
+  if (isSuccess) return children;
+  else return <Home />;
 };
