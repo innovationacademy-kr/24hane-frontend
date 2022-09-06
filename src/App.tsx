@@ -9,28 +9,17 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const env = process.env.REACT_APP_ENV;
 
-const mainInfoClient = new QueryClient();
-const timeLogClient = new QueryClient();
-
-type QueryProvidersProps = { children: ReactElement };
-
-const QueryProviders = ({ children }: QueryProvidersProps) => {
-  return (
-    <QueryClientProvider client={timeLogClient}>
-      <QueryClientProvider client={mainInfoClient}>{children}</QueryClientProvider>
-    </QueryClientProvider>
-  );
-};
+const queryClient = new QueryClient();
 
 const App = () => {
   if (env !== "local") sentryInit();
   return (
-    <QueryProviders>
+    <QueryClientProvider client={queryClient}>
       <main className='wrapper'>
         <AppRouter />
         <Footer />
       </main>
-    </QueryProviders>
+    </QueryClientProvider>
   );
 };
 
