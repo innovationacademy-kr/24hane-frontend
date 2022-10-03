@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { STATUS_401_UNAUTHORIZED } from "utils/const/const";
 
 export const VERSION_PATH = "v1";
 export const makeAPIPath = (path: string) => `${VERSION_PATH}/${path}`;
@@ -8,8 +9,8 @@ export const instance = axios.create({
   withCredentials: true,
 });
 
-// instance.interceptors.response.use((response: AxiosResponse) => {
-//   if (response.status === STATUS_200_SUCESS) return response.data;
-//   else if (response.status === STATUS_204_NO_CONTENT) return { status: STATUS_204_NO_CONTENT };
-//   else return response;
-// });
+instance.interceptors.response.use((response: AxiosResponse) => {
+  if (response.status === STATUS_401_UNAUTHORIZED)
+    window.history.pushState({ name: "not login" }, "redirect home", "/");
+  else return response;
+});

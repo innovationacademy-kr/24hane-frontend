@@ -1,6 +1,5 @@
-export type userType = {
+export type UserInfoType = {
   loginID: string;
-  isLogin: boolean | undefined;
   isAdmin: boolean;
   profileImage: string;
   inoutState: "IN" | "OUT";
@@ -9,4 +8,13 @@ export type userType = {
 export type userDurationsType = {
   todayDurationTime: number;
   monthDurationTime: number;
+};
+
+export type UserInfoResponse = {
+  login: string;
+  profileImage: string;
+  isAdmin: boolean;
+  gaepo?: number;
+  seocho?: number;
+  inoutState: "IN" | "OUT";
 };

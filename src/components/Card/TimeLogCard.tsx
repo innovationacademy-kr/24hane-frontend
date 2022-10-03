@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -6,11 +6,10 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import classes from "styles/components/Card/TimeLogCard.module.css";
 import { CardProps } from "./Card";
 import Icon from "components/common/Icon";
-import { getLogsmonth, InOutLog } from "api/logsAPI";
+import { InOutLog } from "api/logsAPI";
 import { todayUtils } from "utils/time";
-import { AxiosError } from "axios";
 import { FORM_URL } from "utils/const/const";
-import { errorUtils } from "utils/error";
+import { useMonthTimeLogsQuery } from "utils/hooks/queries/useMonthTimeLogsQuery";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
@@ -44,24 +43,8 @@ const timeStampToFormatTime = (timeStamp: number) => {
 };
 
 function LogCardContents() {
-  const [logs, setLogs] = useState<InOutLog[]>([]);
-
-  const fetchLogs = async () => {
-    try {
-      const { year, month } = todayUtils();
-      const {
-        data: { inOutLogs },
-      } = await getLogsmonth(year, month);
-
-      inOutLogs && setLogs(inOutLogs);
-    } catch (e) {
-      const error = e as Error | AxiosError;
-      errorUtils(error);
-    }
-  };
-  useEffect(() => {
-    fetchLogs();
-  }, []);
+  const { year, month } = todayUtils();
+  const { value: logs } = useMonthTimeLogsQuery({ year, month });
 
   const accTime = logs.reduce((ac, cur) => ac + cur.durationSecond, 0);
   return (

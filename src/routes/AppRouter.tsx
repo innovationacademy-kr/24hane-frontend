@@ -4,7 +4,7 @@ import Main from "pages/Main";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "pages/Home";
 import Error from "pages/Error";
-import { ProtectedRoute } from "./ProtectedRouts";
+import { ProtectedRoute } from "./ProtectedRouter";
 
 const AppRouter = () => {
   return (
