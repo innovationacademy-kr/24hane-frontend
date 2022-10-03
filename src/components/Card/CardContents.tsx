@@ -3,12 +3,11 @@ import classes from "styles/components/Card/CardContents.module.css";
 import DurationTime from "components/DurationTime";
 import CardItem from "components/Card/CardItem";
 import { useMainAccTimesQuery } from "utils/hooks/queries/useMainAccTimesQuery";
-import { timeStampToFormatFullKor } from "utils/dayjs";
+import { dateToFormatFullKor } from "utils/dayjs";
 import { UserInfoType } from "types/User";
 
 function CardContents({ userInfo }: { userInfo: UserInfoType }) {
   const { data } = useMainAccTimesQuery();
-
   return (
     <section className={classes.cardContentsSection}>
       <div className={classes.durationItems}>
@@ -22,8 +21,8 @@ function CardContents({ userInfo }: { userInfo: UserInfoType }) {
       </div>
 
       {userInfo.tagAt &&
-        (userInfo.inoutState === "OUT" ? (
-          <p> 최근 입실 시간 {timeStampToFormatFullKor(userInfo.tagAt)}</p>
+        (userInfo.inoutState === "IN" ? (
+          <p> 최근 입실 시간 {dateToFormatFullKor(userInfo.tagAt)}</p>
         ) : null)}
     </section>
   );

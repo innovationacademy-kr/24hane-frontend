@@ -4,8 +4,8 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");
 
-const timeStampToFormatFullKor = (timeStamp: number) => {
-  return dayjs.unix(timeStamp).format("YYYY년 M월 D일 h시 mm분 ss초");
+const dateToFormatFullKor = (date: string) => {
+  return dayjs(date).format("YYYY년 M월 D일 hh시 mm분 ss초");
 };
 
 const timeStampToFormatDay = (timeStamp: number) => {
@@ -16,4 +16,4 @@ const timeStampToFormatTime = (timeStamp: number) => {
   return dayjs.unix(timeStamp).format("HH:mm:ss");
 };
 
-export { timeStampToFormatDay, timeStampToFormatFullKor, timeStampToFormatTime };
+export { timeStampToFormatDay, dateToFormatFullKor, timeStampToFormatTime };

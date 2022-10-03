@@ -3,7 +3,7 @@ export type UserInfoType = {
   isAdmin: boolean;
   profileImage: string;
   inoutState: "IN" | "OUT";
-  tagAt?: null | number;
+  tagAt?: null | string;
 };
 
 export type userDurationsType = {
