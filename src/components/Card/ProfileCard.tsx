@@ -44,7 +44,7 @@ function ProfileCard({ handleFlip }: ProfileCardProps) {
         loginID={userInfo?.loginID}
         inoutState={userInfo?.inoutState}
       />
-      <CardContents />
+      <CardContents userInfo={userInfo} />
       <div>
         <p>입퇴실 시 카드 태깅을 꼭 해주세요!</p>
         {userInfo?.isAdmin ? <SettingButton /> : null}

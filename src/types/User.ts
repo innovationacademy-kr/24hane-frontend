@@ -3,6 +3,7 @@ export type UserInfoType = {
   isAdmin: boolean;
   profileImage: string;
   inoutState: "IN" | "OUT";
+  tagAt?: null | number;
 };
 
 export type userDurationsType = {
@@ -11,10 +12,11 @@ export type userDurationsType = {
 };
 
 export type UserInfoResponse = {
-  login: string;
-  profileImage: string;
-  isAdmin: boolean;
+  login: UserInfoType["loginID"];
+  profileImage: UserInfoType["profileImage"];
+  isAdmin: UserInfoType["isAdmin"];
+  inoutState: UserInfoType["inoutState"];
+  tagAt: UserInfoType["tagAt"];
   gaepo?: number;
   seocho?: number;
-  inoutState: "IN" | "OUT";
 };

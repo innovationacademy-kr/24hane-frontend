@@ -11,11 +11,13 @@ export const useMainQuery = (options?: UseQueryOptions) => {
     isAdmin: false,
     profileImage: "",
     inoutState: "OUT",
+    tagAt: null,
   });
 
   const { data, ...queryInfo } = useQuery(["mainInfo"], getUserInfo, {
     select: (data: AxiosResponse<UserInfoResponse>) => decodeUserData(data.data),
     onSuccess: (data) => {
+      console.log(data);
       setUserInfo(data);
     },
   });

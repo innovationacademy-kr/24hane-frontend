@@ -12,4 +12,5 @@ export const decodeUserData = (init: UserInfoResponse): Omit<UserInfoType, "isLo
   profileImage: init.profileImage,
   isAdmin: init.isAdmin,
   inoutState: init.inoutState,
+  tagAt: init.tagAt,
 });
