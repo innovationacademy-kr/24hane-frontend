@@ -13,7 +13,11 @@ tr,
 th {
   font-weight: 400;
   width: 200px;
-  height: 50px;
+  height: 40px;
+}
+
+thead {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
 }
 
 .timeLogCard {
@@ -36,7 +40,6 @@ th {
 }
 
 .timeLogContents {
-  overflow: scroll;
   height: 100%;
   padding-top: 25px;
   margin-bottom: 5px;
@@ -58,8 +61,19 @@ th {
   font-size: 12.5px;
 }
 
+.tableWrapper {
+  height: 95%;
+  overflow: scroll;
+}
+
 .timeLogTable {
   font-size: 15px;
+}
+
+.timeLogTable th {
+  background-color: #f7f9fa !important;
+  position: sticky;
+  top: 0;
 }
 
 .timeLogTable strong {
