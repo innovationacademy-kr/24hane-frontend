@@ -3,10 +3,10 @@ import CardContents from "components/Card/CardContents";
 import classes from "styles/components/Card/ProfileCard.module.css";
 import logo from "assets/42-logo-black.png";
 import Circle from "components/common/Circle";
-import { useAppSelector } from "app/features/hooks";
-import { userType } from "types/User";
+import { UserInfoType } from "types/User";
 import SettingButton from "components/Card/SettingButton";
 import Icon from "components/common/Icon";
+import { useMainQuery } from "utils/hooks/queries/useMainQuery";
 
 type UserCircleProps = {
   state: string | null;
@@ -16,7 +16,7 @@ function UserCircle({ state }: UserCircleProps) {
   return <Circle color={color} />;
 }
 
-type ProfileProps = Pick<userType, "profileImage" | "loginID" | "inoutState">;
+type ProfileProps = Pick<UserInfoType, "profileImage" | "loginID" | "inoutState">;
 
 function Profile({ profileImage, loginID: userId, inoutState: state }: ProfileProps) {
   return (
@@ -33,18 +33,21 @@ type ProfileCardProps = {
 };
 
 function ProfileCard({ handleFlip }: ProfileCardProps) {
-  const user = useAppSelector((state) => state.user);
-  const { profileImage, loginID, inoutState, isAdmin } = user;
+  const { userInfo } = useMainQuery();
 
   return (
     <div className={classes.profileCard}>
       <Icon name='menu' classname={classes.menuIcon} handleOnclick={handleFlip} />
       <img className={classes.logo} alt='logo' src={logo} />
-      <Profile profileImage={profileImage} loginID={loginID} inoutState={inoutState} />
-      <CardContents />
+      <Profile
+        profileImage={userInfo?.profileImage}
+        loginID={userInfo?.loginID}
+        inoutState={userInfo?.inoutState}
+      />
+      <CardContents userInfo={userInfo} />
       <div>
         <p>입퇴실 시 카드 태깅을 꼭 해주세요!</p>
-        {isAdmin ? <SettingButton /> : null}
+        {userInfo?.isAdmin ? <SettingButton /> : null}
       </div>
     </div>
   );

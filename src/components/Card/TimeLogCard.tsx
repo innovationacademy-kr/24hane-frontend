@@ -1,29 +1,13 @@
-import React, { useEffect, useState } from "react";
-
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
+import React from "react";
 
 import classes from "styles/components/Card/TimeLogCard.module.css";
 import { CardProps } from "./Card";
 import Icon from "components/common/Icon";
-import { getLogsmonth, InOutLog } from "api/logsAPI";
-import { todayUtils } from "utils/time";
-import { AxiosError } from "axios";
+import { InOutLog } from "api/logsAPI";
+import { secondsFormatKor, todayUtils } from "utils/time";
 import { FORM_URL } from "utils/const/const";
-import { errorUtils } from "utils/error";
-
-dayjs.extend(localizedFormat);
-dayjs.locale("ko");
-
-const timeFormatKor = (seconds: number) => {
-  const tempHours = Math.floor(seconds / 3600);
-  const tempMinuts = Math.floor((seconds / 60) % 60);
-  const tempSeconds = Math.floor(seconds % 60);
-
-  return `${tempHours < 10 ? `0${tempHours}` : tempHours}시간${
-    tempMinuts < 10 ? `0${tempMinuts}` : tempMinuts
-  }분${tempSeconds < 10 ? `0${tempSeconds}` : tempSeconds}초`;
-};
+import { useMonthTimeLogsQuery } from "utils/hooks/queries/useMonthTimeLogsQuery";
+import { timeStampToFormatDay, timeStampToFormatTime } from "utils/dayjs";
 
 const timeFormat = (seconds: number) => {
   const tempHours = Math.floor(seconds / 3600);
@@ -35,40 +19,16 @@ const timeFormat = (seconds: number) => {
   }:${tempSeconds < 10 ? `0${tempSeconds}` : tempSeconds}`;
 };
 
-const timeStampToFormatDay = (timeStamp: number) => {
-  return dayjs.unix(timeStamp).format("MM/DD");
-};
-
-const timeStampToFormatTime = (timeStamp: number) => {
-  return dayjs.unix(timeStamp).format("HH:mm:ss");
-};
-
 function LogCardContents() {
-  const [logs, setLogs] = useState<InOutLog[]>([]);
-
-  const fetchLogs = async () => {
-    try {
-      const { year, month } = todayUtils();
-      const {
-        data: { inOutLogs },
-      } = await getLogsmonth(year, month);
-
-      inOutLogs && setLogs(inOutLogs);
-    } catch (e) {
-      const error = e as Error | AxiosError;
-      errorUtils(error);
-    }
-  };
-  useEffect(() => {
-    fetchLogs();
-  }, []);
+  const { year, month } = todayUtils();
+  const { value: logs } = useMonthTimeLogsQuery({ year, month });
 
   const accTime = logs.reduce((ac, cur) => ac + cur.durationSecond, 0);
   return (
     <>
       <div className={classes.timeLogContents}>
         <div className={classes.timeLogTitleWrapper}>
-          <strong>이번달 총 누적 시간 : {timeFormatKor(accTime)}</strong>
+          <strong>이번달 총 누적 시간 : {secondsFormatKor(accTime)}</strong>
         </div>
         <table className={classes.timeLogTable}>
           <thead>
