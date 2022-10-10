@@ -8,7 +8,7 @@ const Home = () => {
   const handleLogin = () => {
     window.location.href = `${
       process.env.REACT_APP_API_URL
-    }/user/login/42?redirect=${encodeURIComponent(window.location.href)}main`;
+    }/user/login/42?redirect=${encodeURIComponent(window.location.origin)}/main`;
   };
 
   return (
