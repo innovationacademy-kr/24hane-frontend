@@ -3,7 +3,7 @@
   min-height: 55rem;
 }
 
-.card-wrapper {
+.cardWrapper {
   height: 100%;
   transition: transform 0.8s ease;
   transform-style: preserve-3d;

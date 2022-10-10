@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { getLogsmonth, InOutLog } from "api/logsAPI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type useMonthTimeLogsProps = {
   year: number;
@@ -15,12 +15,15 @@ export const useMonthTimeLogsQuery = ({ year, month, options }: useMonthTimeLogs
     () => getLogsmonth(year, month),
     {
       select: ({ data }) => data.inOutLogs,
-      onSuccess: (data) => setLogs(data),
     },
   );
 
+  useEffect(() => {
+    if (data) setLogs(data);
+  }, [data]);
+
   return {
-    value: logs ?? logs,
+    logs,
     setLogs,
     queryInfo,
   };
