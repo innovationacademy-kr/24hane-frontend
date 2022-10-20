@@ -5,7 +5,7 @@ dayjs.extend(localizedFormat);
 dayjs.locale("ko");
 
 const dateToFormatFullKor = (date: string) => {
-  return dayjs(date).format("YYYY년 M월 D일 hh시 mm분 ss초");
+  return dayjs(date).format("YYYY년 M월 D일 HH시 mm분 ss초");
 };
 
 const timeStampToFormatDay = (timeStamp: number) => {
