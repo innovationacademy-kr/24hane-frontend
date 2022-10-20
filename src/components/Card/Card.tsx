@@ -1,4 +1,4 @@
-import Loading from "components/common/Loading";
+import LoadingCard from "components/Card/LoadingCard";
 import React, { useCallback, useState } from "react";
 import styles from "styles/pages/Main.module.css";
 import TimeLogCard from "./TimeLogCard";
@@ -19,7 +19,7 @@ const Card = () => {
   return (
     <div className={styles.card}>
       <div className={`${styles["cardWrapper"]} ${!isCardFlipped ? styles.front : styles.back}`}>
-        <React.Suspense fallback={<Loading />}>
+        <React.Suspense fallback={<LoadingCard />}>
           <ProfileCard handleFlip={handleFlip} />
         </React.Suspense>
         <TimeLogCard handleFlip={handleFlip} />

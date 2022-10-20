@@ -1,34 +1,22 @@
-import { getIsLogin } from "api/userAPI";
-import axios from "axios";
 import Home from "pages/Home";
-import { ReactElement, useCallback, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
+import { useIsLoginQuery } from "utils/hooks/queries/useIsLoginQuery";
 
 type ProtectedRouteProps = {
   children: ReactElement;
 };
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const [isSuccess, setIsSuccess] = useState(false);
+  const {
+    queryInfo: { isSuccess },
+  } = useIsLoginQuery();
   const navigate = useNavigate();
 
-  const initLogin = useCallback(async () => {
-    try {
-      await getIsLogin();
-      setIsSuccess(true);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          navigate("/");
-          return;
-        }
-      }
-    }
-  }, [navigate]);
-
-  useEffect(() => {
-    initLogin();
-  });
+  if (!isSuccess) {
+    alert("네트워크 오류 입니다. 다시 시도 하세요.");
+    navigate("/");
+  }
 
   if (isSuccess) return children;
   else return <Home />;
