@@ -1,6 +1,6 @@
-import Home from "pages/Home";
 import { ReactElement } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { STATUS_204_NO_CONTENT } from "utils/const/const";
 import { useIsLoginQuery } from "utils/hooks/queries/useIsLoginQuery";
 
 type ProtectedRouteProps = {
@@ -9,15 +9,10 @@ type ProtectedRouteProps = {
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const {
+    data,
     queryInfo: { isSuccess },
   } = useIsLoginQuery();
-  const navigate = useNavigate();
 
-  if (!isSuccess) {
-    alert("네트워크 오류 입니다. 다시 시도 하세요.");
-    navigate("/");
-  }
-
-  if (isSuccess) return children;
-  else return <Home />;
+  if (isSuccess && data?.status === STATUS_204_NO_CONTENT) return children;
+  else return <Navigate to='/' />;
 };
