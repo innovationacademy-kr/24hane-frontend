@@ -17,6 +17,7 @@ instance.interceptors.request.use(
     if (newConfig.headers) {
       newConfig.headers.Authorization = `Bearer ${token}`;
     }
+    return newConfig;
   },
   (error) => Promise.reject(error.response),
 );
