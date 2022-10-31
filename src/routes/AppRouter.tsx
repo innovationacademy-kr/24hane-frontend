@@ -10,11 +10,18 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route
+          path='/'
+          element={
+            <ProtectedRoute authIsRequired={false} redirectPath='/main'>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path='/main'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute authIsRequired={true} redirectPath='/'>
               <Main />
             </ProtectedRoute>
           }
@@ -22,7 +29,7 @@ const AppRouter = () => {
         <Route
           path='/admin'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute authIsRequired={true} redirectPath='/'>
               <Admin />
             </ProtectedRoute>
           }
