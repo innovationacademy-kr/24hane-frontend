@@ -1,12 +1,12 @@
 import React from "react";
 import classes from "styles/components/MainHeader.module.css";
 
-type ErrorProps = {
+type NotFoundProps = {
   statusCode?: string;
   message?: string;
 };
 
-const Error = ({ statusCode = "404", message = "notFound" }: ErrorProps) => {
+const NotFound = ({ statusCode = "404", message = "notFound" }: NotFoundProps) => {
   return (
     <>
       <span className={classes.logo}>42 logo</span>
@@ -14,11 +14,11 @@ const Error = ({ statusCode = "404", message = "notFound" }: ErrorProps) => {
         <h1>
           {statusCode}
           <br></br>
-          {message} ErrorPage
+          {message} NotFoundPage
         </h1>
       </div>
     </>
   );
 };
 
-export default Error;
+export default NotFound;

@@ -1,43 +1,27 @@
+import NotFound from "pages/NotFound";
 import React from "react";
-import Admin from "pages/Admin";
-import Main from "pages/Main";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "pages/Home";
-import Error from "pages/Error";
-import { ProtectedRoute } from "./ProtectedRouter";
 
-const AppRouter = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ProtectedRoute } from "./ProtectedRouter";
+import { routes } from "./routesPath";
+
+const AppRouter = () => (
+  <BrowserRouter>
+    <Routes>
+      {routes.map(({ path, authIsRequired, redirectPath, element: Element }) => (
         <Route
-          path='/'
+          key={path}
+          path={path}
           element={
-            <ProtectedRoute authIsRequired={false} redirectPath='/main'>
-              <Home />
+            <ProtectedRoute authIsRequired={authIsRequired} redirectPath={redirectPath}>
+              <Element />
             </ProtectedRoute>
           }
         />
-        <Route
-          path='/main'
-          element={
-            <ProtectedRoute authIsRequired={true} redirectPath='/'>
-              <Main />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/admin'
-          element={
-            <ProtectedRoute authIsRequired={true} redirectPath='/'>
-              <Admin />
-            </ProtectedRoute>
-          }
-        />
-        <Route path='*' element={<Error />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+      ))}
+      <Route path='*' element={<NotFound />} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default AppRouter;
