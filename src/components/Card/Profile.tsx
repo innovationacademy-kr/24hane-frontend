@@ -22,7 +22,7 @@ function Profile({ profileImage, loginID: userId, inoutState: state }: ProfilePr
       <img className={classes.logo} alt='logo' src={logo} />
       <div className={classes["profile-wrapper"]}>
         <UserCircle state={state} />
-        <img className={classes.profile} src={""} alt='profile' />
+        <img className={classes.profile} src={profileImage} alt='profile' />
         <h2 className={classes.userId}>{userId}</h2>
       </div>
     </>
