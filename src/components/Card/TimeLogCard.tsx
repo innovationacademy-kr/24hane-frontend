@@ -22,8 +22,8 @@ const timeFormat = (seconds: number) => {
 function LogCardContents() {
   const { year, month } = todayUtils();
   const { logs } = useMonthTimeLogsQuery({ year, month });
-
   const accTime = logs.reduce((ac, cur) => ac + cur.durationSecond, 0);
+
   return (
     <>
       <div className={classes.timeLogContents}>

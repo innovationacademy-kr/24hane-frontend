@@ -5,8 +5,11 @@ import CardItem from "components/Card/CardItem";
 import { useMainAccTimesQuery } from "utils/hooks/queries/useMainAccTimesQuery";
 import { dateToFormatFullKor } from "utils/dayjs";
 import { UserInfoType } from "types/User";
+import { userIsIn } from "utils/user";
 
-function CardContents({ userInfo }: { userInfo: UserInfoType }) {
+type CardContentsProps = Pick<UserInfoType, "tagAt" | "inoutState">;
+
+function CardContents({ tagAt, inoutState }: CardContentsProps) {
   const { data } = useMainAccTimesQuery();
   return (
     <section className={classes.cardContentsSection}>
@@ -19,11 +22,7 @@ function CardContents({ userInfo }: { userInfo: UserInfoType }) {
           <DurationTime startTime={data?.monthAccumationTime} />
         </CardItem>
       </div>
-
-      {userInfo.tagAt &&
-        (userInfo.inoutState === "IN" ? (
-          <p> 최근 입실 시간 {dateToFormatFullKor(userInfo.tagAt)}</p>
-        ) : null)}
+      {tagAt && (userIsIn(inoutState) ? <p> 최근 입실 시간 {dateToFormatFullKor(tagAt)}</p> : null)}
     </section>
   );
 }

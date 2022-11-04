@@ -23,12 +23,10 @@ const App = () => {
   if (env !== "local") sentryInit();
   return (
     <QueryClientProvider client={queryClient}>
-      <main className='wrapper'>
-        <React.Suspense fallback={<Loading />}>
-          <AppRouter />
-          <Footer />
-        </React.Suspense>
-      </main>
+      <React.Suspense fallback={<Loading />}>
+        <AppRouter />
+        <Footer />
+      </React.Suspense>
     </QueryClientProvider>
   );
 };
