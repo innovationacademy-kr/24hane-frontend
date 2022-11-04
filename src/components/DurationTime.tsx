@@ -1,5 +1,4 @@
 import React from "react";
-// import useTimer from "utils/hooks/useTimer";
 
 type DurationProps = {
   startTime: number;
@@ -10,7 +9,6 @@ const timeFomat = (time: number) => {
 };
 
 function DurationTime({ startTime }: DurationProps) {
-  //const durationTime = useTimer(startTime);
   return (
     <strong>
       {`${timeFomat(Math.floor(startTime / 3600))} : ${timeFomat(

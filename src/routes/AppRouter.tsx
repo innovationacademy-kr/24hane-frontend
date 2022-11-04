@@ -1,43 +1,30 @@
 import React from "react";
-import Admin from "pages/Admin";
-import Main from "pages/Main";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "pages/Home";
-import Error from "pages/Error";
-import { ProtectedRoute } from "./ProtectedRouter";
+import Layout from "components/Layout";
+import NotFound from "pages/NotFound";
 
-const AppRouter = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <ProtectedRoute authIsRequired={false} redirectPath='/main'>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/main'
-          element={
-            <ProtectedRoute authIsRequired={true} redirectPath='/'>
-              <Main />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path='/admin'
-          element={
-            <ProtectedRoute authIsRequired={true} redirectPath='/'>
-              <Admin />
-            </ProtectedRoute>
-          }
-        />
-        <Route path='*' element={<Error />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ProtectedRoute } from "./ProtectedRouter";
+import { routes } from "./routesPath";
+
+const AppRouter = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route element={<Layout />}>
+        {routes.map(({ path, authIsRequired, redirectPath, element: Element }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <ProtectedRoute authIsRequired={authIsRequired} redirectPath={redirectPath}>
+                <Element />
+              </ProtectedRoute>
+            }
+          />
+        ))}
+        <Route path='*' element={<NotFound />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+);
 
 export default AppRouter;
