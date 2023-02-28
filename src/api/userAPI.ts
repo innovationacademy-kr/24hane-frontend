@@ -1,14 +1,19 @@
-import { instance, makeAPIPath } from "api/baseAPI";
-import { UserInfoResponse } from "types/User";
+import { instance } from "@/api/baseAPI";
 
-export const getIsLogin = () => {
-  return instance.get("user/login/isLogin");
+const isLoginURL = "user/login/isLogin";
+export const getIsLogin = async () => {
+  const response = await instance.get(isLoginURL);
+  return response;
 };
 
-export const getUserInfo = () => {
-  return instance.get<UserInfoResponse>(makeAPIPath("tag-log/maininfo"));
+const mainInfoURL = "v1/tag-log/maininfo";
+export const getMainInfo = async () => {
+  const response = await instance.get(mainInfoURL);
+  return response;
 };
 
-export const getAccumulationTimes = () => {
-  return instance.get(makeAPIPath("tag-log/accumulationTimes"));
+const accTimesURL = "v1/tag-log/accumulationTimes";
+export const getAccTimes = async () => {
+  const response = await instance.get(accTimesURL);
+  return response;
 };

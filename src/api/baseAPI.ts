@@ -1,37 +1,42 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { STATUS_401_UNAUTHORIZED } from "utils/const/const";
-import { getAccessToken } from "utils/cookie";
-
-export const VERSION_PATH = "v1";
-export const makeAPIPath = (path: string) => `${VERSION_PATH}/${path}`;
+import axios from "axios";
+import { getCookie, removeCookie } from "./cookie/cookies";
+import { STATUS_401_UNAUTHORIZED } from "@/constants/statusCode";
+import { clearStorage } from "@/utils/localStorage";
 
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: import.meta.env.VITE_APP_API_URL,
   withCredentials: true,
 });
 
 instance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
-    const token = getAccessToken();
-    const newConfig = { ...config };
-    if (newConfig.headers) {
-      newConfig.headers.Authorization = `Bearer ${token}`;
+  (config) => {
+    const token = getCookie();
+    if (config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return newConfig;
+    return config;
   },
-  (error) => Promise.reject(error.response),
+  (error) => Promise.reject(error.response)
 );
 
+let isAlert = false;
+
 instance.interceptors.response.use(
-  (response: AxiosResponse) => {
+  (response) => {
     return response;
   },
-  (error: AxiosError) => {
-    if (error.response?.status === STATUS_401_UNAUTHORIZED)
-      return Promise.resolve({
-        status: 401,
-        message: "로그인이 필요합니다.",
-      });
-    else return Promise.reject(error);
-  },
+  (error) => {
+    // error 가 401 이 아닐 수 있다.(예를 들어 토큰에 한글을 넣을 경우, 다른 에러가 뜬다.)
+    // if (error.response?.status === STATUS_401_UNAUTHORIZED) {
+    localStorage.removeItem("isLogin");
+    removeCookie();
+    clearStorage();
+    window.location.href = "/";
+    if (!isAlert) {
+      alert("API 실패: 로그인 정보가 유효하지 않습니다.\n다시 로그인해주세요.");
+      isAlert = true;
+    }
+    // }
+    return Promise.reject(error);
+  }
 );

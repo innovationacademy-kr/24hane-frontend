@@ -1,58 +1,42 @@
 {
-  "name": "24hoursarenotenough",
-  "version": "1.0.0",
+  "name": "24hane",
+  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "@sentry/react": "^7.8.1",
-    "@sentry/tracing": "^7.8.1",
-    "@tanstack/react-query": "^4.2.3",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-csv": "^1.1.3",
-    "@types/react-dom": "^18.0.0",
-    "@types/react-router-dom": "^5.3.3",
-    "axios": "^0.27.2",
-    "css-loader": "^6.7.1",
-    "dayjs": "^1.11.4",
-    "env-cmd": "^10.1.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "react": "^18.2.0",
-    "react-csv": "^2.2.2",
-    "react-dom": "^18.2.0",
-    "react-ga4": "^1.4.1",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1",
-    "style-loader": "^3.3.1",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
-  },
   "scripts": {
-    "start": "HTTPS=false SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem react-scripts start",
-    "build:prod": "react-scripts build",
-    "build:dev": "react-scripts build",
-    "build:local": "env-cmd  -f .env.development.local react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview",
+    "test:unit": "vitest --environment jsdom --root src/",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "axios": "^1.3.3",
+    "pinia": "^2.0.28",
+    "swiper": "^9.0.5",
+    "vue": "^3.2.45",
+    "vue-cookies": "^1.8.2",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "prettier-eslint": "^15.0.1"
+    "@rushstack/eslint-patch": "^1.1.4",
+    "@types/jsdom": "^20.0.1",
+    "@types/node": "^18.11.12",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/test-utils": "^2.2.6",
+    "@vue/tsconfig": "^0.1.3",
+    "eslint": "^8.22.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "jsdom": "^20.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "typescript": "~4.7.4",
+    "vite": "^4.0.0",
+    "vitest": "^0.25.6",
+    "vue-tsc": "^1.0.12"
   }
 }

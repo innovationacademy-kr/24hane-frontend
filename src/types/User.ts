@@ -1,22 +1,12 @@
-export type UserInfoType = {
-  loginID: string;
+export interface UserInfo {
+  login: string;
   isAdmin: boolean;
   profileImage: string;
   inoutState: "IN" | "OUT";
   tagAt?: null | string;
-};
+}
 
-export type userDurationsType = {
-  todayDurationTime: number;
-  monthDurationTime: number;
-};
-
-export type UserInfoResponse = {
-  login: UserInfoType["loginID"];
-  profileImage: UserInfoType["profileImage"];
-  isAdmin: UserInfoType["isAdmin"];
-  inoutState: UserInfoType["inoutState"];
-  tagAt: UserInfoType["tagAt"];
+export interface MainInfo extends UserInfo {
   gaepo?: number;
   seocho?: number;
-};
+}
