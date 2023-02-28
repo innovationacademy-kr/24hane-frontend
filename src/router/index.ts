@@ -5,10 +5,11 @@ import HomeView from "@/views/HomeView.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import MoreView from "@/views/MoreView.vue";
 import NotificationView from "@/views/NotificationView.vue";
+import NotFoundViewVue from "@/views/NotFoundView.vue";
 import { getCookie } from "@/api/cookie/cookies";
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
@@ -46,12 +47,13 @@ const router = createRouter({
       component: () => import("../views/ApplyCardView.vue"),
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      path: "/404",
+      name: "notFound",
+      component: NotFoundViewVue,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      redirect: "/404",
     },
   ],
 });
@@ -59,6 +61,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = getCookie();
   const isLogin = localStorage.getItem("isLogin");
+  if (to.name === "login" && isLogin === "true" && !!token) {
+    next({ name: "home" });
+  }
+
   if (
     to.name !== "login" &&
     to.name !== "auth" &&
