@@ -16,7 +16,6 @@
     "pinia": "^2.0.28",
     "swiper": "^9.0.5",
     "vue": "^3.2.45",
-    "vue-cookies": "^1.8.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
