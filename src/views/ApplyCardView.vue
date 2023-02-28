@@ -3,6 +3,7 @@ import { ref } from "vue";
 import HeaderBarSub from "@/components/common/HeaderBarSub.vue";
 import DefaultButton from "@/components/common/DefaultButton.vue";
 import VIcon from "@/components/icons/IconChevron.vue";
+import DefaultModal from "@/components/common/DefaultModal.vue";
 
 // 0: 안함
 // 1: 신청
@@ -15,6 +16,7 @@ enum CardOrder {
   COMPLETE = 3,
 }
 
+// api 받아와서 적용해야하는 부분
 const progressIndex = ref(0);
 
 const PROGRESS = [
@@ -62,9 +64,20 @@ const ApplyCardButton = [
   },
 ];
 
+const isApplyBtnClick = ref(false);
+
 const clickApply = () => {
-  console.log("카드 재발급 신청 버튼 클릭");
+  isApplyBtnClick.value = true;
+};
+
+const confirmApply = () => {
   progressIndex.value = CardOrder.APPLY;
+  isApplyBtnClick.value = false;
+};
+
+const confirmReceiptCard = () => {
+  progressIndex.value = CardOrder.NONE;
+  isApplyBtnClick.value = false;
 };
 </script>
 
@@ -127,6 +140,48 @@ const clickApply = () => {
       :isDisable="ApplyCardButton[progressIndex].isDisable"
     />
   </main>
+  <DefaultModal v-if="isApplyBtnClick && progressIndex === CardOrder.NONE">
+    <template #title
+      >카드 재발급을<br />
+      신청하시겠습니까?</template
+    >
+    <template #content>신청 후 취소가 불가능합니다.</template>
+    <template #button>
+      <DefaultButton
+        title="네, 신청하겠습니다"
+        background="var(--color-primary)"
+        color="var(--white)"
+        @click="confirmApply"
+      />
+      <DefaultButton
+        title="취소"
+        background="var(--divider)"
+        marginTop="10px"
+        @click="isApplyBtnClick = false"
+      />
+    </template>
+  </DefaultModal>
+  <DefaultModal v-if="isApplyBtnClick && progressIndex === CardOrder.COMPLETE">
+    <template #title
+      >저는 카드를 받았음을<br />
+      확인했습니다.</template
+    >
+    <template #content>실물 카드를 받은 후 눌러 주세요.</template>
+    <template #button>
+      <DefaultButton
+        title="네, 확인했습니다"
+        background="var(--color-primary)"
+        color="var(--white)"
+        @click="confirmReceiptCard"
+      />
+      <DefaultButton
+        title="취소"
+        background="var(--divider)"
+        marginTop="10px"
+        @click="isApplyBtnClick = false"
+      />
+    </template>
+  </DefaultModal>
 </template>
 
 <style scoped>
