@@ -132,8 +132,8 @@ export const useHomeStore = defineStore("home", () => {
         tagAt: mainInfo.tagAt,
       };
       numberOfPeople.value = {
-        gaepo: mainInfo.gaepo ?? 0,
-        seocho: mainInfo.seocho ?? 0,
+        gaepo: Number(mainInfo.gaepo) ?? 0,
+        seocho: Number(mainInfo.seocho) ?? 0,
       };
     } catch (error) {
       console.log(error);
