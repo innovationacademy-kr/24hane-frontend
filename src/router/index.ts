@@ -62,8 +62,7 @@ router.beforeEach((to, from, next) => {
   if (
     to.name !== "login" &&
     to.name !== "auth" &&
-    isLogin !== "true" &&
-    !!token
+    (isLogin !== "true" || !token)
   ) {
     next({ name: "login" });
     alert("router: 로그인 정보가 유효하지 않습니다.\n다시 로그인해주세요.");
