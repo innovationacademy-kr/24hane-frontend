@@ -96,7 +96,7 @@ const clickApply = () => {
 
 const confirmApply = async () => {
   const response = await setReissueRequest();
-  if (response.status === 200) {
+  if (response.status === 200 || response.status === 201) {
     progressIndex.value = CardOrder.APPLY;
     isApplyBtnClick.value = false;
   } else {
@@ -106,7 +106,7 @@ const confirmApply = async () => {
 
 const confirmReceiptCard = async () => {
   const response = await setReissueFinish();
-  if (response.status === 200) {
+  if (response.status === 200 || response.status === 201) {
     progressIndex.value = CardOrder.NONE;
     isApplyBtnClick.value = false;
   } else {
