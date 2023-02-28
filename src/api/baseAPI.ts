@@ -27,16 +27,21 @@ instance.interceptors.response.use(
   },
   (error) => {
     // error 가 401 이 아닐 수 있다.(예를 들어 토큰에 한글을 넣을 경우, 다른 에러가 뜬다.)
-    // if (error.response?.status === STATUS_401_UNAUTHORIZED) {
-    localStorage.removeItem("isLogin");
-    removeCookie();
-    clearStorage();
-    window.location.href = "/";
-    if (!isAlert) {
-      alert("API 실패: 로그인 정보가 유효하지 않습니다.\n다시 로그인해주세요.");
-      isAlert = true;
+    if (
+      error.response?.status === STATUS_401_UNAUTHORIZED ||
+      error.response?.status === undefined
+    ) {
+      localStorage.removeItem("isLogin");
+      removeCookie();
+      clearStorage();
+      window.location.href = "/";
+      if (!isAlert) {
+        alert(
+          "API 실패: 로그인 정보가 유효하지 않습니다.\n다시 로그인해주세요."
+        );
+        isAlert = true;
+      }
     }
-    // }
     return Promise.reject(error);
   }
 );

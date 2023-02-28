@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import HeaderBarSub from "@/components/common/HeaderBarSub.vue";
 import DefaultButton from "@/components/common/DefaultButton.vue";
 import VIcon from "@/components/icons/IconChevron.vue";
 import DefaultModal from "@/components/common/DefaultModal.vue";
+import {
+  getReissue,
+  setReissueRequest,
+  setReissueFinish,
+} from "@/api/reissueAPI";
 
 // 0: 안함
 // 1: 신청
@@ -64,20 +69,49 @@ const ApplyCardButton = [
   },
 ];
 
+const getProgress = async () => {
+  const { data: state } = await getReissue();
+  console.log(state);
+  if (!state || state == "picked_up") {
+    progressIndex.value = CardOrder.NONE;
+  } else if (state === "in_progress") {
+    progressIndex.value = CardOrder.APPLY;
+  } else if (state === "PROGRESS") {
+    progressIndex.value = CardOrder.PROGRESS;
+  } else if (state === "pick_up_requested") {
+    progressIndex.value = CardOrder.COMPLETE;
+  }
+};
+
+onMounted(() => {
+  // api 받아와서 적용해야하는 부분
+  getProgress();
+});
+
 const isApplyBtnClick = ref(false);
 
 const clickApply = () => {
   isApplyBtnClick.value = true;
 };
 
-const confirmApply = () => {
-  progressIndex.value = CardOrder.APPLY;
-  isApplyBtnClick.value = false;
+const confirmApply = async () => {
+  const response = await setReissueRequest();
+  if (response.status === 200) {
+    progressIndex.value = CardOrder.APPLY;
+    isApplyBtnClick.value = false;
+  } else {
+    alert("카드 신청에 실패했습니다.");
+  }
 };
 
-const confirmReceiptCard = () => {
-  progressIndex.value = CardOrder.NONE;
-  isApplyBtnClick.value = false;
+const confirmReceiptCard = async () => {
+  const response = await setReissueFinish();
+  if (response.status === 200) {
+    progressIndex.value = CardOrder.NONE;
+    isApplyBtnClick.value = false;
+  } else {
+    alert("카드 수령 확인에 실패했습니다.");
+  }
 };
 </script>
 
