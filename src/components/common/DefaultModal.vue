@@ -25,7 +25,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 100;
 }
 
@@ -49,14 +49,14 @@
 h3 {
   font-weight: 700;
   font-size: 1rem;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   color: var(--black);
   text-align: center;
 }
 
 p {
   font-size: 0.875rem;
-  color: var(--gray-dark2);
+  color: var(--color-primary);
   font-weight: 700;
   text-align: center;
 }
