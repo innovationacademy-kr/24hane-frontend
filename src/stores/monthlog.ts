@@ -489,7 +489,35 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return num < 10 ? `0${num}` : `${num}`;
   };
 
-  const changeTimetext = (accTime: number) => {
+  const checkLogTime = (time: number | null) => {
+    if (time === null) return -1;
+    return new Date(time * 1000);
+  };
+
+  const getLogYear = (inLogTime: Date | -1, outLogTime: Date | -1) => {
+    if (inLogTime !== -1) return inLogTime.getFullYear();
+    if (outLogTime !== -1) return outLogTime.getFullYear();
+  };
+
+  const getLogMonth = (inLogTime: Date | -1, outLogTime: Date | -1) => {
+    if (inLogTime !== -1) return inLogTime.getMonth();
+    if (outLogTime !== -1) return outLogTime.getMonth();
+  };
+
+  const getLogDate = (inLogTime: Date | -1, outLogTime: Date | -1) => {
+    if (inLogTime !== -1) return inLogTime.getDate();
+    if (outLogTime !== -1) return outLogTime.getDate();
+  };
+
+  const getLogTimeText = (time: Date | -1) => {
+    if (time === -1) return "-";
+    return `${setDisit(time.getHours())}:${setDisit(
+      time.getMinutes()
+    )}:${setDisit(time.getSeconds())}`;
+  };
+
+  const changeTimetext = (accTime: number | null) => {
+    if (accTime === null) return "누락";
     const hour = Math.floor(accTime / 3600);
     const min = Math.floor((accTime % 3600) / 60);
     const sec = Math.floor((accTime % 3600) % 60);
@@ -503,24 +531,20 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const logs = showLogs();
     if (!logs || logs?.inOutLogs.length === 0) return tempLogs;
     logs.inOutLogs.forEach((log) => {
-      const inLogTime = new Date(log.inTimeStamp * 1000);
-      const outLogTime = new Date(log.outTimeStamp * 1000);
+      const inLogTime = checkLogTime(log.inTimeStamp);
+      const outLogTime = checkLogTime(log.outTimeStamp);
       const accLogTime = log.durationSecond;
-      const LogYear = inLogTime.getFullYear();
-      const logMonth = inLogTime.getMonth();
-      const logDate = inLogTime.getDate();
+      const LogYear = getLogYear(inLogTime, outLogTime);
+      const logMonth = getLogMonth(inLogTime, outLogTime);
+      const logDate = getLogDate(inLogTime, outLogTime);
       if (
         LogYear === showYear() &&
         logMonth === showMonth() &&
         logDate === selectDate.value
       ) {
         tempLogs.push({
-          inLogTime: `${setDisit(inLogTime.getHours())}:${setDisit(
-            inLogTime.getMinutes()
-          )}:${setDisit(inLogTime.getSeconds())}`,
-          outLogTime: `${setDisit(outLogTime.getHours())}:${setDisit(
-            outLogTime.getMinutes()
-          )}:${setDisit(outLogTime.getSeconds())}`,
+          inLogTime: getLogTimeText(inLogTime),
+          outLogTime: getLogTimeText(outLogTime),
           accLogTime: changeTimetext(accLogTime),
         });
       }
