@@ -136,7 +136,7 @@ const confirmReceiptCard = async () => {
               <div class="content">{{ PROGRESS[0].content }}</div>
             </div>
           </li>
-          <VIcon class="vIcon" />
+          <VIcon class="vIcon" color="var(--gray-soft)" />
           <li>
             <div
               class="progress"
@@ -149,7 +149,7 @@ const confirmReceiptCard = async () => {
               <div class="content">{{ PROGRESS[1].content }}</div>
             </div>
           </li>
-          <VIcon class="vIcon" />
+          <VIcon class="vIcon" color="var(--gray-soft)" />
           <li>
             <div
               class="progress"
