@@ -482,9 +482,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return DATE_BG_COLOR[1];
   };
 
-  // 선택한 날짜의 로그 테이블
-  const viewLogs = ref<Log[]>([]);
-
   const setDisit = (num: number): string => {
     return num < 10 ? `0${num}` : `${num}`;
   };
@@ -549,12 +546,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
         });
       }
     });
-    viewLogs.value = tempLogs;
-  };
-
-  const showDataLogs = () => {
-    getDateLogs();
-    return viewLogs.value;
+    return tempLogs;
   };
 
   // 일별 누적시간 계산
@@ -748,7 +740,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     getMonthAccTimeText,
     getNowDateAccTimeText,
     getNowMonthAccTimeText,
-    showDataLogs,
+    getDateLogs,
     dateTitle,
     showDateTitle,
     setDateTitle,

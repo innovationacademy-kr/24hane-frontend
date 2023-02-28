@@ -3,26 +3,24 @@ import { ref, watch } from "vue";
 import { useMonthLogStore } from "@/stores/monthlog";
 const {
   getSelectedDateAccTimeText,
-  showDataLogs,
-  showSelectedDate,
+  getDateLogs,
   showSelectedDateText,
-  showLogs,
   showIsLoading,
 } = useMonthLogStore();
 
-const logs = ref(showDataLogs());
+const logs = ref(getDateLogs());
 const isLoading = ref(showIsLoading());
 
-watch(showSelectedDate, () => {
-  logs.value = showDataLogs();
-});
-
-watch(showLogs, () => {
-  logs.value = showDataLogs();
+watch(showSelectedDateText, () => {
+  logs.value = getDateLogs();
+  console.log("날짜 변경");
 });
 
 watch(showIsLoading, (val) => {
   isLoading.value = val;
+  if (val == false) {
+    logs.value = getDateLogs();
+  }
 });
 
 const calcHeight = () => {
@@ -36,7 +34,7 @@ const calcHeight = () => {
   }
 };
 
-watch(showDataLogs, () => {
+watch(getDateLogs, () => {
   calcHeight();
 });
 </script>
