@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import UserNumCard from "@/components/home/UserNumCard.vue";
-import { ref } from "vue";
 
 const props = defineProps<{
   numberOfPeople: {

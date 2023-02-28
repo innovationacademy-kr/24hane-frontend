@@ -57,12 +57,15 @@ watch(showDataLogs, () => {
         <li class="log logEmpty">기록이 없습니다.</li>
       </ul>
       <ul v-show="!isLoading" id="logs" class="logs">
-        <li v-for="(log, i) in logs" :key="i" class="log">
+        <li
+          v-for="(log, i) in logs"
+          :key="i"
+          class="log"
+          :class="{ missing: log.accLogTime === '누락' }"
+        >
           <div class="inLogTime">{{ log.inLogTime }}</div>
           <div class="outLogTime">{{ log.outLogTime }}</div>
-          <div class="accLogTime">
-            {{ log.accLogTime ? log.accLogTime : "누락" }}
-          </div>
+          <div class="accLogTime">{{ log.accLogTime }}</div>
         </li>
         <li class="log logEmpty" v-if="logs.length == 0">기록이 없습니다.</li>
       </ul>
