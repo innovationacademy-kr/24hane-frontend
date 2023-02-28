@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import VIcon from "@/components/icons/IconChevron.vue";
+import router from "@/router";
 const props = defineProps<{
   title: string;
   backButton?: boolean;
   path?: string;
 }>();
+
+const clickButton = () => {
+  if (props.path) router.push(props.path);
+  else router.go(-1);
+};
 </script>
 
 <template>
   <div class="wrap" :class="{ backButton: backButton }">
-    <router-link v-if="props.backButton" :to="path ?? 'home'">
+    <button v-if="props.backButton" :to="path" @click="clickButton">
       <VIcon :color="`var(--color-vbutton)`" class="vIcon" />
-    </router-link>
+    </button>
     <h2>{{ props.title }}</h2>
   </div>
 </template>
@@ -41,7 +47,7 @@ const props = defineProps<{
   text-align: center;
 }
 
-a {
+button {
   position: absolute;
   bottom: 2px;
   left: 16px;

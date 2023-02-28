@@ -37,7 +37,7 @@ const messages: Message[] = [];
 
 <template>
   <main>
-    <HeaderBarSub title="알림" :backButton="true" />
+    <HeaderBarSub title="알림" :backButton="true" path="home" />
     <ul v-if="messages.length">
       <AlarmItem v-for="(msg, i) in messages" :message="msg" :key="i" />
     </ul>
