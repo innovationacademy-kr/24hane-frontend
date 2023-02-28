@@ -156,6 +156,7 @@ const confirmReceiptCard = () => {
       <DefaultButton
         title="취소"
         background="var(--divider)"
+        color="var(--black)"
         marginTop="10px"
         @click="isApplyBtnClick = false"
       />
@@ -177,6 +178,7 @@ const confirmReceiptCard = () => {
       <DefaultButton
         title="취소"
         background="var(--divider)"
+        color="var(--black)"
         marginTop="10px"
         @click="isApplyBtnClick = false"
       />
