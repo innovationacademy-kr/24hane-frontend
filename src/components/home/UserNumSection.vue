@@ -9,18 +9,16 @@ const props = defineProps<{
   };
   isOnline: boolean;
 }>();
-
-const userNum = ref(props.numberOfPeople);
 </script>
 
 <template>
   <section class="userNumSection">
     <h2 :class="{ online: props.isOnline }">실시간 현황</h2>
     <div class="userNumCards">
-      <UserNumCard class="m-8" :userNum="userNum.gaepo ?? 0">
+      <UserNumCard class="m-8" :userNum="props.numberOfPeople.gaepo">
         <template #title>개포</template>
       </UserNumCard>
-      <UserNumCard class="m-8" :userNum="userNum.seocho ?? 0">
+      <UserNumCard class="m-8" :userNum="props.numberOfPeople.seocho">
         <template #title>서초</template>
       </UserNumCard>
     </div>
