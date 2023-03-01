@@ -1,6 +1,6 @@
 export interface InOutLog {
-  inTimeStamp: number;
-  outTimeStamp: number;
+  inTimeStamp: number | null;
+  outTimeStamp: number | null;
   durationSecond: number;
 }
 

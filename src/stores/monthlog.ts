@@ -210,6 +210,27 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   // 월 로그들의 컨테이너
   const logsContainer = ref(setLogsContainer());
 
+  const checkLogTime = (time: number | null) => {
+    if (time === null) return -1;
+    return new Date(time * 1000);
+  };
+
+  const getLogYear = (inLogTime: Date | -1, outLogTime: Date | -1) => {
+    if (inLogTime !== -1) return inLogTime.getFullYear();
+    if (outLogTime !== -1) return outLogTime.getFullYear();
+  };
+
+  const getLogMonth = (inLogTime: Date | -1, outLogTime: Date | -1) => {
+    if (inLogTime !== -1) return inLogTime.getMonth();
+    if (outLogTime !== -1) return outLogTime.getMonth();
+  };
+
+  const getLogDate = (inLogTime: Date | -1, outLogTime: Date | -1) => {
+    if (inLogTime !== -1) return inLogTime.getDate();
+    if (outLogTime !== -1) return outLogTime.getDate();
+    return -1;
+  };
+
   // 보고 있는 월 로그들 가져오기
   const showLogs = () => {
     return logsContainer.value.find(
@@ -226,7 +247,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   };
 
   // 보고 있는 월 로그 세팅하기
-  const setLogs = (data: LogsData) => {
+  const setMonthLogs = (data: LogsData) => {
     logsContainer.value.map((log) => {
       if (log.date === `${showYear()}. ${showMonth() + 1}`) {
         log.updatedAt = new Date().toISOString();
@@ -257,15 +278,14 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
         monthlog.date ===
         `${today.value.getFullYear()}. ${today.value.getMonth() + 1}`
       ) {
-        console.log(monthlog);
-        monthlog.logs.inOutLogs.map((inoutLog) => {
-          const date = new Date(inoutLog.inTimeStamp).getDate();
+        monthlog.logs.inOutLogs = monthlog.logs.inOutLogs.filter((inoutLog) => {
+          const inTime = checkLogTime(inoutLog.inTimeStamp);
+          const outTime = checkLogTime(inoutLog.outTimeStamp);
+          const date = getLogDate(inTime, outTime);
           if (date === today.value.getDate()) {
-            monthlog.logs.inOutLogs.splice(
-              monthlog.logs.inOutLogs.indexOf(inoutLog),
-              1
-            );
+            return false;
           }
+          return true;
         });
       }
     });
@@ -273,12 +293,14 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
 
   // 금 월의 오늘 로그 추가하기
   const insertTodayLogs = (data: LogsData) => {
+    console.log("금 월의 오늘 로그 추가할 데이터", data.inOutLogs);
     logsContainer.value.map((monthlog) => {
       if (
         monthlog.date ===
         `${today.value.getFullYear()}. ${today.value.getMonth() + 1}`
       ) {
         monthlog.logs.inOutLogs.push(...data.inOutLogs);
+        return;
       }
     });
   };
@@ -292,7 +314,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     );
     deleteTodayLogs();
     insertTodayLogs(logsData);
-    console.log(logsData);
   };
 
   const checkNowMonth = () => {
@@ -370,7 +391,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
         month.value + 1
       );
       console.log(monthData);
-      setLogs(monthData);
+      setMonthLogs(monthData);
       isLoading.value = false;
     } catch (error) {
       console.log(error);
@@ -495,26 +516,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return num < 10 ? `0${num}` : `${num}`;
   };
 
-  const checkLogTime = (time: number | null) => {
-    if (time === null) return -1;
-    return new Date(time * 1000);
-  };
-
-  const getLogYear = (inLogTime: Date | -1, outLogTime: Date | -1) => {
-    if (inLogTime !== -1) return inLogTime.getFullYear();
-    if (outLogTime !== -1) return outLogTime.getFullYear();
-  };
-
-  const getLogMonth = (inLogTime: Date | -1, outLogTime: Date | -1) => {
-    if (inLogTime !== -1) return inLogTime.getMonth();
-    if (outLogTime !== -1) return outLogTime.getMonth();
-  };
-
-  const getLogDate = (inLogTime: Date | -1, outLogTime: Date | -1) => {
-    if (inLogTime !== -1) return inLogTime.getDate();
-    if (outLogTime !== -1) return outLogTime.getDate();
-  };
-
   const getLogTimeText = (time: Date | -1) => {
     if (time === -1) return "-";
     return `${setDisit(time.getHours())}:${setDisit(
@@ -535,16 +536,22 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const getDateLogs = () => {
     const tempLogs: Log[] = [];
     const logs = showLogs();
-    console.log(logs);
+    // console.log("일 계산하는 곳", logs?.inOutLogs);
     if (!logs || logs?.inOutLogs.length === 0) return tempLogs;
-    logs.inOutLogs.forEach((log, index) => {
+    logs.inOutLogs.map((log, index) => {
       const inLogTime = checkLogTime(log.inTimeStamp);
       const outLogTime = checkLogTime(log.outTimeStamp);
       const accLogTime = log.durationSecond;
       const LogYear = getLogYear(inLogTime, outLogTime);
       const logMonth = getLogMonth(inLogTime, outLogTime);
       const logDate = getLogDate(inLogTime, outLogTime);
-      if (
+      if (index === 0 && outLogTime === -1 && checkToday(logDate as number)) {
+        tempLogs.push({
+          inLogTime: getLogTimeText(inLogTime),
+          outLogTime: "-",
+          accLogTime: "-",
+        });
+      } else if (
         LogYear === showYear() &&
         logMonth === showMonth() &&
         logDate === selectDate.value
@@ -555,17 +562,9 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
           accLogTime: changeTimetext(accLogTime),
         });
       }
-      if (checkToday(logDate as number)) {
-        if (index === 0 && outLogTime === -1) {
-          tempLogs.push({
-            inLogTime: getLogTimeText(inLogTime),
-            outLogTime: "-",
-            accLogTime: "-",
-          });
-        }
-      }
+      // console.log("tempLogs", tempLogs);
     });
-    return tempLogs.reverse();
+    return tempLogs;
   };
 
   // 일별 누적시간 계산
@@ -574,10 +573,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const logs = showLogs();
     if (!logs || logs.inOutLogs.length === 0) return duration;
     logs.inOutLogs.forEach((log) => {
-      const logTime = new Date(log.inTimeStamp * 1000);
-      const LogYear = logTime.getFullYear();
-      const logMonth = logTime.getMonth();
-      const logDate = logTime.getDate();
+      if (!log.durationSecond || !log.inTimeStamp || !log.outTimeStamp) return;
+      const inTime = checkLogTime(log.inTimeStamp);
+      const outTime = checkLogTime(log.outTimeStamp);
+      const LogYear = getLogYear(inTime, outTime);
+      const logMonth = getLogMonth(inTime, outTime);
+      const logDate = getLogDate(inTime, outTime);
       if (
         LogYear === showYear() &&
         logMonth === showMonth() &&
@@ -599,10 +600,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const todayMonth = today.value.getMonth();
     const todayDate = today.value.getDate();
     logs.inOutLogs.forEach((log) => {
-      const logTime = new Date(log.inTimeStamp * 1000);
-      const LogYear = logTime.getFullYear();
-      const logMonth = logTime.getMonth();
-      const logDate = logTime.getDate();
+      if (!log.durationSecond || !log.inTimeStamp || !log.outTimeStamp) return;
+      const inTime = checkLogTime(log.inTimeStamp);
+      const outTime = checkLogTime(log.outTimeStamp);
+      const LogYear = getLogYear(inTime, outTime);
+      const logMonth = getLogMonth(inTime, outTime);
+      const logDate = getLogDate(inTime, outTime);
       if (
         LogYear === todayYear &&
         logMonth === todayMonth &&
@@ -640,14 +643,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const logs = showLogs();
     if (!logs || logs.inOutLogs.length === 0) return duration;
     logs.inOutLogs.forEach((log) => {
-      const inTime = new Date(log.inTimeStamp * 1000);
-      const LogYear = inTime.getFullYear();
-      const logMonth = inTime.getMonth();
-      if (
-        !!log.outTimeStamp &&
-        LogYear === showYear() &&
-        logMonth === showMonth()
-      ) {
+      if (!log.durationSecond || !log.inTimeStamp || !log.outTimeStamp) return;
+      const inTime = checkLogTime(log.inTimeStamp);
+      const outTime = checkLogTime(log.outTimeStamp);
+      const LogYear = getLogYear(inTime, outTime);
+      const logMonth = getLogMonth(inTime, outTime);
+      if (LogYear === showYear() && logMonth === showMonth()) {
         duration += log.durationSecond;
       }
     });
@@ -662,14 +663,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const todayYear = today.value.getFullYear();
     const todayMonth = today.value.getMonth();
     logs.inOutLogs.forEach((log) => {
-      const inTime = new Date(log.inTimeStamp * 1000);
-      const LogYear = inTime.getFullYear();
-      const logMonth = inTime.getMonth();
-      if (
-        !!log.outTimeStamp &&
-        LogYear === todayYear &&
-        logMonth === todayMonth
-      ) {
+      if (!log.durationSecond || !log.inTimeStamp || !log.outTimeStamp) return;
+      const inTime = checkLogTime(log.inTimeStamp);
+      const outTime = checkLogTime(log.outTimeStamp);
+      const LogYear = getLogYear(inTime, outTime);
+      const logMonth = getLogMonth(inTime, outTime);
+      if (LogYear === todayYear && logMonth === todayMonth) {
         duration += log.durationSecond;
       }
     });
@@ -732,7 +731,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   return {
     showIsLoading,
     showLogs,
-    setLogs,
+    setMonthLogs,
     showNowMonthLogs,
     apiTodayData,
     apiLogsNowMonthData,
