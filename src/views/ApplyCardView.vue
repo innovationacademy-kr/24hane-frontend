@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import HeaderBarSub from "@/components/common/HeaderBarSub.vue";
 import DefaultButton from "@/components/common/DefaultButton.vue";
 import VIcon from "@/components/icons/IconChevron.vue";
