@@ -9,7 +9,6 @@ import {
   setReissueRequest,
   setReissueFinish,
 } from "@/api/reissueAPI";
-import { is } from "@babel/types";
 
 // 0: 안함
 // 1: 신청
