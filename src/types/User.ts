@@ -7,6 +7,6 @@ export interface UserInfo {
 }
 
 export interface MainInfo extends UserInfo {
-  gaepo?: number;
-  seocho?: number;
+  gaepo?: string;
+  seocho?: string;
 }

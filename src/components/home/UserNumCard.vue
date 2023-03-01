@@ -1,12 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  userNum: number;
+  userNum: string;
 }>();
-
-const checkUserNum = () => {
-  if (!props.userNum) return 0;
-  return props.userNum;
-};
 </script>
 
 <template>
@@ -15,7 +10,7 @@ const checkUserNum = () => {
       <slot name="title"></slot>
     </h2>
     <div class="userNum">
-      {{ checkUserNum() }}<span class="timeUnit">명</span>
+      {{ props.userNum }}<span class="timeUnit">명</span>
     </div>
   </div>
 </template>

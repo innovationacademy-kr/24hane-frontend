@@ -29,8 +29,8 @@ export const useHomeStore = defineStore("home", () => {
   const goalMonthHour = ref(getStorage("goalMonthHour") || 0);
 
   const numberOfPeople = ref({
-    gaepo: 0,
-    seocho: 0,
+    gaepo: "0",
+    seocho: "0",
   });
 
   const dumyData: PeriodData[] = [
@@ -109,17 +109,6 @@ export const useHomeStore = defineStore("home", () => {
     return monthlyGraph.value;
   };
 
-  /*  {
-   "login": "joopark",
-   "profileImage": "https://cdn.intra.42.fr/users/joopark.jpg",
-   "isAdmin": false,
-   "tagAt": null
-   "inoutState": "OUT",
-
-   "gaepo": 42,
-   "seocho": 42,
- } */
-
   const apiMainInfo = async () => {
     try {
       const { data: mainInfo } = await getMainInfo();
@@ -132,8 +121,8 @@ export const useHomeStore = defineStore("home", () => {
         tagAt: mainInfo.tagAt,
       };
       numberOfPeople.value = {
-        gaepo: Number(mainInfo.gaepo) ?? 0,
-        seocho: Number(mainInfo.seocho) ?? 0,
+        gaepo: mainInfo.gaepo,
+        seocho: mainInfo.seocho,
       };
     } catch (error) {
       console.log(error);

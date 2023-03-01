@@ -3,8 +3,8 @@ import UserNumCard from "@/components/home/UserNumCard.vue";
 
 const props = defineProps<{
   numberOfPeople: {
-    gaepo: number;
-    seocho: number;
+    gaepo: string;
+    seocho: string;
   };
   isOnline: boolean;
 }>();
@@ -14,10 +14,10 @@ const props = defineProps<{
   <section class="userNumSection">
     <h2 :class="{ online: props.isOnline }">실시간 현황</h2>
     <div class="userNumCards">
-      <UserNumCard class="m-8" :userNum="props.numberOfPeople.gaepo">
+      <UserNumCard class="m-8" :userNum="props.numberOfPeople.gaepo ?? '0'">
         <template #title>개포</template>
       </UserNumCard>
-      <UserNumCard class="m-8" :userNum="props.numberOfPeople.seocho">
+      <UserNumCard class="m-8" :userNum="props.numberOfPeople.seocho ?? '0'">
         <template #title>서초</template>
       </UserNumCard>
     </div>
