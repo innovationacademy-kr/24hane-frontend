@@ -369,6 +369,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
         year.value,
         month.value + 1
       );
+      console.log(monthData);
       setLogs(monthData);
       isLoading.value = false;
     } catch (error) {
@@ -377,7 +378,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     }
   };
 
-  const checkTodayLogs = () => {
+  const checkNowMonthLogs = () => {
     if (
       logsContainer.value.find(
         (log) =>
@@ -410,7 +411,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   // 이번 달 로그 api 호출
   const apiLogsNowMonthData = async () => {
     isLoading.value = true;
-    if (checkTodayLogs() && checkTodayUpdateAt()) {
+    if (checkNowMonthLogs() && checkTodayUpdateAt()) {
       apiTodayData();
       console.log("오늘 데이터 호출");
       isLoading.value = false;
@@ -482,6 +483,14 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return DATE_BG_COLOR[1];
   };
 
+  // 오늘인지 체크
+  const checkToday = (date: number) => {
+    if (date !== today.value.getDate()) return false;
+    if (showYear() !== today.value.getFullYear()) return false;
+    if (showMonth() !== today.value.getMonth()) return false;
+    return true;
+  };
+
   const setDisit = (num: number): string => {
     return num < 10 ? `0${num}` : `${num}`;
   };
@@ -526,8 +535,9 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const getDateLogs = () => {
     const tempLogs: Log[] = [];
     const logs = showLogs();
+    console.log(logs);
     if (!logs || logs?.inOutLogs.length === 0) return tempLogs;
-    logs.inOutLogs.forEach((log) => {
+    logs.inOutLogs.forEach((log, index) => {
       const inLogTime = checkLogTime(log.inTimeStamp);
       const outLogTime = checkLogTime(log.outTimeStamp);
       const accLogTime = log.durationSecond;
@@ -545,8 +555,17 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
           accLogTime: changeTimetext(accLogTime),
         });
       }
+      if (checkToday(logDate as number)) {
+        if (index === 0 && outLogTime === -1) {
+          tempLogs.push({
+            inLogTime: getLogTimeText(inLogTime),
+            outLogTime: "-",
+            accLogTime: "-",
+          });
+        }
+      }
     });
-    return tempLogs;
+    return tempLogs.reverse();
   };
 
   // 일별 누적시간 계산
@@ -692,14 +711,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     if (showMonth() < today.value.getMonth()) return true;
     if (date < today.value.getDate()) return true;
     return false;
-  };
-
-  // 오늘인지 체크
-  const checkToday = (date: number) => {
-    if (date !== today.value.getDate()) return false;
-    if (showYear() !== today.value.getFullYear()) return false;
-    if (showMonth() !== today.value.getMonth()) return false;
-    return true;
   };
 
   // 캘린더 제목으로 월 선택 시
