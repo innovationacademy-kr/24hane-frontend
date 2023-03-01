@@ -18,6 +18,7 @@ const {
   checkToday,
   apiLogsMonthData,
   showIsLoading,
+  checkPastToday,
 } = monthLog;
 
 onMounted(() => {
@@ -25,7 +26,7 @@ onMounted(() => {
 });
 
 const clickDate = (date: number) => {
-  setSelectedDate(date);
+  if (checkPastToday(date)) setSelectedDate(date);
 };
 
 const lastDate = ref(showLastDate());

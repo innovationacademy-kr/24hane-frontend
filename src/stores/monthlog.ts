@@ -700,17 +700,17 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     };
   };
 
-  // 캘린더 날짜 색상
-  const getDateColor = (date: number) => {
-    if (checkPastToday(date)) return "var(--color-black)";
-  };
-
   // 오늘보다 과거인지 체크
   const checkPastToday = (date: number) => {
     if (showYear() < today.value.getFullYear()) return true; // 지난 년도
     if (showMonth() < today.value.getMonth()) return true;
-    if (date < today.value.getDate()) return true;
+    if (date <= today.value.getDate()) return true;
     return false;
+  };
+
+  // 캘린더 날짜 색상
+  const getDateColor = (date: number) => {
+    if (checkPastToday(date)) return "var(--color-black)";
   };
 
   // 캘린더 제목으로 월 선택 시
@@ -759,6 +759,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     prevMonth,
     nextMonth,
     getDateBgColor,
+    checkPastToday,
     getDateColor,
     checkToday,
     selectMonth,
