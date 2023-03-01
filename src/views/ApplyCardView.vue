@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import HeaderBarSub from "@/components/common/HeaderBarSub.vue";
 import DefaultButton from "@/components/common/DefaultButton.vue";
 import VIcon from "@/components/icons/IconChevron.vue";
@@ -70,15 +70,14 @@ const ApplyCardButton = [
 ];
 
 const getProgress = async () => {
-  const { data: state } = await getReissue();
-  console.log(state);
-  if (!state || state == "picked_up") {
+  const { data } = await getReissue();
+  if (!data || data.state == "picked_up") {
     progressIndex.value = CardOrder.NONE;
-  } else if (state === "in_progress") {
+  } else if (data.state === "in_progress") {
     progressIndex.value = CardOrder.APPLY;
-  } else if (state === "PROGRESS") {
+  } else if (data.state === "PROGRESS") {
     progressIndex.value = CardOrder.PROGRESS;
-  } else if (state === "pick_up_requested") {
+  } else if (data.state === "pick_up_requested") {
     progressIndex.value = CardOrder.COMPLETE;
   }
 };
