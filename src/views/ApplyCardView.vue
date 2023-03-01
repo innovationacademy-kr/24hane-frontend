@@ -9,6 +9,7 @@ import {
   setReissueRequest,
   setReissueFinish,
 } from "@/api/reissueAPI";
+import { is } from "@babel/types";
 
 // 0: 안함
 // 1: 신청
@@ -97,23 +98,35 @@ const clickApply = () => {
   isApplyBtnClick.value = true;
 };
 
+const isClick = ref(false);
+
 const confirmApply = async () => {
+  if (isClick.value) return;
+  isClick.value = true;
   const response = await setReissueRequest();
   if (response.status === 200 || response.status === 201) {
     progressIndex.value = CardOrder.APPLY;
     isApplyBtnClick.value = false;
+    isClick.value = false;
   } else {
     alert("카드 신청에 실패했습니다.");
+    isApplyBtnClick.value = false;
+    isClick.value = false;
   }
 };
 
 const confirmReceiptCard = async () => {
+  if (isClick.value) return;
+  isClick.value = true;
   const response = await setReissueFinish();
   if (response.status === 200 || response.status === 201) {
     progressIndex.value = CardOrder.NONE;
     isApplyBtnClick.value = false;
+    isClick.value = false;
   } else {
     alert("카드 수령 확인에 실패했습니다.");
+    isApplyBtnClick.value = false;
+    isClick.value = false;
   }
 };
 
