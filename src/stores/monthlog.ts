@@ -564,7 +564,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       }
       // console.log("tempLogs", tempLogs);
     });
-    return tempLogs;
+    return tempLogs.reverse();
   };
 
   // 일별 누적시간 계산
