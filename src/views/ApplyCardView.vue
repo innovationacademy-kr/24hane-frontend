@@ -69,7 +69,10 @@ const ApplyCardButton = [
   },
 ];
 
+const isLoading = ref(false);
+
 const getProgress = async () => {
+  isLoading.value = true;
   const { data } = await getReissue();
   if (!data || data.state == "picked_up") {
     progressIndex.value = CardOrder.NONE;
@@ -80,6 +83,7 @@ const getProgress = async () => {
   } else if (data.state === "pick_up_requested") {
     progressIndex.value = CardOrder.COMPLETE;
   }
+  isLoading.value = false;
 };
 
 onMounted(() => {
@@ -110,6 +114,22 @@ const confirmReceiptCard = async () => {
     isApplyBtnClick.value = false;
   } else {
     alert("카드 수령 확인에 실패했습니다.");
+  }
+};
+
+const selectButtonBackground = () => {
+  if (isLoading.value) {
+    return ApplyCardButton[1].background;
+  } else {
+    return ApplyCardButton[progressIndex.value].background;
+  }
+};
+
+const selectButtonColor = () => {
+  if (isLoading.value) {
+    return ApplyCardButton[1].color;
+  } else {
+    return ApplyCardButton[progressIndex.value].color;
   }
 };
 </script>
@@ -168,8 +188,8 @@ const confirmReceiptCard = async () => {
       class="applyButton"
       @click="clickApply"
       :title="ApplyCardButton[progressIndex].title"
-      :background="ApplyCardButton[progressIndex].background"
-      :color="ApplyCardButton[progressIndex].color"
+      :background="selectButtonBackground()"
+      :color="selectButtonColor()"
       :isDisable="ApplyCardButton[progressIndex].isDisable"
     />
   </main>
