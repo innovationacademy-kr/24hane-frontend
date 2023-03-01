@@ -9,6 +9,7 @@ import {
   setReissueRequest,
   setReissueFinish,
 } from "@/api/reissueAPI";
+import LoadingAnimation from "@/components/common/LoadingAnimation.vue";
 
 // 0: 안함
 // 1: 신청
@@ -154,7 +155,8 @@ const selectButtonColor = () => {
       <DefaultButton title="자세히 보기" path="https://naver.com" />
       <h3>재발급 신청 현황</h3>
       <div class="card">
-        <ul>
+        <LoadingAnimation v-if="isLoading" />
+        <ul v-else>
           <li>
             <div
               class="progress"
@@ -272,6 +274,7 @@ h3:first-child {
 
 .card {
   padding: 30px 20px;
+  height: 300px;
   background-color: var(--white);
   border-radius: 20px;
   color: var(--black);
