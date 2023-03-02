@@ -29,8 +29,8 @@ export const useHomeStore = defineStore("home", () => {
   const goalMonthHour = ref(getStorage("goalMonthHour") || 0);
 
   const numberOfPeople = ref({
-    gaepo: "0",
-    seocho: "0",
+    gaepo: 0,
+    seocho: 0,
   });
 
   const dumyData: PeriodData[] = [
