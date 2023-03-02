@@ -19,8 +19,8 @@
   content: "";
   display: block;
   position: absolute;
-  top: 26px;
-  left: 56px;
+  top: 25px;
+  left: 58px;
   width: 8px;
   height: 8px;
   border-radius: 50%;
