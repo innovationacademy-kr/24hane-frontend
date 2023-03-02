@@ -75,6 +75,7 @@ const isLoading = ref(false);
 const getProgress = async () => {
   isLoading.value = true;
   const { data } = await getReissue();
+  console.log(data.state);
   if (data.state == "none" || data.state == "done") {
     progressIndex.value = CardOrder.NONE;
   } else if (data.state === "apply") {
