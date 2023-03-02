@@ -10,7 +10,10 @@ import LogoIcon from "@/components/icons/IconLogo.vue";
     </div>
     <div class="buttonWrap">
       <div class="notice">
-        <p>입실과 퇴실의 짝이 일치하는 경우에만 출입 누적시간이 반영됩니다.</p>
+        <p>
+          입실과 퇴실의 짝이 일치하는 경우에만<br />
+          출입 누적시간이 반영됩니다.
+        </p>
         <p>입/퇴실 시 출입카드를 꼭 태깅해 주세요.</p>
       </div>
       <LoginButton class="button" />
