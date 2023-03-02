@@ -36,6 +36,8 @@
   --font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+
+  --vh: 100%;
 }
 
 /* semantic color variables for this project */

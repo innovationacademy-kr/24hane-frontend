@@ -108,12 +108,12 @@ watch(getDateLogs, () => {
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  height: calc(100% - 514px);
+  height: calc(var(--vh, 1vh) * 100 - 514px);
   padding: 0 10px;
 }
 
 .logs.smaller {
-  height: calc(100% - 554px);
+  height: calc(var(--vh, 1vh) * 100 - 554px);
 }
 
 .logs .log {
