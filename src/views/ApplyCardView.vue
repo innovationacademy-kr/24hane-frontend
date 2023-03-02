@@ -75,11 +75,11 @@ const isLoading = ref(false);
 const getProgress = async () => {
   isLoading.value = true;
   const { data } = await getReissue();
-  if (!data || data.state == "picked_up") {
+  if (data.state == "none" || data.state == "done") {
     progressIndex.value = CardOrder.NONE;
-  } else if (data.state === "in_progress") {
+  } else if (data.state === "apply") {
     progressIndex.value = CardOrder.APPLY;
-  } else if (data.state === "PROGRESS") {
+  } else if (data.state === "in_progress") {
     progressIndex.value = CardOrder.PROGRESS;
   } else if (data.state === "pick_up_requested") {
     progressIndex.value = CardOrder.COMPLETE;
@@ -88,7 +88,6 @@ const getProgress = async () => {
 };
 
 onMounted(() => {
-  // api 받아와서 적용해야하는 부분
   getProgress();
 });
 
