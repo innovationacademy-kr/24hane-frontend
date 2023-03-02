@@ -187,7 +187,7 @@ h2 {
 }
 
 .goal .timeNumber {
-  width: 50px;
+  width: 60px;
   height: 30px;
   border: none;
   text-align: right;
