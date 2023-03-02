@@ -191,6 +191,7 @@ h2 {
   height: 30px;
   border: none;
   text-align: right;
+  margin-right: 2px;
   font-size: 1.25rem;
   font-weight: 700;
   font-family: Inter, sans-serif;
@@ -198,6 +199,7 @@ h2 {
 }
 
 .select {
+  direction: rtl;
   cursor: pointer;
   -o-appearance: none;
   -webkit-appearance: none;
