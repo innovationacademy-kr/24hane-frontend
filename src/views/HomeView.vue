@@ -17,6 +17,7 @@ const {
   getMonthlyGraph,
   getNumberOfPeople,
   getUserInfo,
+  apiAccTimes,
 } = useHomeStore();
 
 const {
@@ -29,6 +30,7 @@ const {
 onMounted(() => {
   apiMainInfo();
   apiLogsNowMonthData();
+  apiAccTimes();
 });
 
 const todayAccTime = ref(getNowDateAccTimeText());

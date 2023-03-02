@@ -1,19 +1,26 @@
 <script setup lang="ts">
+import { ref, computed, watch } from "vue";
 import type { PeriodData } from "@/types/logs";
-import { ref, computed } from "vue";
+import { useHomeStore } from "@/stores/home";
+import LoadingAnimation from "@/components/common/LoadingAnimation.vue";
+
+const { getIsLoading } = useHomeStore();
+const isLoading = ref(getIsLoading());
+
+watch(getIsLoading, (val) => {
+  isLoading.value = val;
+});
 
 const props = defineProps<{
   periodsData: PeriodData[];
   isMonth?: boolean;
 }>();
 
-const periodsData = ref(props.periodsData);
-
 const timeArr = computed(() => {
   const arr: number[] = [];
-  if (!periodsData.value) return arr;
-  periodsData.value.forEach((data) => {
-    arr.push(data.total);
+  if (!props.periodsData) return arr;
+  props.periodsData.forEach((data) => {
+    arr.push(Number(data.total));
   });
   return arr;
 });
@@ -36,12 +43,16 @@ const clickIndex = ref(0);
   <div class="wrap">
     <h3 v-if="isMonth">최근 월간 그래프<span> (6개월)</span></h3>
     <h3 v-else>최근 주간 그래프<span> (6주)</span></h3>
-    <div class="detailView">
-      <div class="title">{{ periodsData[clickIndex].periods }}</div>
+    <div v-if="isLoading" class="detailView">
+      <LoadingAnimation class="loadingAnimation" />
+    </div>
+    <div v-else class="detailView">
+      <div class="title">{{ props.periodsData[clickIndex].periods }}</div>
       <div class="timeView">
-        <div class="time">총 {{ periodsData[clickIndex].total }}시간</div>
+        <div class="time">총 {{ props.periodsData[clickIndex].total }}시간</div>
         <div class="time">
-          평균 {{ calcAvgTime(periodsData[clickIndex].total) }}시간
+          평균
+          {{ calcAvgTime(Number(props.periodsData[clickIndex].total)) }}시간
         </div>
       </div>
     </div>
@@ -49,11 +60,13 @@ const clickIndex = ref(0);
       <li
         class="tapHighlight"
         :class="{ on: clickIndex == i }"
-        v-for="(data, i) in periodsData"
+        v-for="(data, i) in props.periodsData"
         :key="i"
         @click="clickIndex = i"
       >
-        <div :style="{ height: calcTimePercent(data.total, timeArr) }"></div>
+        <div
+          :style="{ height: calcTimePercent(Number(data.total), timeArr) }"
+        ></div>
       </li>
     </ul>
     <div class="preiodBox">
@@ -95,6 +108,11 @@ h3 span {
   padding: 11px 20px;
   display: flex;
   justify-content: space-between;
+}
+
+.detailView .loadingAnimation {
+  background-color: transparent;
+  padding: 0;
 }
 
 .detailView div {

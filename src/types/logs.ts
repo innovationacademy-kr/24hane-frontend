@@ -24,5 +24,5 @@ export interface UserAccTime {
 
 export interface PeriodData {
   periods: string;
-  total: number;
+  total: string;
 }

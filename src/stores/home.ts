@@ -28,6 +28,9 @@ export const useHomeStore = defineStore("home", () => {
   const goalDateHour = ref(getStorage("goalDateHour") || 0);
   const goalMonthHour = ref(getStorage("goalMonthHour") || 0);
 
+  const weeklyAccTime = ref([0, 0, 0, 0, 0, 0]);
+  const monthlyAccTime = ref([0, 0, 0, 0, 0, 0]);
+
   const numberOfPeople = ref({
     gaepo: 0,
     seocho: 0,
@@ -36,27 +39,27 @@ export const useHomeStore = defineStore("home", () => {
   const dumyData: PeriodData[] = [
     {
       periods: "없음",
-      total: 0,
+      total: "0",
     },
     {
       periods: "없음",
-      total: 0,
+      total: "0",
     },
     {
       periods: "없음",
-      total: 0,
+      total: "0",
     },
     {
       periods: "없음",
-      total: 0,
+      total: "0",
     },
     {
       periods: "없음",
-      total: 0,
+      total: "0",
     },
     {
       periods: "없음",
-      total: 0,
+      total: "0",
     },
   ];
 
@@ -97,6 +100,14 @@ export const useHomeStore = defineStore("home", () => {
     saveStorage("goalMonthHour", hour);
   };
 
+  const getWeeklyAccTime = () => {
+    return weeklyAccTime.value;
+  };
+
+  const getMonthlyAccTime = () => {
+    return monthlyAccTime.value;
+  };
+
   const getNumberOfPeople = () => {
     return numberOfPeople.value;
   };
@@ -135,6 +146,61 @@ export const useHomeStore = defineStore("home", () => {
     return { hour, minute };
   };
 
+  const calHours = (time: number) => {
+    const str = (time / 3600).toFixed(1);
+    console.log(time / 3600 + "시간");
+    return str;
+  };
+
+  const calcWeely = (index: number) => {
+    const now = new Date();
+    const nowYear = now.getFullYear();
+    const nowMonth = now.getMonth();
+    const nowDate = now.getDate();
+    const nowDay = now.getDay();
+    const weekStartDate = new Date(
+      nowYear,
+      nowMonth,
+      nowDate - (nowDay - 1 + index * 7)
+    );
+    const weekEndDate = new Date(
+      nowYear,
+      nowMonth,
+      nowDate - (nowDay - 1 + index * 7) + 6
+    );
+    return `${weekStartDate.getMonth() + 1}.${weekStartDate.getDate()}(월) - ${
+      weekEndDate.getMonth() + 1
+    }.${weekEndDate.getDate()}(일)`;
+  };
+
+  const setWeeklyGraph = () => {
+    const tempData = dumyData.map((data, index) => {
+      return {
+        periods: calcWeely(index),
+        total: calHours(weeklyAccTime.value[index]),
+      };
+    });
+    weeklyGraph.value = tempData;
+  };
+
+  const calcMonthly = (index: number) => {
+    const now = new Date();
+    const nowYear = now.getFullYear();
+    const nowMonth = now.getMonth();
+    const monthStartDate = new Date(nowYear, nowMonth - index, 1);
+    return `${monthStartDate.getFullYear()}.${monthStartDate.getMonth() + 1}`;
+  };
+
+  const setMonthlyGraph = () => {
+    const tempData = dumyData.map((data, index) => {
+      return {
+        periods: calcMonthly(index),
+        total: calHours(monthlyAccTime.value[index]),
+      };
+    });
+    monthlyGraph.value = tempData;
+  };
+
   const apiAccTimes = async () => {
     try {
       isLoading.value = true;
@@ -142,6 +208,10 @@ export const useHomeStore = defineStore("home", () => {
       console.log(accTimes);
       accDate.value = calcSecToTime(accTimes.todayAccumationTime);
       accMonth.value = calcSecToTime(accTimes.monthAccumationTime);
+      weeklyAccTime.value = accTimes.sixWeekAccumulationTime;
+      monthlyAccTime.value = accTimes.sixMonthAccumulationTime;
+      setWeeklyGraph();
+      setMonthlyGraph();
       isLoading.value = false;
     } catch (error) {
       console.log(error);
@@ -158,6 +228,8 @@ export const useHomeStore = defineStore("home", () => {
     getGoalMonthHour,
     setGoalDateHour,
     setGoalMonthHour,
+    getWeeklyAccTime,
+    getMonthlyAccTime,
     getNumberOfPeople,
     getWeeklyGraph,
     getMonthlyGraph,
