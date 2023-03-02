@@ -24,7 +24,7 @@ import LogoIcon from "@/components/icons/IconLogo.vue";
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: var(--color-background);
   padding: 30px;
   background: linear-gradient(

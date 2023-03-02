@@ -106,8 +106,12 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  min-height: 100vh;
+  min-height: 100%;
   color: var(--color-text);
   background-color: var(--color-background-soft);
   transition: color 0.5s, background-color 0.5s;
