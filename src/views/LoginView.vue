@@ -52,6 +52,7 @@ import LogoIcon from "@/components/icons/IconLogo.vue";
   flex-direction: column;
   align-items: center;
   margin-top: 80px;
+  width: 100%;
 }
 
 .notice {
