@@ -25,8 +25,8 @@ export const useHomeStore = defineStore("home", () => {
     minute: 0,
   });
 
-  const goalDateHour = ref(getStorage("goalDateHour") || 0);
-  const goalMonthHour = ref(getStorage("goalMonthHour") || 0);
+  const goalDateHour = ref(getStorage("goalDateHour") || 8);
+  const goalMonthHour = ref(getStorage("goalMonthHour") || 80);
 
   const weeklyAccTime = ref([0, 0, 0, 0, 0, 0]);
   const monthlyAccTime = ref([0, 0, 0, 0, 0, 0]);

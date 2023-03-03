@@ -6,6 +6,7 @@ import CalendarView from "@/views/CalendarView.vue";
 import MoreView from "@/views/MoreView.vue";
 import NotificationView from "@/views/NotificationView.vue";
 import NotFoundViewVue from "@/views/NotFoundView.vue";
+import ApplyCardViewVue from "@/views/ApplyCardView.vue";
 import { getCookie } from "@/api/cookie/cookies";
 
 const router = createRouter({
@@ -43,8 +44,8 @@ const router = createRouter({
     },
     {
       path: "/apply-card",
-      name: "apply-card",
-      component: () => import("../views/ApplyCardView.vue"),
+      name: "applyCard",
+      component: ApplyCardViewVue,
     },
     {
       path: "/404",

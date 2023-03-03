@@ -90,13 +90,23 @@ const checkColor = () => {
       <div>
         <select v-if="!isMonth" v-model="goalTime" class="timeNumber select">
           <option :value="0" selected>0</option>
-          <option v-for="index in 24" :key="index" :value="index">
+          <option
+            v-for="index in 24"
+            :key="index"
+            :value="index"
+            :selected="index === 8"
+          >
             {{ index }}
           </option>
         </select>
         <select v-else v-model="goalTime" class="timeNumber select">
           <option :value="0" selected>0</option>
-          <option v-for="index in 21" :key="index" :value="index * 20">
+          <option
+            v-for="index in 21"
+            :key="index"
+            :value="index * 20"
+            :selected="index === 80"
+          >
             {{ index * 20 }}
           </option>
         </select>
