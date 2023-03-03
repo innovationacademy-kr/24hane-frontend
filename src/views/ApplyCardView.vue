@@ -66,7 +66,7 @@ const ApplyCardButton = [
     title: "데스크 카드수령 완료",
     background: "var(--color-primary)",
     color: "var(--white)",
-    isDisable: true,
+    isDisable: false,
   },
 ];
 
