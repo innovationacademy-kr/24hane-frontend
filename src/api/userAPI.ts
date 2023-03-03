@@ -6,13 +6,13 @@ export const getIsLogin = async () => {
   return response;
 };
 
-const mainInfoURL = "v1/tag-log/maininfo";
+const mainInfoURL = "v2/tag-log/maininfo";
 export const getMainInfo = async () => {
   const response = await instance.get(mainInfoURL);
   return response;
 };
 
-const accTimesURL = "v1/tag-log/accumulationTimes";
+const accTimesURL = "v2/tag-log/accumulationTimes";
 export const getAccTimes = async () => {
   const response = await instance.get(accTimesURL);
   return response;

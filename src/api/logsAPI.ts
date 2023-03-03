@@ -1,6 +1,6 @@
 import { instance } from "./baseAPI";
 
-const getLogsDayURL = "v1/tag-log/getAllTagPerDay";
+const getLogsDayURL = "v2/tag-log/getAllTagPerDay";
 export const getLogsDate = async (year: number, month: number, day: number) => {
   const response = await instance.get(getLogsDayURL, {
     params: {
@@ -12,7 +12,7 @@ export const getLogsDate = async (year: number, month: number, day: number) => {
   return response;
 };
 
-const getLogsMonthURL = "v1/tag-log/getAllTagPerMonth";
+const getLogsMonthURL = "v2/tag-log/getAllTagPerMonth";
 export const getLogsmonth = async (year: number, month: number) => {
   const response = await instance.get(getLogsMonthURL, {
     params: {
