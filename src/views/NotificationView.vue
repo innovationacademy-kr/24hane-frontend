@@ -42,7 +42,7 @@ const messages: Message[] = [];
       <AlarmItem v-for="(msg, i) in messages" :message="msg" :key="i" />
     </ul>
     <ul v-else>
-      <li class="empty">알림 내역이 비어있습니다.</li>
+      <li class="empty">알림 내역이 비어있습니다. 💌</li>
     </ul>
   </main>
 </template>
