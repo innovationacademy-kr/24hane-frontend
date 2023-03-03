@@ -4,7 +4,6 @@ import CircleProgressBg from "@/components/images/CircleProgressBg.vue";
 const props = defineProps<{
   isOpen: boolean;
   percent: number;
-  goalTime: number;
 }>();
 const calcLine = () => {
   // 350은 svg의 라인 길이 = 0
@@ -20,11 +19,7 @@ const calcLine = () => {
 
 <template>
   <div class="circle">
-    <div class="text">
-      <div class="small">목표시간</div>
-      <div class="small">{{ props.goalTime }}H</div>
-      {{ props.percent }}<span class="percent">%</span>
-    </div>
+    <div class="text">{{ props.percent }}<span class="percent">%</span></div>
     <CircleProgressBg class="bg" />
     <svg
       class="progress"
@@ -86,19 +81,14 @@ const calcLine = () => {
   position: absolute;
   width: 100%;
   top: 50%;
-  font-size: 24px;
+  font-size: 2rem;
   text-align: center;
   font-weight: 500;
-  line-height: 30px;
   transform: translateY(-50%);
   color: var(--black);
 }
 
-.circle .text .small {
-  font-size: 12px;
-  line-height: 14px;
-}
 .circle .text .percent {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 </style>
