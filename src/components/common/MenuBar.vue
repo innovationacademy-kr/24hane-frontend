@@ -15,18 +15,25 @@ const { resetSelectedDate } = monthLog;
   <div class="wrap">
     <nav>
       <RouterLink to="/home">
-        <HomeIconFill v-if="$route.name === 'home'" />
+        <HomeIconFill
+          v-if="$route.name === 'home'"
+          color="var(--color-background-btn)"
+        />
         <HomeIconLine v-else />
       </RouterLink>
       <RouterLink to="/calendar">
         <CalendarIconFill
           v-if="$route.name === 'calendar'"
           @click="resetSelectedDate"
+          color="var(--color-background-btn)"
         />
         <CalendarIconLine v-else />
       </RouterLink>
       <RouterLink to="/more">
-        <MoreIconFill v-if="$route.name === 'more'" />
+        <MoreIconFill
+          v-if="$route.name === 'more'"
+          color="var(--color-background-btn)"
+        />
         <MoreIconLine v-else />
       </RouterLink>
     </nav>
@@ -69,11 +76,5 @@ nav a {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
-
-@media (prefers-color-scheme: dark) {
-  nav a svg {
-    filter: invert(1);
-  }
 }
 </style>

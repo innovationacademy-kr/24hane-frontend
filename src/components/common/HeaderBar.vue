@@ -40,7 +40,10 @@ watch(
       class="notification"
       :class="{ on: isNotification }"
     >
-      <NotificationIconFill v-if="isNotification" />
+      <NotificationIconFill
+        v-if="isNotification"
+        color="var(--color-background-btn)"
+      />
       <NotificationIconLine v-else />
     </RouterLink>
   </nav>
@@ -99,8 +102,12 @@ watch(
   margin-left: 10px;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--color-heading);
   position: relative;
+}
+
+.profile h2.online {
+  color: var(--white);
 }
 
 .profile .online::after {
