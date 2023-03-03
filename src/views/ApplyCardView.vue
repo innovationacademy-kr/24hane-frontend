@@ -22,7 +22,6 @@ enum CardOrder {
   COMPLETE = 3,
 }
 
-// api 받아와서 적용해야하는 부분
 const progressIndex = ref(0);
 
 const PROGRESS = [
