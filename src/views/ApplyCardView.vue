@@ -103,12 +103,14 @@ const isClick = ref(false);
 const confirmApply = async () => {
   if (isClick.value) return;
   isClick.value = true;
-  const response = await setReissueRequest();
-  if (response.status === 200 || response.status === 201) {
-    progressIndex.value = CardOrder.APPLY;
-    isApplyBtnClick.value = false;
-    isClick.value = false;
-  } else {
+  try {
+    const response = await setReissueRequest();
+    if (response.status === 200 || response.status === 201) {
+      progressIndex.value = CardOrder.APPLY;
+      isApplyBtnClick.value = false;
+      isClick.value = false;
+    }
+  } catch (error) {
     alert("카드 신청에 실패했습니다.");
     isApplyBtnClick.value = false;
     isClick.value = false;
@@ -118,12 +120,14 @@ const confirmApply = async () => {
 const confirmReceiptCard = async () => {
   if (isClick.value) return;
   isClick.value = true;
-  const response = await setReissueFinish();
-  if (response.status === 200 || response.status === 201) {
-    progressIndex.value = CardOrder.NONE;
-    isApplyBtnClick.value = false;
-    isClick.value = false;
-  } else {
+  try {
+    const response = await setReissueFinish();
+    if (response.status === 200 || response.status === 201) {
+      progressIndex.value = CardOrder.NONE;
+      isApplyBtnClick.value = false;
+      isClick.value = false;
+    }
+  } catch (error) {
     alert("카드 수령 확인에 실패했습니다.");
     isApplyBtnClick.value = false;
     isClick.value = false;
@@ -215,11 +219,15 @@ const selectButtonColor = () => {
     <template #content>신청 후 취소가 불가능합니다.</template>
     <template #button>
       <DefaultButton
+        v-if="!isClick"
         title="네, 신청하겠습니다"
         background="var(--color-primary)"
         color="var(--white)"
         @click="confirmApply"
       />
+      <div v-else class="fakeButton">
+        <LoadingAnimation />
+      </div>
       <DefaultButton
         title="취소"
         background="var(--divider)"
@@ -237,11 +245,15 @@ const selectButtonColor = () => {
     <template #content>실물 카드를 받은 후 눌러 주세요.</template>
     <template #button>
       <DefaultButton
+        v-if="!isClick"
         title="네, 확인했습니다"
         background="var(--color-primary)"
         color="var(--white)"
         @click="confirmReceiptCard"
       />
+      <div v-else class="fakeButton">
+        <LoadingAnimation />
+      </div>
       <DefaultButton
         title="취소"
         background="var(--divider)"
@@ -336,5 +348,15 @@ h3:first-child {
 
 .applyButton {
   margin-top: 30px;
+}
+
+.fakeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
+  width: 100%;
+  height: 45px;
+  border-radius: 10px;
 }
 </style>

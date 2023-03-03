@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { stringLiteral } from "@babel/types";
-
 const props = defineProps<{
   title: string;
   path?: string;
