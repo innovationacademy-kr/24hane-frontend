@@ -33,6 +33,7 @@ const clickButton = () => {
   padding: 15px 30px 0;
   z-index: 9;
   background-color: var(--color-background-soft);
+  user-select: none;
 }
 
 @media (min-width: 425px) {

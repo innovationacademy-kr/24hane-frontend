@@ -44,6 +44,7 @@ const { resetSelectedDate } = monthLog;
   filter: var(--menu-shadow);
   z-index: 9;
   padding: 0 30px;
+  user-select: none;
 }
 
 @media (min-width: 425px) {

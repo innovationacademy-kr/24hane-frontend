@@ -27,6 +27,7 @@ const props = defineProps<{
 <style scoped>
 .userNumSection {
   margin-top: 16px;
+  user-select: none;
 }
 
 .userNumSection h2 {

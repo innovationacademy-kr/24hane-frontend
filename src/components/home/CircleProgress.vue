@@ -64,6 +64,7 @@ const calcLine = () => {
   width: 120px;
   height: 120px;
   margin: 10px auto 0;
+  user-select: none;
 }
 
 .circle .progress {

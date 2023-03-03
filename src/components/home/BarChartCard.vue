@@ -84,6 +84,7 @@ const clickIndex = ref(0);
   background-color: #fff;
   border-radius: 20px;
   padding: 30px 20px;
+  user-select: none;
 }
 
 h3 {

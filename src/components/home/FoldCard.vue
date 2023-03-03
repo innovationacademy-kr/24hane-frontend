@@ -132,6 +132,7 @@ const checkColor = () => {
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   padding: 26px 20px;
+  user-select: none;
 }
 
 .wrap.on {

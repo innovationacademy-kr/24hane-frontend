@@ -99,7 +99,7 @@ watch(
   margin-left: 10px;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-heading);
+  color: var(--white);
   position: relative;
 }
 
