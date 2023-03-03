@@ -71,8 +71,8 @@ const clickIndex = ref(0);
     </ul>
     <div class="preiodBox">
       <div class="period">
-        <div class="text">최근 순</div>
-        <div class="text">오래된 순</div>
+        <div class="text">최신순</div>
+        <div class="text">오래된순</div>
       </div>
     </div>
   </div>
