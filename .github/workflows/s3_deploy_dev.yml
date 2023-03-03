@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build dev
-        run: npm run build
+        run: npm run build-only
 
       - name: Deploy
         uses: reggionick/s3-deploy@v3
