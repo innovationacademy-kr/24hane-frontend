@@ -1,28 +1,27 @@
 <script setup lang="ts">
 const props = defineProps<{
   title: string;
+  path: string;
 }>();
 </script>
 
 <template>
   <li>
-    <div class="tapHighlight">
+    <a :href="props.path" target="_blank">
       <div class="imageBox">
         <slot name="image"></slot>
       </div>
       <span class="title">{{ props.title }}</span>
-    </div>
+    </a>
   </li>
 </template>
 
 <style scoped>
-li > div {
+li a {
   display: flex;
   align-items: center;
   padding: 10px 0;
   margin-bottom: 10px;
-  cursor: pointer;
-  user-select: none;
 }
 
 .imageBox {
