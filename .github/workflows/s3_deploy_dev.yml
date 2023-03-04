@@ -24,8 +24,6 @@ jobs:
       - name: Build dev
         run: yarn build
 
-        run: npm install s3-deploy@latest
-
       - name: Deploy
         uses: reggionick/s3-deploy@v3
         run: npm install s3-deploy@latest
