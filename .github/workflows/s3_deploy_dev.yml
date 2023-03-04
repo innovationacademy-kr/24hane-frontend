@@ -26,7 +26,6 @@ jobs:
 
       - name: Deploy
         uses: reggionick/s3-deploy@v3
-        run: npm install s3-deploy@latest
         with:
           folder: dist
           bucket: ${{ secrets.S3_BUCKET_DEV }}
