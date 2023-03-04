@@ -157,7 +157,8 @@ export const useHomeStore = defineStore("home", () => {
     const nowYear = now.getFullYear();
     const nowMonth = now.getMonth();
     const nowDate = now.getDate();
-    const nowDay = now.getDay();
+    let nowDay = now.getDay();
+    if (nowDay === 0) nowDay = 7;
     const weekStartDate = new Date(
       nowYear,
       nowMonth,
