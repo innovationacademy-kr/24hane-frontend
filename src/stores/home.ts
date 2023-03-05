@@ -123,7 +123,6 @@ export const useHomeStore = defineStore("home", () => {
   const apiMainInfo = async () => {
     try {
       const { data: mainInfo } = await getMainInfo();
-      console.log(mainInfo);
       userInfo.value = {
         login: mainInfo.login,
         isAdmin: mainInfo.isAdmin,
@@ -148,7 +147,6 @@ export const useHomeStore = defineStore("home", () => {
 
   const calHours = (time: number) => {
     const str = (time / 3600).toFixed(1);
-    console.log(time / 3600 + "시간");
     return str;
   };
 
@@ -206,7 +204,6 @@ export const useHomeStore = defineStore("home", () => {
     try {
       isLoading.value = true;
       const { data: accTimes } = await getAccTimes();
-      console.log(accTimes);
       accDate.value = calcSecToTime(accTimes.todayAccumationTime);
       accMonth.value = calcSecToTime(accTimes.monthAccumationTime);
       weeklyAccTime.value = accTimes.sixWeekAccumulationTime;

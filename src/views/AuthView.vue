@@ -10,7 +10,6 @@ onMounted(() => {
 
   setTimeout(async () => {
     const isLogin = await getIsLogin();
-    console.log(isLogin?.status);
     if (isLogin?.status === STATUS_204_NO_CONTENT) {
       localStorage.setItem("isLogin", "true");
       router.push("/home");

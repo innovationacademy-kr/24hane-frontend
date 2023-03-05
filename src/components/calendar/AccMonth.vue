@@ -7,7 +7,6 @@ const monthText = ref(getMonthAccTimeText());
 
 watch(showLogs, () => {
   monthText.value = getMonthAccTimeText();
-  console.log("총 월 누적시간 왓치 동작!");
 });
 </script>
 

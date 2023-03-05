@@ -11,7 +11,7 @@ import {
 } from "@/api/reissueAPI";
 import LoadingAnimation from "@/components/common/LoadingAnimation.vue";
 
-// 0: 안함
+// 0: 없음
 // 1: 신청
 // 2: 제작
 // 3: 완료
@@ -75,7 +75,6 @@ const isLoading = ref(false);
 const getProgress = async () => {
   isLoading.value = true;
   const { data } = await getReissue();
-  console.log(data.state);
   if (data.state == "none" || data.state == "done") {
     progressIndex.value = CardOrder.NONE;
   } else if (data.state === "apply") {

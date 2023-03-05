@@ -43,27 +43,22 @@ const isOnline = ref(getUserInfo().inoutState);
 
 watch(showNowMonthLogs, () => {
   todayAccTime.value = getNowDateAccTimeText();
-  // console.log("오늘 누적", todayAccTime.value);
 });
 
 watch(showNowMonthLogs, () => {
   monthAccTime.value = getNowMonthAccTimeText();
-  // console.log("월 누적시간", monthAccTime.value);
 });
 
 watch(getWeeklyGraph, () => {
   getWeeklyData.value = getWeeklyGraph();
-  // console.log("주간 그래프", getWeeklyData.value);
 });
 
 watch(getMonthlyGraph, () => {
   getMonthlyData.value = getMonthlyGraph();
-  // console.log("월간 그래프", getMonthlyData.value);
 });
 
 watch(getNumberOfPeople, () => {
   numberOfPeople.value = getNumberOfPeople();
-  console.log("현재 인원", numberOfPeople.value);
 });
 
 watch(getUserInfo, () => {

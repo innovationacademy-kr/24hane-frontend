@@ -5,8 +5,6 @@ import { ref } from "vue";
 const ORIGIN_URL = window.location.origin;
 const BACKEND_URL = import.meta.env.VITE_APP_API_URL;
 const isClicked = ref(false);
-
-console.log(`${BACKEND_URL}/user/login/42?redirect=${ORIGIN_URL}/auth`);
 </script>
 
 <template>

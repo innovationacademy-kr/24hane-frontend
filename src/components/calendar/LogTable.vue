@@ -13,7 +13,6 @@ const isLoading = ref(showIsLoading());
 
 watch(showSelectedDateText, () => {
   logs.value = getDateLogs();
-  console.log("날짜 변경");
 });
 
 watch(showIsLoading, (val) => {

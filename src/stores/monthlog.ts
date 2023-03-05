@@ -4,20 +4,6 @@ import { getLogsDate, getLogsmonth } from "@/api/logsAPI";
 import type { LogsData, Log } from "@/types/logs";
 import { getStorage, saveStorage } from "@/utils/localStorage";
 
-/*
-  localStorage에 로그 저장 방법
-  1. 월 로그 데이터를 받아와서 api 호출한 시간을 저장한 후,
-  localStorage에 암호화 해서 저장한다.
-  - 만약 복호화가 안되면, 월 api 호출을 한다.
-
-  - 만약 복호화가 되면, 로컬스토리지에서 데이터를 가져온다.
-    2. 로그 데이터를 받아올 때, localStorage에 저장된 스탬프와 비교하여 오늘의 날짜가 아니면, 월 api를 호출한다.
-    3. 로그 데이터를 받아올 때, localStorage에 저장된 스탬프와 비교하여 오늘의 날짜면 localStorage에서 데이터를 가져오고,
-    4. 오늘 날짜만 새로 갱신한다. (일 api 호출)
-
-    일어날 수 있는 문제점
-*/
-
 export const useMonthLogStore = defineStore("MonthLog", () => {
   // 오늘 날짜
   const today = ref(new Date());
@@ -293,7 +279,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
 
   // 금 월의 오늘 로그 추가하기
   const insertTodayLogs = (data: LogsData) => {
-    console.log("금 월의 오늘 로그 추가할 데이터", data.inOutLogs);
     logsContainer.value.map((monthlog) => {
       if (
         monthlog.date ===
@@ -365,17 +350,11 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return false;
   };
 
-  // 달 로그 api 호출
-
-  // 보고있는 월 로그 api 호출
-  // 로그가 없으면 월 로그api 호출
-  // 로그가 있으면 로그 컨테이너에서 가져오기
-  // 로그가 있으면서 오늘 날짜면 apiTodayData 호출
+  // 월 로그 api 호출
   const apiLogsMonthData = async () => {
     if (checkHasLogs()) {
       if (checkNowMonth()) {
         if (checkNowMonthUpdateAt()) {
-          console.log("오늘 정보 호출");
           apiTodayData();
           return;
         }
@@ -383,14 +362,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
         if (checkPrevMonthUpdateAt()) return;
       }
     }
-    console.log("월 정보 호출");
     isLoading.value = true;
     try {
       const { data: monthData } = await getLogsmonth(
         year.value,
         month.value + 1
       );
-      console.log(monthData);
       setMonthLogs(monthData);
       isLoading.value = false;
     } catch (error) {
@@ -434,7 +411,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     isLoading.value = true;
     if (checkNowMonthLogs() && checkTodayUpdateAt()) {
       apiTodayData();
-      console.log("오늘 데이터 호출");
       isLoading.value = false;
       return;
     }
@@ -445,8 +421,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     );
     setNowMonthLogs(monthData);
     isLoading.value = false;
-    console.log("이번달 데이터 호출");
-    console.log(monthData);
   };
 
   // 이전 달 버튼 클릭
@@ -462,7 +436,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     calcLastDate();
     setDateTitle();
     apiLogsMonthData();
-    console.log(logsContainer.value);
   };
 
   // 다음 달 버튼 클릭
@@ -482,7 +455,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     calcLastDate();
     setDateTitle();
     apiLogsMonthData();
-    console.log(logsContainer.value);
   };
 
   // 일별 누적시간 색상 컬러셋
@@ -536,7 +508,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const getDateLogs = () => {
     const tempLogs: Log[] = [];
     const logs = showLogs();
-    // console.log("일 계산하는 곳", logs?.inOutLogs);
     if (!logs || logs?.inOutLogs.length === 0) return tempLogs;
     logs.inOutLogs.map((log, index) => {
       const inLogTime = checkLogTime(log.inTimeStamp);
@@ -562,7 +533,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
           accLogTime: changeTimetext(accLogTime),
         });
       }
-      // console.log("tempLogs", tempLogs);
     });
     return tempLogs.reverse();
   };
@@ -586,8 +556,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       ) {
         duration += log.durationSecond;
       }
-      // data가 정렬되어있는 경우, 속도 빨라질수 있는 부분
-      // if (startDate > date) return duration / 3600;
     });
     return duration / 3600;
   };
@@ -614,7 +582,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
         duration += log.durationSecond;
       }
     });
-    console.log("duration", duration);
     return duration / 3600;
   };
 
@@ -623,7 +590,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const accTime = getDateAccTime(showSelectedDate());
     const hour = Math.floor(accTime);
     const min = Math.floor((accTime - hour) * 60);
-    // if (hour === 0 && min === 0) return "0분";
     return `${hour}시간 ${min}분`;
   };
 
@@ -680,8 +646,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const accTime = getMonthAccTime();
     const hour = Math.floor(accTime);
     const min = Math.floor((accTime - hour) * 60);
-    // if (hour === 0 && min === 0) return "0분";
-    // return `${hour}시간 ${min}분`;
     return {
       hour: hour,
       minute: min,
@@ -690,7 +654,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
 
   const getNowMonthAccTimeText = () => {
     const accTime = getNowMonthAccTime();
-    console.log("[accTime]", accTime);
     const hour = Math.floor(accTime);
     const min = Math.floor((accTime - hour) * 60);
     return {
