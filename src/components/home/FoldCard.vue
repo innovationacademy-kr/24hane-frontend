@@ -62,6 +62,15 @@ const checkColor = () => {
     return "#ffffff";
   }
 };
+
+const dayOptions = [
+  4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+];
+
+const monthOptions = [
+  80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380,
+  400, 420,
+];
 </script>
 
 <template>
@@ -89,25 +98,23 @@ const checkColor = () => {
       <h2>목표 시간</h2>
       <div>
         <select v-if="!isMonth" v-model="goalTime" class="timeNumber select">
-          <option :value="0" selected>0</option>
           <option
-            v-for="index in 24"
+            v-for="index in dayOptions"
             :key="index"
             :value="index"
-            :selected="index === 8"
+            :selected="index === 4"
           >
             {{ index }}
           </option>
         </select>
         <select v-else v-model="goalTime" class="timeNumber select">
-          <option :value="0" selected>0</option>
           <option
-            v-for="index in 21"
+            v-for="index in monthOptions"
             :key="index"
-            :value="index * 20"
+            :value="index"
             :selected="index === 80"
           >
-            {{ index * 20 }}
+            {{ index }}
           </option>
         </select>
         <span class="timeUnit">시간</span>
