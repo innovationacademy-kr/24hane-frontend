@@ -36,6 +36,7 @@ watch(
       </h2>
     </div>
     <RouterLink
+      v-if="false"
       to="/notification"
       class="notification"
       :class="{ on: isNotification }"
@@ -128,7 +129,6 @@ watch(
   width: 50px;
   height: 100%;
   cursor: pointer;
-  display: none;
 }
 
 .notification.on::before {
