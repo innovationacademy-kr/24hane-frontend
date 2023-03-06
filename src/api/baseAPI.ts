@@ -26,7 +26,6 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // error 가 401 이 아닐 수 있다.(예를 들어 토큰에 한글을 넣을 경우, 다른 에러가 뜬다.)
     if (
       error.response?.status === STATUS_401_UNAUTHORIZED ||
       error.response?.status === undefined
