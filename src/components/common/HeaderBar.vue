@@ -128,6 +128,7 @@ watch(
   width: 50px;
   height: 100%;
   cursor: pointer;
+  display: none;
 }
 
 .notification.on::before {
