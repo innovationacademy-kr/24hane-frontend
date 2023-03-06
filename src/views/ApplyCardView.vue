@@ -10,6 +10,9 @@ import {
   setReissueFinish,
 } from "@/api/reissueAPI";
 import LoadingAnimation from "@/components/common/LoadingAnimation.vue";
+import { cardReissueURL } from "@/api/redirectAPI";
+
+const backendUrl = import.meta.env.VITE_APP_API_URL;
 
 // 0: 없음
 // 1: 신청
@@ -155,7 +158,7 @@ const selectButtonColor = () => {
   <main>
     <div>
       <h3>재발급 신청 방법</h3>
-      <DefaultButton title="자세히 보기" path="https://naver.com" />
+      <DefaultButton title="자세히 보기" :path="backendUrl + cardReissueURL" />
       <h3>재발급 신청 현황</h3>
       <div class="card">
         <LoadingAnimation v-if="isLoading" />
