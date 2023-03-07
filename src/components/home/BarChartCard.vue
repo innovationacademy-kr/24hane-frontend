@@ -32,7 +32,7 @@ const calcTimePercent = (time: number, times: number[]) => {
   return percent + "%";
 };
 
-const getLastDateArray = (index: number) => {
+const getLastDate = (index: number) => {
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -41,7 +41,7 @@ const getLastDateArray = (index: number) => {
 
 const calcAvgTime = (time: number, index: number) => {
   if (props.isMonth) {
-    const lastDate = getLastDateArray(index);
+    const lastDate = getLastDate(index);
     return (time / lastDate).toFixed(1);
   }
   return (time / 7).toFixed(1);
