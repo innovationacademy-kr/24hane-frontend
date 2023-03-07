@@ -32,7 +32,18 @@ const calcTimePercent = (time: number, times: number[]) => {
   return percent + "%";
 };
 
-const calcAvgTime = (time: number) => {
+const getLastDateArray = (index: number) => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  return new Date(year, month - index, 0).getDate();
+};
+
+const calcAvgTime = (time: number, index: number) => {
+  if (props.isMonth) {
+    const lastDate = getLastDateArray(index);
+    return (time / lastDate).toFixed(1);
+  }
   return (time / 7).toFixed(1);
 };
 
@@ -52,7 +63,12 @@ const clickIndex = ref(0);
         <div class="time">총 {{ props.periodsData[clickIndex].total }}시간</div>
         <div class="time">
           평균
-          {{ calcAvgTime(Number(props.periodsData[clickIndex].total)) }}시간
+          {{
+            calcAvgTime(
+              Number(props.periodsData[clickIndex].total),
+              clickIndex
+            )
+          }}시간
         </div>
       </div>
     </div>
