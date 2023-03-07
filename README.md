@@ -1,85 +1,39 @@
-# 24HANE
-
-## 프로젝트 실행 방법
-
-해당 앱은 벡엔드 서버와, env 설정이 필요합니다.
-
-### .env 예시
-
-루트에 .env파일을 만듭니다.
-
-```
-# 백엔드 url 주소
-VITE_APP_API_URL = http://localhost:2424
-# 토큰 이름
-VITE_TOKEN = accessToken
-```
-
-### 앱 실행
-
-- 해당 레포를 clone 받습니다.
-- [벡엔드 레포](https://github.com/innovationacademy-kr/24hane-backend) 를 클론 받습니다.
-
-```
-//의존성 패키지 설정
-npm install
-
-//코드를 실행 합니다
-npm run dev
-```
-
-<br />
-<br />
-
-## 프로젝트 배포 방법
-
-### GithubActions 설정
-
-배포자동화를 통해서 아래 와 같이 연동 되어 있습니다.
-
-- main 브랜치는 상용 서버와 연동
-- develop 브랜치는 개발 서버와 연동
-
-배포 자동화에 대한 yml 파일은 [링크](https://github.com/innovationacademy-kr/42checkin_v3-frontend/tree/master/.github/workflows)에서 확인 가능 합니다. 해당 파일의 env 값들은 `Actions secrets` 을 이용하여 변경 가능 합니다.
-
-```
-AWS_ACCESS_KEY_ID //AWS CLI 사용하기 위한 access key
-AWS_SECRET_ACCESS_KEY //AWS CLI 사용하기 위한 secret access key
-DEFAULT_BUCKET_REGION //S3 버킷 위치 아시아 태평양 (서울) "ap-northeast-2"
-CLOUDFRONT_DISTRIBUTION_ID //CloudFront ID 상용
-CLOUDFRONT_DISTRIBUTION_ID_DEV //CloudFront ID 개발용
-S3_BUCKET  //S3 Bucket 이름 상용
-S3_BUCKET_DEV  //S3 Bucket 이름 개발용
-
-REACT_APP_ENV //개발 환경 (ex: development,local,production)
-REACT_APP_API_URL_DEV //server url (ex. https://localhost:3000)
-REACT_APP_SENTRY_DSN = Sentry DSN key (ex: Sentry credential 파일 확인)
-VITE_APP_API_URL // 배포 환경의 server url
-VITE_APP_API_URL_DEV // 개발 환경의 server url
-VITE_TOKEN // 토큰 명
-```
-
-
-<br />
-<br />
-
-## 프로젝트 소개
 
 <a href="https://24hoursarenotenough.42seoul.kr/" target="_blank">
 <img width="100" alt="image" src="https://user-images.githubusercontent.com/72684256/222954950-6ab18005-81e1-4d0b-93d5-6097f11fee32.png">
 </a>
 
+# 24HANE
+
+### 24 hours are not enough! 24시간이 부족해!
+
+안녕하세요:) 42서울 공식 체크인 서비스 24HANE입니다💌
+
+`"24 Hane" (24 hours are not enough)` 은 Cadet 여러분의 클러스터 출입 여부와 출입 누적 시간을 직접 확인할 수 있도록 개발된 서비스 입니다. 
+
+원활하게 서비스를 이용할 수 있도록 기본 기능을 소개합니다. 👋
+
+<br />
+<br />
+
+## 서비스 소개
+
+<p align="center">
 <a href="https://24hoursarenotenough.42seoul.kr/" target="_blank">
-24 HANE (24 hours are not enough)
+<img width="100" alt="image" src="https://user-images.githubusercontent.com/72684256/223358425-9eca18d8-577b-4476-8c93-aeeb9c3ec934.png" />
 </a>
+</p>
 
+<p align="center">
+<b>24 HANE (24 hours are not enough)</b>
+</p>
 
-```md
-## 카뎃 여러분이 직접 클러스터 출입 누적 시간을 확인할 수 있는 24 HANE 서비스를 소개합니다.
+```
+카뎃 여러분이 직접 클러스터 출입 누적 시간을 확인할 수 있는 24 HANE 서비스를 소개합니다.
  - 클러스터 출입태깅이 잘 됐는지 궁금한가요?
  - 클러스터 출입 누적 시간이 궁금한가요?
 
-## 24HANE 서비스를 이용한다면?
+24HANE 서비스를 이용한다면?
  - 클러스터 출입 누적 시간을 오늘 / 월 기준으로 한 눈에 볼 수 있습니다.
  - 목표 시간을 설정하여 오늘 / 월의 학습 시간 진척도를 그래프로 볼 수 있습니다.
  - 최근 6주간 / 6달간의 학습 시간 진척도를 그래프로 볼 수 있습니다.
@@ -92,19 +46,17 @@ VITE_TOKEN // 토큰 명
 <br />
 <br />
 
-## 기술 스택
-
- <p>
-   <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=Vue.js&logoColor=black">
-  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=black">
-    <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=black">
-</p>
-
-
-<br />
-<br />
-
 ## 기능 소개
+
+새로워진 24HANE 서비스의 각 페이지를 소개합니다.
+
+<table align="center">
+  <tr>
+    <td><img width="345" alt="image" src="https://user-images.githubusercontent.com/72684256/222955031-4ce9edd6-6dda-46f3-ac17-e6bacacfbcfe.png"></td>
+    <td><img width="345" alt="image" src="https://user-images.githubusercontent.com/72684256/222955101-301b7088-890b-4291-899f-9e685264c78f.png"></td>
+    <td><img width="345" alt="image" src="https://user-images.githubusercontent.com/72684256/222955264-301460c7-cc7d-4d2c-905a-5b73cba8383c.png"></td>
+  <tr>
+</table>
 
 - **로그인**
   - Intra 로그인을 통해 서비스 로그인이 가능합니다.
@@ -147,11 +99,80 @@ VITE_TOKEN // 토큰 명
   - 앱 피드백(링크)
   - 로그아웃
 
-<table align="center">
-  <tr>
-    <td><img width="345" alt="image" src="https://user-images.githubusercontent.com/72684256/222955031-4ce9edd6-6dda-46f3-ac17-e6bacacfbcfe.png"></td>
-    <td><img width="345" alt="image" src="https://user-images.githubusercontent.com/72684256/222955101-301b7088-890b-4291-899f-9e685264c78f.png"></td>
-    <td><img width="345" alt="image" src="https://user-images.githubusercontent.com/72684256/222955264-301460c7-cc7d-4d2c-905a-5b73cba8383c.png"></td>
-  <tr>
-</table>
+<br />
+<br />
 
+## 기술 스택
+
+ <p>
+   <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=Vue.js&logoColor=black">
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=black">
+    <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=black">
+</p>
+
+
+<br />
+<br />
+
+## 프로젝트 실행 방법
+
+해당 앱은 벡엔드 서버와, env 설정이 필요합니다.
+
+### .env 예시
+
+루트에 .env파일을 만듭니다.
+
+```
+# 백엔드 url 주소
+VITE_APP_API_URL = http://localhost:2424
+# 토큰 이름
+VITE_TOKEN = accessToken
+```
+
+### 앱 실행
+
+- 해당 레포를 clone 받습니다.
+- [벡엔드 레포](https://github.com/innovationacademy-kr/24hane-backend) 를 클론 받습니다.
+
+```
+//의존성 패키지 설정
+npm install
+
+//코드를 실행 합니다
+npm run dev
+```
+
+<br />
+<br />
+
+## 프로젝트 배포 방법
+
+### GithubActions 설정
+
+배포자동화를 통해서 아래 와 같이 연동되어 있습니다.
+
+- main 브랜치는 상용 서버와 연동
+- develop 브랜치는 개발 서버와 연동
+
+배포 자동화에 대한 yml 파일은 [링크](https://github.com/innovationacademy-kr/42checkin_v3-frontend/tree/master/.github/workflows)에서 확인 가능 합니다. 해당 파일의 env 값들은 `Actions secrets` 을 이용하여 변경 가능 합니다.
+
+```
+AWS_ACCESS_KEY_ID //AWS CLI 사용하기 위한 access key
+AWS_SECRET_ACCESS_KEY //AWS CLI 사용하기 위한 secret access key
+DEFAULT_BUCKET_REGION //S3 버킷 위치 아시아 태평양 (서울) "ap-northeast-2"
+CLOUDFRONT_DISTRIBUTION_ID //CloudFront ID 상용
+CLOUDFRONT_DISTRIBUTION_ID_DEV //CloudFront ID 개발용
+S3_BUCKET  //S3 Bucket 이름 상용
+S3_BUCKET_DEV  //S3 Bucket 이름 개발용
+
+REACT_APP_ENV //개발 환경 (ex: development,local,production)
+REACT_APP_API_URL_DEV //server url (ex. https://localhost:3000)
+REACT_APP_SENTRY_DSN = Sentry DSN key (ex: Sentry credential 파일 확인)
+VITE_APP_API_URL // 배포 환경의 server url
+VITE_APP_API_URL_DEV // 개발 환경의 server url
+VITE_TOKEN // 토큰 명
+```
+
+### 개선 / 문의사항
+
+Frontend 문의: 인트라ID `inshin`에게 DM 주세요💌
