@@ -110,6 +110,7 @@ a {
 
 html {
   height: 100%;
+  -webkit-touch-callout: none;
 }
 
 body {
