@@ -20,7 +20,7 @@ watch(showLogs, () => {
   justify-content: center;
   align-items: center;
   height: 45px;
-  margin: 20px 0 30px;
+  margin: 20px 0;
   background-color: var(--black);
   color: var(--white);
   border-radius: 10px;
