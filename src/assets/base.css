@@ -1,0 +1,132 @@
+:root {
+  --color-primary: #735bf2;
+  --color-secondary: #00babc;
+
+  --white: #ffffff;
+  --white-soft: #f5f5f5;
+
+  --gray: #9b9797;
+  --gray-dark: #5b5b5b;
+  --gray-dark2: #707070;
+  --gray-soft: #d9d9d9;
+
+  --black: #333333;
+  --black-soft: #444444;
+  --black-dark: #000000;
+
+  --divider: #eaeaea;
+  --red: #ea1515;
+
+  --text-black: var(--black);
+  --text-gray: var(--gray);
+  --text-white: var(--white);
+
+  --bar-gradation: linear-gradient(200.75deg, #9ac3f4 11.67%, #735bf2 86.56%);
+  --circle-border: 16px solid;
+  --circle-gradation: linear-gradient(
+    200.75deg,
+    rgba(0, 186, 188, 0.04) 11.67%,
+    #735bf2 86.56%
+  );
+  --circle-gradation-bg: linear-gradient(
+    200.75deg,
+    #bcf8f9 11.67%,
+    #735bf2 86.56%
+  );
+  --font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+
+  --vh: 100%;
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--white);
+  --color-background-soft: var(--white-soft);
+  --color-background-btn: var(--black);
+
+  --color-border: var(--divider);
+
+  --color-heading: var(--text-black);
+  --color-heading-on: var(--text-white);
+  --color-text-soft: var(--text-gray);
+  --color-text: var(--text-black);
+  --color-text-more: var(--gray-dark2);
+  --color-log-bg: var(--divider);
+
+  --header-bg: var(--white-soft);
+  --menu-shadow: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.05));
+  --color-vbutton: var(--gray-dark);
+
+  --cal-bg-1: rgba(154, 199, 244, 0.4);
+  --cal-bg-2: rgba(144, 167, 244, 0.5);
+  --cal-bg-3: rgba(128, 125, 244, 0.7);
+  --cal-bg-4: rgba(115, 91, 242, 0.9);
+  --cal-today: var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--black);
+    --color-background-soft: var(--black);
+    --color-background-btn: var(--white);
+
+    --color-border: var(--gray-dark2);
+
+    --color-heading: var(--text-white);
+    --color-heading-on: var(--text-black);
+    --color-text-soft: var(--text-gray);
+    --color-text: var(--text-white);
+    --color-text-more: var(--divider);
+    --color-log-bg: #555555;
+
+    --header-bg: var(--black);
+    --color-vbutton: var(--gray);
+
+    --cal-today: #fff;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: 0.4s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tapHighlight {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  height: 100%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  min-height: 100%;
+  color: var(--color-text);
+  background-color: var(--color-background-soft);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

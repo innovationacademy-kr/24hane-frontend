@@ -1,21 +1,24 @@
-import { instance, makeAPIPath } from "./baseAPI";
+import { instance } from "./baseAPI";
 
-export type LogsResponse = {
-  login: string; //loginID 로 변경해서 사용
-  profileImage: string;
-  inOutLogs: InOutLog[];
+const getLogsDayURL = "v2/tag-log/getAllTagPerDay";
+export const getLogsDate = async (year: number, month: number, day: number) => {
+  const response = await instance.get(getLogsDayURL, {
+    params: {
+      year,
+      month,
+      day,
+    },
+  });
+  return response;
 };
 
-export type InOutLog = {
-  inTimeStamp: number;
-  outTimeStamp: number;
-  durationSecond: number;
-};
-
-export const getLogsDay = (year: number, month: number, day: number) => {
-  return instance.get(makeAPIPath(`tag-log/perday?year=${year}&month=${month}&day=${day}`));
-};
-
-export const getLogsmonth = (year: number, month: number) => {
-  return instance.get(makeAPIPath(`tag-log/permonth?year=${year}&month=${month}`));
+const getLogsMonthURL = "v2/tag-log/getAllTagPerMonth";
+export const getLogsmonth = async (year: number, month: number) => {
+  const response = await instance.get(getLogsMonthURL, {
+    params: {
+      year,
+      month,
+    },
+  });
+  return response;
 };

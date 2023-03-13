@@ -1,0 +1,40 @@
+@import "./base.css";
+
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  padding: 0;
+  font-weight: normal;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 425px;
+}
+
+/* swiper */
+.swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: var(--gray-dark2);
+}
+.swiper-pagination-bullet-active {
+  background-color: var(--color-primary);
+}
+
+@media (hover: hover) {
+}
+
+@media (min-width: 1024px) {
+  /* body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  } */
+}

@@ -12,20 +12,22 @@ jobs:
       REACT_APP_API_URL: ${{secrets.REACT_APP_API_URL}}
       REACT_APP_ENV: ${{secrets.REACT_APP_ENV}}
       REACT_APP_SENTRY_DSN: ${{secrets.REACT_APP_SENTRY_DSN}}
+      VITE_APP_API_URL: ${{secrets.VITE_APP_API_URL}}
+      VITE_TOKEN: ${{secrets.VITE_TOKEN}}
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: yarn
+        run: npm i
 
       - name: Build Production
-        run: yarn build:prod
+        run: npm run build
 
       - name: Deploy
         uses: reggionick/s3-deploy@v3
         with:
-          folder: build
+          folder: dist
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: ${{secrets.DEFAULT_BUCKET_REGION}}
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
