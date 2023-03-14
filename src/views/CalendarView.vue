@@ -116,6 +116,7 @@ main {
 .today {
   color: var(--cal-today) !important;
   border: 1px solid var(--cal-today);
+  background: transparent !important;
 }
 
 .days > .day.selected {
