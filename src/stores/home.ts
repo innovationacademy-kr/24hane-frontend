@@ -63,8 +63,10 @@ export const useHomeStore = defineStore("home", () => {
     },
   ];
 
-  const weeklyGraph = ref<PeriodData[]>(dumyData);
-  const monthlyGraph = ref<PeriodData[]>(dumyData);
+  const weeklyGraph = ref<PeriodData[]>(getStorage("weeklyGraph") || dumyData);
+  const monthlyGraph = ref<PeriodData[]>(
+    getStorage("monthlyGraph") || dumyData
+  );
 
   const getIsLoading = () => {
     return isLoading.value;
@@ -173,13 +175,25 @@ export const useHomeStore = defineStore("home", () => {
   };
 
   const setWeeklyGraph = () => {
-    const tempData = dumyData.map((data, index) => {
-      return {
-        periods: calcWeely(index),
-        total: calHours(weeklyAccTime.value[index]),
-      };
-    });
+    let tempData: PeriodData[] = [];
+    if (getStorage("weeklyGraph")) {
+      tempData = getStorage("weeklyGraph");
+      tempData = tempData.map((data, index) => {
+        return {
+          periods: calcWeely(index),
+          total: calHours(weeklyAccTime.value[index]),
+        };
+      });
+    } else {
+      tempData = dumyData.map((data, index) => {
+        return {
+          periods: calcWeely(index),
+          total: calHours(weeklyAccTime.value[index]),
+        };
+      });
+    }
     weeklyGraph.value = tempData;
+    saveStorage("weeklyGraph", tempData);
   };
 
   const calcMonthly = (index: number) => {
@@ -191,23 +205,39 @@ export const useHomeStore = defineStore("home", () => {
   };
 
   const setMonthlyGraph = () => {
-    const tempData = dumyData.map((data, index) => {
-      return {
-        periods: calcMonthly(index),
-        total: calHours(monthlyAccTime.value[index]),
-      };
-    });
+    let tempData: PeriodData[] = [];
+    if (getStorage("monthlyGraph")) {
+      tempData = getStorage("monthlyGraph");
+      tempData = tempData.map((data, index) => {
+        return {
+          periods: calcMonthly(index),
+          total: calHours(monthlyAccTime.value[index]),
+        };
+      });
+    } else {
+      tempData = dumyData.map((data, index) => {
+        return {
+          periods: calcMonthly(index),
+          total: calHours(monthlyAccTime.value[index]),
+        };
+      });
+    }
     monthlyGraph.value = tempData;
+    saveStorage("monthlyGraph", tempData);
   };
 
   const apiAccTimes = async () => {
     try {
-      isLoading.value = true;
+      if (!getStorage("weeklyAccTime")) {
+        isLoading.value = true;
+      }
       const { data: accTimes } = await getAccTimes();
       accDate.value = calcSecToTime(accTimes.todayAccumationTime);
       accMonth.value = calcSecToTime(accTimes.monthAccumationTime);
       weeklyAccTime.value = accTimes.sixWeekAccumulationTime;
+      saveStorage("weeklyAccTime", accTimes.sixWeekAccumulationTime);
       monthlyAccTime.value = accTimes.sixMonthAccumulationTime;
+      saveStorage("monthlyAccTime", accTimes.sixMonthAccumulationTime);
       setWeeklyGraph();
       setMonthlyGraph();
       isLoading.value = false;
