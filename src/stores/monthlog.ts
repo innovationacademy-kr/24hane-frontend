@@ -279,12 +279,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
 
   // 금 월의 오늘 로그 추가하기
   const insertTodayLogs = (data: LogsData) => {
-    logsContainer.value.map((monthlog) => {
+    logsContainer.value.forEach((monthlog) => {
       if (
         monthlog.date ===
         `${today.value.getFullYear()}. ${today.value.getMonth() + 1}`
       ) {
-        monthlog.logs.inOutLogs.push(...data.inOutLogs);
+        monthlog.logs.inOutLogs.unshift(...data.inOutLogs);
         return;
       }
     });
