@@ -279,7 +279,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
 
   // 금 월의 오늘 로그 추가하기
   const insertTodayLogs = (data: LogsData) => {
-    logsContainer.value.forEach((monthlog) => {
+    logsContainer.value.map((monthlog) => {
       if (
         monthlog.date ===
         `${today.value.getFullYear()}. ${today.value.getMonth() + 1}`
@@ -516,7 +516,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       const LogYear = getLogYear(inLogTime, outLogTime);
       const logMonth = getLogMonth(inLogTime, outLogTime);
       const logDate = getLogDate(inLogTime, outLogTime);
-      if (index === 0 && outLogTime === -1 && checkToday(logDate as number)) {
+      if (
+        index === 0 &&
+        outLogTime === -1 &&
+        checkToday(logDate as number) &&
+        logDate === selectDate.value
+      ) {
         tempLogs.push({
           inLogTime: getLogTimeText(inLogTime),
           outLogTime: "-",
