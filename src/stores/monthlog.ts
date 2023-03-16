@@ -9,7 +9,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const today = ref(new Date());
 
   const getStorageYear = () => {
-    if (getStorage("showDate")) {
+    if (getStorage("showDate", "year")) {
       return getStorage("showDate", "year");
     }
     return today.value.getFullYear();
@@ -19,7 +19,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const year = ref(getStorageYear());
 
   const getStorageMonth = () => {
-    if (getStorage("showDate")) {
+    if (getStorage("showDate", "month")) {
       return getStorage("showDate", "month");
     }
     return today.value.getMonth();
@@ -33,7 +33,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const lastDate = ref(new Date(year.value, month.value + 1, 0).getDate());
 
   const getStorageDate = () => {
-    if (getStorage("showDate")) {
+    if (getStorage("showDate", "date")) {
       return getStorage("showDate", "date");
     }
     return today.value.getDate();
