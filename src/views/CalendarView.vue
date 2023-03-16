@@ -6,6 +6,7 @@ import LogTable from "@/components/calendar/LogTable.vue";
 import LoadingAnimation from "@/components/common/LoadingAnimation.vue";
 import { useMonthLogStore } from "@/stores/monthlog";
 import { onMounted, ref, watch } from "vue";
+import { getStorage } from "@/utils/localStorage";
 
 const monthLog = useMonthLogStore();
 const {
@@ -23,6 +24,9 @@ const {
 
 onMounted(() => {
   apiLogsMonthData();
+  if (!getStorage("showDate", "date")) {
+    setSelectedDate(new Date().getDate());
+  }
 });
 
 const clickDate = (date: number) => {
