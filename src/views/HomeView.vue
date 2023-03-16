@@ -124,6 +124,7 @@ main {
 }
 .bg.online {
   background: url("/home-bg.jpg") no-repeat center center fixed;
+  background-size: auto 100%;
 }
 .bg.online::after {
   content: "";
@@ -132,7 +133,7 @@ main {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .m-16 {
