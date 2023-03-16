@@ -67,7 +67,7 @@ watch(getUserInfo, () => {
 </script>
 
 <template>
-  <main :class="{ online: isOnline === 'IN' }">
+  <main>
     <div class="bg" :class="{ online: isOnline === 'IN' }"></div>
     <FoldCard :hour="todayAccTime.hour" :min="todayAccTime.minute">
       <template #title>이용 시간</template>
@@ -114,7 +114,7 @@ main {
 }
 
 .bg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -122,11 +122,16 @@ main {
   display: block;
 }
 .bg.online {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-main.online {
   background: url("/home-bg.jpg") no-repeat center center fixed;
+}
+.bg.online::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .m-16 {
