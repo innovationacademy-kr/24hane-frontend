@@ -232,8 +232,8 @@ export const useHomeStore = defineStore("home", () => {
         isLoading.value = true;
       }
       const { data: accTimes } = await getAccTimes();
-      accDate.value = calcSecToTime(accTimes.todayAccumationTime);
-      accMonth.value = calcSecToTime(accTimes.monthAccumationTime);
+      accDate.value = calcSecToTime(accTimes.todayAccumulationTime);
+      accMonth.value = calcSecToTime(accTimes.monthAccumulationTime);
       weeklyAccTime.value = accTimes.sixWeekAccumulationTime;
       saveStorage("weeklyAccTime", accTimes.sixWeekAccumulationTime);
       monthlyAccTime.value = accTimes.sixMonthAccumulationTime;
