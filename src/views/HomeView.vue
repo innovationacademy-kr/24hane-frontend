@@ -9,10 +9,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { useHomeStore } from "@/stores/home";
-import { useMonthLogStore } from "@/stores/monthlog";
 
 const {
   apiMainInfo,
+  getAccDate,
+  getAccMonth,
   getWeeklyGraph,
   getMonthlyGraph,
   getNumberOfPeople,
@@ -20,33 +21,25 @@ const {
   apiAccTimes,
 } = useHomeStore();
 
-const {
-  apiLogsNowMonthData,
-  getNowMonthAccTimeText,
-  getNowDateAccTimeText,
-  showNowMonthLogs,
-} = useMonthLogStore();
-
 onMounted(() => {
   apiMainInfo();
-  apiLogsNowMonthData();
   apiAccTimes();
 });
 
-const todayAccTime = ref(getNowDateAccTimeText());
-const monthAccTime = ref(getNowMonthAccTimeText());
+const todayAccTime = ref(getAccDate());
+const monthAccTime = ref(getAccMonth());
 const getWeeklyData = ref(getWeeklyGraph());
 const getMonthlyData = ref(getMonthlyGraph());
 const numberOfPeople = ref(getNumberOfPeople());
 
 const isOnline = ref(getUserInfo().inoutState);
 
-watch(showNowMonthLogs, () => {
-  todayAccTime.value = getNowDateAccTimeText();
+watch(getAccDate, () => {
+  todayAccTime.value = getAccDate();
 });
 
-watch(showNowMonthLogs, () => {
-  monthAccTime.value = getNowMonthAccTimeText();
+watch(getAccMonth, () => {
+  monthAccTime.value = getAccMonth();
 });
 
 watch(getWeeklyGraph, () => {
