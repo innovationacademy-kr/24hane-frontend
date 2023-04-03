@@ -279,29 +279,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     insertTodayLogs(logsData);
   };
 
-  const checkNowMonth = () => {
-    if (showMonth() === today.value.getMonth()) {
-      return true;
-    }
-    return false;
-  };
-
-  const checkHasLogs = () => {
-    if (
-      logsContainer.value.find(
-        (log) => log.date === `${showYear()}. ${showMonth() + 1}`
-      )?.logs.inOutLogs.length !== 0
-    ) {
-      return true;
-    }
-    return false;
-  };
-
   // 지난 달이고 업데이트 날짜가 이번 달 이상이면 true 데이터 호출 안함.
   const checkPrevMonthUpdateAt = () => {
     const updatedAt = logsContainer.value.find(
       (log) => log.date === `${showYear()}. ${showMonth() + 1}`
     )?.updatedAt;
+    console.log(updatedAt);
     if (updatedAt) {
       const date = new Date(updatedAt);
       if (date.getFullYear() > showYear() || date.getMonth() > showMonth()) {
@@ -311,35 +294,9 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return false;
   };
 
-  // 이번 달이고 오늘 날짜면 true -> apiTodayData 호출
-  const checkNowMonthUpdateAt = () => {
-    const updatedAt = logsContainer.value.find(
-      (log) => log.date === `${showYear()}. ${showMonth() + 1}`
-    )?.updatedAt;
-    if (updatedAt) {
-      const date = new Date(updatedAt);
-      if (
-        date.getMonth() === today.value.getMonth() &&
-        date.getDate() === today.value.getDate()
-      ) {
-        return true;
-      }
-    }
-    return false;
-  };
-
   // 월 로그 api 호출
   const apiLogsMonthData = async () => {
-    if (checkHasLogs()) {
-      if (checkNowMonth()) {
-        if (checkNowMonthUpdateAt()) {
-          apiTodayData();
-          return;
-        }
-      } else {
-        if (checkPrevMonthUpdateAt()) return;
-      }
-    }
+    if (checkPrevMonthUpdateAt()) return;
     isLoading.value = true;
     try {
       const { data: monthData } = await getLogsmonth(
