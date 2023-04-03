@@ -224,32 +224,10 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     )?.logs;
   };
 
-  const showNowMonthLogs = () => {
-    const todayYear = today.value.getFullYear();
-    const todayMonth = today.value.getMonth();
-    return logsContainer.value.find(
-      (log) => log.date === `${todayYear}. ${todayMonth + 1}`
-    )?.logs;
-  };
-
   // 보고 있는 월 로그 세팅하기
   const setMonthLogs = (data: LogsData) => {
     logsContainer.value.map((log) => {
       if (log.date === `${showYear()}. ${showMonth() + 1}`) {
-        log.updatedAt = new Date().toISOString();
-        log.logs = data;
-      }
-    });
-    saveStorage("logsContainer", logsContainer.value);
-  };
-
-  // 이번 달 월 로그 세팅하기
-  const setNowMonthLogs = (data: LogsData) => {
-    logsContainer.value.map((log) => {
-      if (
-        log.date ===
-        `${today.value.getFullYear()}. ${today.value.getMonth() + 1}`
-      ) {
         log.updatedAt = new Date().toISOString();
         log.logs = data;
       }
@@ -374,53 +352,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       console.log(error);
       isLoading.value = false;
     }
-  };
-
-  const checkNowMonthLogs = () => {
-    if (
-      logsContainer.value.find(
-        (log) =>
-          log.date ===
-          `${today.value.getFullYear()}. ${today.value.getMonth() + 1}`
-      )?.logs.inOutLogs.length !== 0
-    )
-      return true;
-    return false;
-  };
-
-  const checkTodayUpdateAt = () => {
-    const updatedAt = logsContainer.value.find(
-      (log) =>
-        log.date ===
-        `${today.value.getFullYear()}. ${today.value.getMonth() + 1}`
-    )?.updatedAt;
-    if (updatedAt) {
-      const date = new Date(updatedAt);
-      if (
-        date.getMonth() === today.value.getMonth() &&
-        date.getDate() === today.value.getDate()
-      ) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  // 이번 달 로그 api 호출
-  const apiLogsNowMonthData = async () => {
-    isLoading.value = true;
-    if (checkNowMonthLogs() && checkTodayUpdateAt()) {
-      apiTodayData();
-      isLoading.value = false;
-      return;
-    }
-    isLoading.value = true;
-    const { data: monthData } = await getLogsmonth(
-      today.value.getFullYear(),
-      today.value.getMonth() + 1
-    );
-    setNowMonthLogs(monthData);
-    isLoading.value = false;
   };
 
   // 이전 달 버튼 클릭
@@ -565,47 +496,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return duration / 3600;
   };
 
-  const getNowDateAccTime = () => {
-    let duration = 0;
-    const logs = showNowMonthLogs();
-    if (!logs || logs.inOutLogs.length === 0) return duration;
-    const todayYear = today.value.getFullYear();
-    const todayMonth = today.value.getMonth();
-    const todayDate = today.value.getDate();
-    logs.inOutLogs.forEach((log) => {
-      if (!log.durationSecond || !log.inTimeStamp || !log.outTimeStamp) return;
-      const inTime = checkLogTime(log.inTimeStamp);
-      const outTime = checkLogTime(log.outTimeStamp);
-      const LogYear = getLogYear(inTime, outTime);
-      const logMonth = getLogMonth(inTime, outTime);
-      const logDate = getLogDate(inTime, outTime);
-      if (
-        LogYear === todayYear &&
-        logMonth === todayMonth &&
-        logDate === todayDate
-      ) {
-        duration += log.durationSecond;
-      }
-    });
-    return duration / 3600;
-  };
-
   // 선택된 날짜의 누적시간 계산
   const getSelectedDateAccTimeText = () => {
     const accTime = getDateAccTime(showSelectedDate());
     const hour = Math.floor(accTime);
     const min = Math.floor((accTime - hour) * 60);
     return `${hour}시간 ${min}분`;
-  };
-
-  const getNowDateAccTimeText = () => {
-    const accTime = getNowDateAccTime();
-    const hour = Math.floor(accTime);
-    const min = Math.floor((accTime - hour) * 60);
-    return {
-      hour: hour,
-      minute: min,
-    };
   };
 
   // 선택된 월의 누적시간 계산
@@ -626,39 +522,9 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     return duration / 3600;
   };
 
-  // 입력한 날짜의 누적시간 계산
-  const getNowMonthAccTime = () => {
-    let duration = 0;
-    const logs = showNowMonthLogs();
-    if (!logs || logs.inOutLogs.length === 0) return duration;
-    const todayYear = today.value.getFullYear();
-    const todayMonth = today.value.getMonth();
-    logs.inOutLogs.forEach((log) => {
-      if (!log.durationSecond || !log.inTimeStamp || !log.outTimeStamp) return;
-      const inTime = checkLogTime(log.inTimeStamp);
-      const outTime = checkLogTime(log.outTimeStamp);
-      const LogYear = getLogYear(inTime, outTime);
-      const logMonth = getLogMonth(inTime, outTime);
-      if (LogYear === todayYear && logMonth === todayMonth) {
-        duration += log.durationSecond;
-      }
-    });
-    return duration / 3600;
-  };
-
   // 선택된 월의 누적시간 텍스트
   const getMonthAccTimeText = () => {
     const accTime = getMonthAccTime();
-    const hour = Math.floor(accTime);
-    const min = Math.floor((accTime - hour) * 60);
-    return {
-      hour: hour,
-      minute: min,
-    };
-  };
-
-  const getNowMonthAccTimeText = () => {
-    const accTime = getNowMonthAccTime();
     const hour = Math.floor(accTime);
     const min = Math.floor((accTime - hour) * 60);
     return {
@@ -700,9 +566,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     showIsLoading,
     showLogs,
     setMonthLogs,
-    showNowMonthLogs,
     apiTodayData,
-    apiLogsNowMonthData,
     apiLogsMonthData,
     showToday,
     showYear,
@@ -716,8 +580,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     showSelectedDateText,
     getSelectedDateAccTimeText,
     getMonthAccTimeText,
-    getNowDateAccTimeText,
-    getNowMonthAccTimeText,
     getDateLogs,
     dateTitle,
     showDateTitle,
