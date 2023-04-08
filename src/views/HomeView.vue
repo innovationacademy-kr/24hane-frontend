@@ -111,13 +111,13 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: block;
   overflow: hidden;
 }
 .bg.online {
   background: url("/home-bg.jpg") no-repeat center center fixed;
-  background-size: auto 100%;
+  background-size: auto 100vh;
 }
 .bg.online::after {
   content: "";
@@ -125,7 +125,7 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
 }
 
