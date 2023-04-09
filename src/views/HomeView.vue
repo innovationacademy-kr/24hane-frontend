@@ -111,17 +111,15 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100vh;
-  display: block;
-  overflow: hidden;
+  height: 100vh;
+  transform: translateZ(0);
 }
 
 .bg.online {
   background: url("/home-bg.jpg");
-  background-position: center;
-  background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
 }
 
 .bg.online::after {
@@ -130,7 +128,7 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
 }
 
