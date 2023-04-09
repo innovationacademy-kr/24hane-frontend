@@ -46,12 +46,20 @@ const { resetSelectedDate } = monthLog;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
   background-color: var(--color-background);
   filter: var(--menu-shadow);
   z-index: 9;
   padding: 0 30px;
   user-select: none;
+  box-sizing: border-box;
+}
+
+.wrap::after {
+  content: "";
+  display: block;
+  background-color: var(--color-background);
+  height: env(safe-area-inset-bottom);
+  overflow: hidden;
 }
 
 @media (min-width: 425px) {
@@ -66,7 +74,7 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 100%;
+  height: 50px;
 }
 nav a {
   display: block;
