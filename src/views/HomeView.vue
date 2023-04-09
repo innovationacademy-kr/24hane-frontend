@@ -111,21 +111,24 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  display: block;
-  overflow: hidden;
+  height: 100vh;
+  transform: translateZ(0);
 }
+
 .bg.online {
-  background: url("/home-bg.jpg") no-repeat center center fixed;
-  background-size: auto 100%;
+  background: url("/home-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
+
 .bg.online::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
 }
 

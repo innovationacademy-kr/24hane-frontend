@@ -74,7 +74,7 @@ watch(
 }
 
 .wrap.online {
-  background: none;
+  background: linear-gradient(to bottom, #222222, transparent 100%);
 }
 
 .profile {
