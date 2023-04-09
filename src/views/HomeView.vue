@@ -115,10 +115,12 @@ main {
   display: block;
   overflow: hidden;
 }
+
 .bg.online {
   background: url("/home-bg.jpg") no-repeat center center fixed;
-  background-size: auto 100%;
+  background-size: cover;
 }
+
 .bg.online::after {
   content: "";
   position: absolute;
