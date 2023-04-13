@@ -180,7 +180,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   // 월 리스트 개수와 로컬스토리지에 저장된 로그 컨테이너 개수가 같은지 확인
   const checkOptions = () => {
     const data: logsContainer[] = getStorage("logsContainer");
-    if (data.length === monthList.value.length) return true;
+    if (data && data.length === monthList.value.length) return true;
     return false;
   };
 
