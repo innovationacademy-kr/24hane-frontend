@@ -127,6 +127,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     day.value = new Date(year.value, month.value).getDay();
     lastDate.value = new Date(year.value, month.value + 1, 0).getDate();
     setDateTitle();
+    apiLogsMonthData();
   };
 
   // 해당 월 1일의 요일 계산하기
