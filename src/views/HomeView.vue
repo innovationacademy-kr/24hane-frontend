@@ -103,7 +103,7 @@ watch(getUserInfo, () => {
 
 <style scoped>
 main {
-  padding: 80px 30px;
+  padding: 70px 30px 100px;
 }
 
 .bg {

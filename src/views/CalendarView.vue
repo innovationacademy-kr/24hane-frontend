@@ -84,7 +84,7 @@ watch(showIsLoading, (val) => {
 
 <style scoped>
 main {
-  padding: 30px 30px 0px;
+  padding: 15px 30px 0px;
   background-color: var(--color-background);
   min-height: 100%;
 }
