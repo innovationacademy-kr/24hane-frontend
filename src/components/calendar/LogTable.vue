@@ -118,10 +118,10 @@ watch(getDateLogs, () => {
 
 @media screen and (display-mode: standalone) {
   .logs {
-    height: calc(var(--vh, 1vh) * 100 - 474px);
+    height: calc(var(--vh, 1vh) * 100 - 524px);
   }
   .logs.smaller {
-    height: calc(var(--vh, 1vh) * 100 - 514px);
+    height: calc(var(--vh, 1vh) * 100 - 564px);
   }
 }
 
