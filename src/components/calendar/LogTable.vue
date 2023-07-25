@@ -26,7 +26,8 @@ const calcHeight = () => {
   const days = document.getElementById("days");
   const daysHeight = days?.clientHeight;
   const logs = document.getElementById("logs");
-  if (!!logs && !!daysHeight && daysHeight > 190) {
+  const fiveWeeksHeight = 190;
+  if (!!logs && !!daysHeight && daysHeight > fiveWeeksHeight) {
     logs?.classList.add("smaller");
   } else {
     logs?.classList.remove("smaller");
@@ -107,12 +108,12 @@ watch(getDateLogs, () => {
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  height: calc(var(--vh, 1vh) * 100 - 530px);
+  height: calc(var(--vh, 1vh) * 100 - 494px);
   padding: 0 10px;
 }
 
 .logs.smaller {
-  height: calc(var(--vh, 1vh) * 100 - 544px);
+  height: calc(var(--vh, 1vh) * 100 - 534px);
 }
 
 .logs .log {
