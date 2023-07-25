@@ -116,6 +116,15 @@ watch(getDateLogs, () => {
   height: calc(var(--vh, 1vh) * 100 - 534px);
 }
 
+@media screen and (display-mode: standalone) {
+  .logs {
+    height: calc(var(--vh, 1vh) * 100 - 474px);
+  }
+  .logs.smaller {
+    height: calc(var(--vh, 1vh) * 100 - 514px);
+  }
+}
+
 .logs .log {
   display: flex;
   justify-content: space-between;
