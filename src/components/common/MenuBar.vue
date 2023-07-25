@@ -70,6 +70,12 @@ const { resetSelectedDate } = monthLog;
   }
 }
 
+@media screen and (display-mode: standalone) {
+  .wrap {
+    height: 80px;
+  }
+}
+
 nav {
   display: flex;
   justify-content: space-around;
