@@ -192,7 +192,13 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       return data;
     }
     return monthList.value.map((option) => {
-      const data: LogsData = { login: "", profileImage: "", inOutLogs: [] };
+      const data: LogsData = {
+        login: "",
+        profileImage: "",
+        inOutLogs: [],
+        acceptedAccumulationTime: 0,
+        totalAccumulationTime: 0,
+      };
       return {
         date: option,
         updatedAt: "",
@@ -470,7 +476,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   };
 
   // 선택된 월의 누적시간 계산
-  const getMonthAccTime = () => {
+  /* const getMonthAccTime = () => {
     let duration = 0;
     const logs = showLogs();
     if (!logs || logs.inOutLogs.length === 0) return duration;
@@ -485,17 +491,22 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       }
     });
     return duration / 3600;
+  }; */
+
+  const calcSecToTime = (sec: number) => {
+    const hour = Math.floor(sec / 3600);
+    const minute = Math.floor((sec % 3600) / 60);
+    return { hour, minute };
   };
 
   // 선택된 월의 누적시간 텍스트
   const getMonthAccTimeText = () => {
-    const accTime = getMonthAccTime();
-    const hour = Math.floor(accTime);
-    const min = Math.floor((accTime - hour) * 60);
-    return {
-      hour: hour,
-      minute: min,
-    };
+    return calcSecToTime(showLogs()?.totalAccumulationTime as number);
+  };
+
+  // 선택된 월의 인정 시간 텍스트
+  const getMonthAcceptedTimeText = () => {
+    return calcSecToTime(showLogs()?.acceptedAccumulationTime as number);
   };
 
   // 오늘보다 과거인지 체크
@@ -545,6 +556,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     showSelectedDateText,
     getSelectedDateAccTimeText,
     getMonthAccTimeText,
+    getMonthAcceptedTimeText,
     getDateLogs,
     dateTitle,
     showDateTitle,
