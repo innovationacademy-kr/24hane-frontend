@@ -49,7 +49,7 @@ const checkColor = () => {
         </div>
       </div>
     </div>
-    <div class="textWrap goal" :class="{ on: isOpen }">
+    <div class="textWrap accepted" :class="{ on: isOpen }">
       <h2>
         <slot name="title2"></slot>
       </h2>
@@ -111,14 +111,14 @@ const checkColor = () => {
   padding: 0;
 }
 
-.textWrap.goal {
+.textWrap.accepted {
   margin-top: 60px;
   margin-right: 18px;
   transition: all 0.3s ease-in-out;
   opacity: 0;
 }
 
-.textWrap.goal.on {
+.textWrap.accepted.on {
   margin-top: 16px;
   opacity: 1;
 }
@@ -151,6 +151,12 @@ h2 {
   font-weight: 600;
   line-height: 1.5rem;
   color: var(--black);
+}
+
+.accepted h2,
+.accepted .timeUnit,
+.accepted .timeNumber {
+  color: var(--color-primary);
 }
 
 .vIcon {

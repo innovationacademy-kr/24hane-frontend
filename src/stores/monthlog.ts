@@ -293,7 +293,8 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     insertTodayLogs(logsData);
   };
 
-  // 지난 달이고 업데이트 날짜가 이번 달 이상이면 true 데이터 호출 안함.
+  // 현재 보고있는 달의 업데이트 날짜가 현재 보고 있는 달보다 나중이면 true
+  // -> api 호출 안함
   const checkPrevMonthUpdateAt = () => {
     const updatedAt = logsContainer.value.find(
       (log) => log.date === `${showYear()}. ${showMonth() + 1}`

@@ -37,6 +37,7 @@ watch(showLogs, () => {
   font-weight: 700;
   box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.25);
   transition: border 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 @media (prefers-color-scheme: dark) {
