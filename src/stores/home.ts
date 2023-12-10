@@ -115,9 +115,6 @@ export const useHomeStore = defineStore("home", () => {
         userInfo.value.tagAt!,
         accDate.value
       );
-      const targetTime = new Date(userInfo.value.tagAt!);
-      console.log(targetTime);
-      console.log(time);
       return time;
     }
 
