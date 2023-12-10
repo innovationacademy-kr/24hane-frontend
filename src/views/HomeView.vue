@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import FoldCard from "@/components/home/FoldCard.vue";
+import FoldCardCompact from "@/components/home/FoldCardCompact.vue";
 import UserNumSection from "@/components/home/UserNumSection.vue";
 import BarChartCard from "@/components/home/BarChartCard.vue";
+import DefaultButton from "@/components/common/DefaultButton.vue";
+import DefaultModal from "@/components/common/DefaultModal.vue";
+import ExclamationMarkIcon from "@/components/icons/IconExclamationMark.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination } from "swiper";
 import "swiper/css";
@@ -14,11 +18,13 @@ const {
   apiMainInfo,
   getAccDate,
   getAccMonth,
+  getAccAcceptedMonth,
   getWeeklyGraph,
   getMonthlyGraph,
   getNumberOfPeople,
   getUserInfo,
   apiAccTimes,
+  getInfoMessages,
 } = useHomeStore();
 
 onMounted(() => {
@@ -28,11 +34,22 @@ onMounted(() => {
 
 const todayAccTime = ref(getAccDate());
 const monthAccTime = ref(getAccMonth());
+const acceptedMonthAccTime = ref(getAccAcceptedMonth());
 const getWeeklyData = ref(getWeeklyGraph());
 const getMonthlyData = ref(getMonthlyGraph());
 const numberOfPeople = ref(getNumberOfPeople());
 
 const isOnline = ref(getUserInfo().inoutState);
+
+const intervalId = ref(0);
+
+enum InfoModal {
+  NONE = "",
+  ACCEPT = "fundInfoNotice",
+  TODAY = "tagLatencyNotice",
+}
+
+const isClickInfo = ref(InfoModal.NONE);
 
 watch(getAccDate, () => {
   todayAccTime.value = getAccDate();
@@ -40,6 +57,10 @@ watch(getAccDate, () => {
 
 watch(getAccMonth, () => {
   monthAccTime.value = getAccMonth();
+});
+
+watch(getAccAcceptedMonth, () => {
+  acceptedMonthAccTime.value = getAccAcceptedMonth();
 });
 
 watch(getWeeklyGraph, () => {
@@ -56,23 +77,65 @@ watch(getNumberOfPeople, () => {
 
 watch(getUserInfo, () => {
   isOnline.value = getUserInfo().inoutState;
+  if (isOnline.value === "IN") {
+    startTimer();
+  } else {
+    stopTimer();
+  }
 });
+
+const updateTime = () => {
+  todayAccTime.value = getAccDate();
+  // updateTime 로직 구현
+};
+
+const startTimer = () => {
+  stopTimer();
+  const now = new Date();
+  const delay = 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+
+  // 첫 번째 정각까지 기다리기
+  setTimeout(() => {
+    updateTime();
+
+    // 그 후 매 분마다 업데이트
+    intervalId.value = setInterval(updateTime, 60000);
+  }, delay);
+};
+
+const stopTimer = () => {
+  if (intervalId.value) {
+    clearInterval(intervalId.value);
+  }
+};
 </script>
 
 <template>
   <main>
     <div class="bg" :class="{ online: isOnline === 'IN' }"></div>
     <FoldCard :hour="todayAccTime.hour" :min="todayAccTime.minute">
-      <template #title>이용 시간</template>
+      <template #title>
+        <ExclamationMarkIcon
+          @click.stop="isClickInfo = InfoModal.TODAY"
+          class="infoIcon"
+        />이용 시간</template
+      >
     </FoldCard>
-    <FoldCard
+    <FoldCardCompact
       class="m-16"
       :hour="monthAccTime.hour"
       :min="monthAccTime.minute"
-      :isMonth="true"
+      :acceptedHour="acceptedMonthAccTime.hour"
+      :acceptedMin="acceptedMonthAccTime.minute"
     >
       <template #title>월 누적 시간</template>
-    </FoldCard>
+      <template #title2>
+        <ExclamationMarkIcon
+          @click.stop="isClickInfo = InfoModal.ACCEPT"
+          class="infoIcon"
+        />인정 시간</template
+      >
+    </FoldCardCompact>
     <swiper
       :spaceBetween="10"
       :pagination="{
@@ -99,6 +162,29 @@ watch(getUserInfo, () => {
       :numberOfPeople="numberOfPeople"
     />
   </main>
+  <DefaultModal v-if="isClickInfo != InfoModal.NONE">
+    <template #title>
+      <span
+        class="bold"
+        v-html="getInfoMessages()[isClickInfo].title.replace(/\n/g, '<br>')"
+      ></span>
+    </template>
+    <template #content>
+      <span
+        class="bold"
+        v-html="getInfoMessages()[isClickInfo].content.replace(/\n/g, '<br>')"
+      ></span>
+    </template>
+    <template #button>
+      <DefaultButton
+        title="닫기"
+        background="var(--divider)"
+        color="var(--black)"
+        marginTop="10px"
+        @click="isClickInfo = InfoModal.NONE"
+      />
+    </template>
+  </DefaultModal>
 </template>
 
 <style scoped>
@@ -138,5 +224,19 @@ main {
 .mainColor {
   background-color: var(--signatue-1);
   color: var(--white);
+}
+
+.infoIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+  cursor: pointer;
+}
+.infoIcon:hover {
+  opacity: 0.6;
+}
+
+.bold {
+  font-weight: 700;
 }
 </style>

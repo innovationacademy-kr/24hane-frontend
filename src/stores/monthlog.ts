@@ -366,9 +366,9 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const getDateBgColor = (date: number) => {
     const accTime = getDateAccTime(date);
     if (accTime == 0) return DATE_BG_COLOR[0];
-    if (accTime > 9) return DATE_BG_COLOR[4];
-    if (accTime > 6) return DATE_BG_COLOR[3];
-    if (accTime > 3) return DATE_BG_COLOR[2];
+    if (accTime > 12) return DATE_BG_COLOR[4];
+    if (accTime > 8) return DATE_BG_COLOR[3];
+    if (accTime > 4) return DATE_BG_COLOR[2];
     return DATE_BG_COLOR[1];
   };
 

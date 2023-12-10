@@ -1,81 +1,36 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import ChevronIcon from "@/components/icons/IconChevron.vue";
-import CircleProgress from "@/components/home/CircleProgress.vue";
 import LoadingAnimationVue from "@/components/common/LoadingAnimation.vue";
 import { useMonthLogStore } from "@/stores/monthlog";
-import { useHomeStore } from "@/stores/home";
 
 const props = defineProps<{
   hour: number;
   min: number;
-  isMonth?: boolean;
+  acceptedHour: number;
+  acceptedMin: number;
 }>();
-
-const { getGoalDateHour, getGoalMonthHour, setGoalDateHour, setGoalMonthHour } =
-  useHomeStore();
 
 const monthStore = useMonthLogStore();
 const { showIsLoading } = monthStore;
 const isLoading = ref(showIsLoading());
 
 const isOpen = ref(false);
-const goalTimeSet = () => {
-  if (props.isMonth) {
-    return Number(getGoalMonthHour());
-  } else {
-    return Number(getGoalDateHour());
-  }
-};
-
-const goalTime = ref(goalTimeSet());
-const colorSet = ref(props.isMonth);
 
 watch(showIsLoading, (val) => {
   isLoading.value = val;
 });
 
-watch(goalTime, (val) => {
-  if (props.isMonth) {
-    setGoalMonthHour(Number(val));
-  } else {
-    setGoalDateHour(Number(val));
-  }
-});
-
-const culculatePercent = () => {
-  if (goalTime.value === 0) return 0;
-  return Math.round(((props.hour + props.min / 60) / goalTime.value) * 100);
-};
-
-const clickHandler = () => {
-  isOpen.value = !isOpen.value;
-  if (isOpen.value) {
-    colorSet.value = false;
-  } else {
-    colorSet.value = props.isMonth;
-  }
-};
-
 const checkColor = () => {
-  if (colorSet.value) {
+  if (!isOpen.value) {
     return "#ffffff";
   }
 };
-
-const dayOptions = [
-  4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-];
-
-const monthOptions = [
-  80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380,
-  400, 420,
-];
 </script>
 
 <template>
-  <div class="wrap" :class="{ on: isOpen, primaryColor: colorSet }">
-    <div class="textWrap use tapHighlight" @click="clickHandler">
+  <div class="wrap" :class="{ on: isOpen, primaryColor: !isOpen }">
+    <div class="textWrap use tapHighlight" @click="isOpen = !isOpen">
       <h2>
         <slot name="title"></slot>
       </h2>
@@ -95,32 +50,21 @@ const monthOptions = [
       </div>
     </div>
     <div class="textWrap goal" :class="{ on: isOpen }">
-      <h2>목표 시간</h2>
-      <div>
-        <select v-if="!isMonth" v-model="goalTime" class="timeNumber select">
-          <option
-            v-for="index in dayOptions"
-            :key="index"
-            :value="index"
-            :selected="index === 12"
-          >
-            {{ index }}
-          </option>
-        </select>
-        <select v-else v-model="goalTime" class="timeNumber select">
-          <option
-            v-for="index in monthOptions"
-            :key="index"
-            :value="index"
-            :selected="index === 80"
-          >
-            {{ index }}
-          </option>
-        </select>
-        <span class="timeUnit">시간</span>
+      <h2>
+        <slot name="title2"></slot>
+      </h2>
+      <div v-if="isLoading" class="loading"><LoadingAnimationVue /></div>
+      <div v-else>
+        <span class="timeNumber">
+          {{ props.acceptedHour }}
+        </span>
+        <span class="timeUnit">시간{{ " " }}</span>
+        <span class="timeNumber">
+          {{ props.acceptedMin }}
+        </span>
+        <span class="timeUnit">분</span>
       </div>
     </div>
-    <CircleProgress :isOpen="isOpen" :percent="culculatePercent()" />
   </div>
 </template>
 
@@ -139,7 +83,7 @@ const monthOptions = [
 }
 
 .wrap.on {
-  height: 260px;
+  height: 120px;
 }
 
 .wrap.primaryColor {
@@ -169,8 +113,7 @@ const monthOptions = [
 
 .textWrap.goal {
   margin-top: 60px;
-  margin-left: 18px;
-  margin-right: 20px;
+  margin-right: 18px;
   transition: all 0.3s ease-in-out;
   opacity: 0;
 }
@@ -201,28 +144,6 @@ h2 {
   font-weight: 700;
   line-height: 1.5rem;
   color: var(--black);
-}
-
-.goal .timeNumber {
-  width: 60px;
-  height: 30px;
-  border: none;
-  text-align: right;
-  padding-right: 5px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  font-family: Inter, sans-serif;
-  color: var(--black);
-}
-
-.select {
-  direction: rtl;
-  cursor: pointer;
-  -o-appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent;
 }
 
 .timeUnit {

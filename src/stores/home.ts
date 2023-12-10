@@ -15,12 +15,14 @@ export const useHomeStore = defineStore("home", () => {
     tagAt: null,
   });
 
-  const accDate = ref({
+  const accDate = ref(0);
+
+  const accMonth = ref({
     hour: 0,
     minute: 0,
   });
 
-  const accMonth = ref({
+  const accAcceptedMonth = ref({
     hour: 0,
     minute: 0,
   });
@@ -34,6 +36,17 @@ export const useHomeStore = defineStore("home", () => {
   const numberOfPeople = ref({
     gaepo: 0,
     seocho: 0,
+  });
+
+  const infoMessages = ref({
+    fundInfoNotice: {
+      title: "",
+      content: "",
+    },
+    tagLatencyNotice: {
+      title: "",
+      content: "",
+    },
   });
 
   const dumyData: PeriodData[] = [
@@ -76,12 +89,47 @@ export const useHomeStore = defineStore("home", () => {
     return userInfo.value;
   };
 
+  const calculateTimeDifference = (
+    dateString: string,
+    usageTimeSeconds: number
+  ) => {
+    const tagDate = new Date(dateString).getTime();
+    const currentDate = new Date().getTime();
+    const usageTimeInMilliseconds = usageTimeSeconds * 1000;
+
+    // 밀리초 단위의 차이 계산
+    const differenceInMilliseconds =
+      currentDate - tagDate + usageTimeInMilliseconds;
+
+    // 밀리초를 분과 시간으로 변환
+    const differenceInMinutes = Math.floor(differenceInMilliseconds / 60000);
+    const hours = Math.floor(differenceInMinutes / 60);
+    const minutes = differenceInMinutes % 60;
+
+    return { hour: hours, minute: minutes };
+  };
+
   const getAccDate = () => {
-    return accDate.value;
+    if (userInfo.value.inoutState === "IN") {
+      const time = calculateTimeDifference(
+        userInfo.value.tagAt!,
+        accDate.value
+      );
+      const targetTime = new Date(userInfo.value.tagAt!);
+      console.log(targetTime);
+      console.log(time);
+      return time;
+    }
+
+    return calcSecToTime(accDate.value);
   };
 
   const getAccMonth = () => {
     return accMonth.value;
+  };
+
+  const getAccAcceptedMonth = () => {
+    return accAcceptedMonth.value;
   };
 
   const getGoalDateHour = () => {
@@ -122,6 +170,11 @@ export const useHomeStore = defineStore("home", () => {
     return monthlyGraph.value;
   };
 
+  const getInfoMessages = () => {
+    console.log(infoMessages.value);
+    return infoMessages.value;
+  };
+
   const apiMainInfo = async () => {
     try {
       const { data: mainInfo } = await getMainInfo();
@@ -136,6 +189,7 @@ export const useHomeStore = defineStore("home", () => {
         gaepo: mainInfo.gaepo,
         seocho: mainInfo.seocho,
       };
+      infoMessages.value = mainInfo.infoMessages;
     } catch (error) {
       console.log(error);
     }
@@ -232,8 +286,11 @@ export const useHomeStore = defineStore("home", () => {
         isLoading.value = true;
       }
       const { data: accTimes } = await getAccTimes();
-      accDate.value = calcSecToTime(accTimes.todayAccumulationTime);
+      accDate.value = accTimes.todayAccumulationTime;
       accMonth.value = calcSecToTime(accTimes.monthAccumulationTime);
+      accAcceptedMonth.value = calcSecToTime(
+        accTimes.monthlyAcceptedAccumulationTime
+      );
       weeklyAccTime.value = accTimes.sixWeekAccumulationTime;
       saveStorage("weeklyAccTime", accTimes.sixWeekAccumulationTime);
       monthlyAccTime.value = accTimes.sixMonthAccumulationTime;
@@ -252,6 +309,7 @@ export const useHomeStore = defineStore("home", () => {
     getUserInfo,
     getAccDate,
     getAccMonth,
+    getAccAcceptedMonth,
     getGoalDateHour,
     getGoalMonthHour,
     setGoalDateHour,
@@ -261,8 +319,10 @@ export const useHomeStore = defineStore("home", () => {
     getNumberOfPeople,
     getWeeklyGraph,
     getMonthlyGraph,
+    getInfoMessages,
     weeklyGraph,
     apiMainInfo,
     apiAccTimes,
+    userInfo,
   };
 });
