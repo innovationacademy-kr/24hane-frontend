@@ -299,7 +299,6 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     const updatedAt = logsContainer.value.find(
       (log) => log.date === `${showYear()}. ${showMonth() + 1}`
     )?.updatedAt;
-    console.log(updatedAt);
     if (updatedAt) {
       const date = new Date(updatedAt);
       if (date.getFullYear() > showYear() || date.getMonth() > showMonth()) {

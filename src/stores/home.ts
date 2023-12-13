@@ -35,7 +35,6 @@ export const useHomeStore = defineStore("home", () => {
 
   const numberOfPeople = ref({
     gaepo: 0,
-    seocho: 0,
   });
 
   const infoMessages = ref({
@@ -168,7 +167,6 @@ export const useHomeStore = defineStore("home", () => {
   };
 
   const getInfoMessages = () => {
-    console.log(infoMessages.value);
     return infoMessages.value;
   };
 
@@ -184,7 +182,6 @@ export const useHomeStore = defineStore("home", () => {
       };
       numberOfPeople.value = {
         gaepo: mainInfo.gaepo,
-        seocho: mainInfo.seocho,
       };
       infoMessages.value = mainInfo.infoMessages;
     } catch (error) {
@@ -198,9 +195,9 @@ export const useHomeStore = defineStore("home", () => {
     return { hour, minute };
   };
 
-  const calHours = (time: number) => {
-    const str = (time / 3600).toFixed(1);
-    return str;
+  const calcHours = (time: number) => {
+    const str = Math.floor((time / 3600) * 10) / 10;
+    return str.toString();
   };
 
   const calcWeely = (index: number) => {
@@ -232,14 +229,14 @@ export const useHomeStore = defineStore("home", () => {
       tempData = tempData.map((data, index) => {
         return {
           periods: calcWeely(index),
-          total: calHours(weeklyAccTime.value[index]),
+          total: calcHours(weeklyAccTime.value[index]),
         };
       });
     } else {
       tempData = dumyData.map((data, index) => {
         return {
           periods: calcWeely(index),
-          total: calHours(weeklyAccTime.value[index]),
+          total: calcHours(weeklyAccTime.value[index]),
         };
       });
     }
@@ -262,14 +259,14 @@ export const useHomeStore = defineStore("home", () => {
       tempData = tempData.map((data, index) => {
         return {
           periods: calcMonthly(index),
-          total: calHours(monthlyAccTime.value[index]),
+          total: calcHours(monthlyAccTime.value[index]),
         };
       });
     } else {
       tempData = dumyData.map((data, index) => {
         return {
           periods: calcMonthly(index),
-          total: calHours(monthlyAccTime.value[index]),
+          total: calcHours(monthlyAccTime.value[index]),
         };
       });
     }
