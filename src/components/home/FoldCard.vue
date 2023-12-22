@@ -102,7 +102,7 @@ const monthOptions = [
             v-for="index in dayOptions"
             :key="index"
             :value="index"
-            :selected="index === 4"
+            :selected="index === 12"
           >
             {{ index }}
           </option>
@@ -169,6 +169,7 @@ const monthOptions = [
 
 .textWrap.goal {
   margin-top: 60px;
+  margin-left: 18px;
   margin-right: 20px;
   transition: all 0.3s ease-in-out;
   opacity: 0;
@@ -191,6 +192,8 @@ h2 {
   font-weight: 700;
   line-height: 1.5rem;
   color: var(--black);
+  display: flex;
+  align-items: center;
 }
 
 .timeNumber {
@@ -205,7 +208,7 @@ h2 {
   height: 30px;
   border: none;
   text-align: right;
-  margin-right: 2px;
+  padding-right: 5px;
   font-size: 1.25rem;
   font-weight: 700;
   font-family: Inter, sans-serif;

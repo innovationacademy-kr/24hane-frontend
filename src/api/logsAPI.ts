@@ -12,7 +12,7 @@ export const getLogsDate = async (year: number, month: number, day: number) => {
   return response;
 };
 
-const getLogsMonthURL = "v2/tag-log/getAllTagPerMonth";
+const getLogsMonthURL = "v3/tag-log/getAllTagPerMonth";
 export const getLogsmonth = async (year: number, month: number) => {
   const response = await instance.get(getLogsMonthURL, {
     params: {

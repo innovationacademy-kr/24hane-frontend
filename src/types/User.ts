@@ -8,5 +8,5 @@ export interface UserInfo {
 
 export interface MainInfo extends UserInfo {
   gaepo?: string;
-  seocho?: string;
+  infoMessages?: object[];
 }
