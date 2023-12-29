@@ -8,6 +8,8 @@ export interface LogsData {
   login: string;
   profileImage: string;
   inOutLogs: InOutLog[];
+  acceptedAccumulationTime: number;
+  totalAccumulationTime: number;
 }
 
 // 일별 로그타임 계산

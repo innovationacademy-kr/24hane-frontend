@@ -36,7 +36,6 @@
   transform: translate(-50%, -50%);
   width: 80%;
   max-width: 300px;
-  min-height: 300px;
   background-color: var(--white);
   border-radius: 20px;
   padding: 50px 40px 30px;
@@ -59,5 +58,9 @@ p {
   color: var(--color-primary);
   font-weight: 700;
   text-align: center;
+}
+
+.buttons {
+  margin-top: 40px;
 }
 </style>

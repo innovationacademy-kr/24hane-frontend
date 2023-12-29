@@ -192,7 +192,13 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       return data;
     }
     return monthList.value.map((option) => {
-      const data: LogsData = { login: "", profileImage: "", inOutLogs: [] };
+      const data: LogsData = {
+        login: "",
+        profileImage: "",
+        inOutLogs: [],
+        acceptedAccumulationTime: 0,
+        totalAccumulationTime: 0,
+      };
       return {
         date: option,
         updatedAt: "",
@@ -287,12 +293,12 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     insertTodayLogs(logsData);
   };
 
-  // 지난 달이고 업데이트 날짜가 이번 달 이상이면 true 데이터 호출 안함.
+  // 현재 보고있는 달의 업데이트 날짜가 현재 보고 있는 달보다 나중이면 true
+  // -> api 호출 안함
   const checkPrevMonthUpdateAt = () => {
     const updatedAt = logsContainer.value.find(
       (log) => log.date === `${showYear()}. ${showMonth() + 1}`
     )?.updatedAt;
-    console.log(updatedAt);
     if (updatedAt) {
       const date = new Date(updatedAt);
       if (date.getFullYear() > showYear() || date.getMonth() > showMonth()) {
@@ -366,9 +372,9 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   const getDateBgColor = (date: number) => {
     const accTime = getDateAccTime(date);
     if (accTime == 0) return DATE_BG_COLOR[0];
-    if (accTime > 9) return DATE_BG_COLOR[4];
-    if (accTime > 6) return DATE_BG_COLOR[3];
-    if (accTime > 3) return DATE_BG_COLOR[2];
+    if (accTime > 12) return DATE_BG_COLOR[4];
+    if (accTime > 8) return DATE_BG_COLOR[3];
+    if (accTime > 4) return DATE_BG_COLOR[2];
     return DATE_BG_COLOR[1];
   };
 
@@ -470,7 +476,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   };
 
   // 선택된 월의 누적시간 계산
-  const getMonthAccTime = () => {
+  /* const getMonthAccTime = () => {
     let duration = 0;
     const logs = showLogs();
     if (!logs || logs.inOutLogs.length === 0) return duration;
@@ -485,17 +491,22 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
       }
     });
     return duration / 3600;
+  }; */
+
+  const calcSecToTime = (sec: number) => {
+    const hour = Math.floor(sec / 3600);
+    const minute = Math.floor((sec % 3600) / 60);
+    return { hour, minute };
   };
 
   // 선택된 월의 누적시간 텍스트
   const getMonthAccTimeText = () => {
-    const accTime = getMonthAccTime();
-    const hour = Math.floor(accTime);
-    const min = Math.floor((accTime - hour) * 60);
-    return {
-      hour: hour,
-      minute: min,
-    };
+    return calcSecToTime(showLogs()?.totalAccumulationTime as number);
+  };
+
+  // 선택된 월의 인정 시간 텍스트
+  const getMonthAcceptedTimeText = () => {
+    return calcSecToTime(showLogs()?.acceptedAccumulationTime as number);
   };
 
   // 오늘보다 과거인지 체크
@@ -545,6 +556,7 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
     showSelectedDateText,
     getSelectedDateAccTimeText,
     getMonthAccTimeText,
+    getMonthAcceptedTimeText,
     getDateLogs,
     dateTitle,
     showDateTitle,
