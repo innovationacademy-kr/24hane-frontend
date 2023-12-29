@@ -26,6 +26,7 @@ const {
   apiAccTimes,
   getInfoMessages,
   getIsLoading,
+  getIsMainInfoLoading,
 } = useHomeStore();
 
 onMounted(() => {
@@ -40,6 +41,7 @@ const getWeeklyData = ref(getWeeklyGraph());
 const getMonthlyData = ref(getMonthlyGraph());
 const numberOfPeople = ref(getNumberOfPeople());
 const isLoading = ref(getIsLoading());
+const isMainInfoLoading = ref(getIsMainInfoLoading());
 
 const isOnline = ref(getUserInfo().inoutState);
 
@@ -79,6 +81,10 @@ watch(getNumberOfPeople, () => {
 
 watch(getIsLoading, (val) => {
   isLoading.value = val;
+});
+
+watch(getIsMainInfoLoading, (val) => {
+  isMainInfoLoading.value = val;
 });
 
 watch(getUserInfo, () => {
@@ -167,7 +173,7 @@ const stopTimer = () => {
       :numberOfPeople="numberOfPeople"
     />
   </main>
-  <DefaultModal v-if="!isLoading && isClickInfo != InfoModal.NONE">
+  <DefaultModal v-if="!isMainInfoLoading && isClickInfo != InfoModal.NONE">
     <template #title>
       <span
         class="bold"
