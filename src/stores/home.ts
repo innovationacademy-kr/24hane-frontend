@@ -6,6 +6,7 @@ import { saveStorage, getStorage } from "@/utils/localStorage";
 
 export const useHomeStore = defineStore("home", () => {
   const isLoading = ref(false);
+  const isMainInfoLoading = ref(false);
 
   const userInfo = ref({
     login: "",
@@ -82,6 +83,10 @@ export const useHomeStore = defineStore("home", () => {
 
   const getIsLoading = () => {
     return isLoading.value;
+  };
+
+  const getIsMainInfoLoading = () => {
+    return isMainInfoLoading.value;
   };
 
   const getUserInfo = () => {
@@ -172,6 +177,7 @@ export const useHomeStore = defineStore("home", () => {
 
   const apiMainInfo = async () => {
     try {
+      isMainInfoLoading.value = true;
       const { data: mainInfo } = await getMainInfo();
       userInfo.value = {
         login: mainInfo.login,
@@ -184,8 +190,10 @@ export const useHomeStore = defineStore("home", () => {
         gaepo: mainInfo.gaepo,
       };
       infoMessages.value = mainInfo.infoMessages;
+      isMainInfoLoading.value = false;
     } catch (error) {
       console.log(error);
+      isMainInfoLoading.value = false;
     }
   };
 
@@ -276,7 +284,9 @@ export const useHomeStore = defineStore("home", () => {
 
   const apiAccTimes = async () => {
     try {
-      isLoading.value = true;
+      if (!getStorage("weeklyAccTime")) {
+        isLoading.value = true;
+      }
       const { data: accTimes } = await getAccTimes();
       accDate.value = accTimes.todayAccumulationTime;
       accMonth.value = calcSecToTime(accTimes.monthAccumulationTime);
@@ -298,6 +308,7 @@ export const useHomeStore = defineStore("home", () => {
 
   return {
     getIsLoading,
+    getIsMainInfoLoading,
     getUserInfo,
     getAccDate,
     getAccMonth,
