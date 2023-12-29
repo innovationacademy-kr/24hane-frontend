@@ -22,7 +22,7 @@
   height: 6px;
   border-radius: 50%;
   background-color: var(--gray-soft);
-  animation: loading 1.2s infinite ease-in;
+  animation: loading 1.6s infinite ease-in-out;
   animation-delay: 0.4s;
 }
 .loading:before,
@@ -36,7 +36,7 @@
   background-color: var(--gray-soft);
   top: 50%;
   transform: translateY(-50%);
-  animation: loading 1.2s infinite linear;
+  animation: loading 1.6s infinite ease-in-out;
 }
 .loading:before {
   left: -12px;
