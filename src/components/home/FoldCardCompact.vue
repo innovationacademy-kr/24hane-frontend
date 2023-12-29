@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 import ChevronIcon from "@/components/icons/IconChevron.vue";
 import LoadingAnimationVue from "@/components/common/LoadingAnimation.vue";
-import { useMonthLogStore } from "@/stores/monthlog";
+import { useHomeStore } from "@/stores/home";
 
 const props = defineProps<{
   hour: number;
@@ -11,13 +11,12 @@ const props = defineProps<{
   acceptedMin: number;
 }>();
 
-const monthStore = useMonthLogStore();
-const { showIsLoading } = monthStore;
-const isLoading = ref(showIsLoading());
+const { getIsLoading } = useHomeStore();
+const isLoading = ref(getIsLoading());
 
 const isOpen = ref(false);
 
-watch(showIsLoading, (val) => {
+watch(getIsLoading, (val) => {
   isLoading.value = val;
 });
 

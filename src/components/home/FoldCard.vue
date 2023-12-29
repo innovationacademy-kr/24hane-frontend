@@ -3,7 +3,6 @@ import { ref, watch } from "vue";
 import ChevronIcon from "@/components/icons/IconChevron.vue";
 import CircleProgress from "@/components/home/CircleProgress.vue";
 import LoadingAnimationVue from "@/components/common/LoadingAnimation.vue";
-import { useMonthLogStore } from "@/stores/monthlog";
 import { useHomeStore } from "@/stores/home";
 
 const props = defineProps<{
@@ -12,13 +11,15 @@ const props = defineProps<{
   isMonth?: boolean;
 }>();
 
-const { getGoalDateHour, getGoalMonthHour, setGoalDateHour, setGoalMonthHour } =
-  useHomeStore();
+const {
+  getGoalDateHour,
+  getGoalMonthHour,
+  setGoalDateHour,
+  setGoalMonthHour,
+  getIsLoading,
+} = useHomeStore();
 
-const monthStore = useMonthLogStore();
-const { showIsLoading } = monthStore;
-const isLoading = ref(showIsLoading());
-
+const isLoading = ref(getIsLoading());
 const isOpen = ref(false);
 const goalTimeSet = () => {
   if (props.isMonth) {
@@ -31,7 +32,7 @@ const goalTimeSet = () => {
 const goalTime = ref(goalTimeSet());
 const colorSet = ref(props.isMonth);
 
-watch(showIsLoading, (val) => {
+watch(getIsLoading, (val) => {
   isLoading.value = val;
 });
 

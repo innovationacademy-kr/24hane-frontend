@@ -77,8 +77,8 @@ watch(getNumberOfPeople, () => {
   numberOfPeople.value = getNumberOfPeople();
 });
 
-watch(getIsLoading, () => {
-  isLoading.value = getIsLoading();
+watch(getIsLoading, (val) => {
+  isLoading.value = val;
 });
 
 watch(getUserInfo, () => {
