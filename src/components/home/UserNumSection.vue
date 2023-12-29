@@ -4,7 +4,6 @@ import UserNumCard from "@/components/home/UserNumCard.vue";
 const props = defineProps<{
   numberOfPeople: {
     gaepo: number;
-    seocho: number;
   };
   isOnline: boolean;
 }>();

@@ -86,7 +86,6 @@ watch(getUserInfo, () => {
 
 const updateTime = () => {
   todayAccTime.value = getAccDate();
-  // updateTime 로직 구현
 };
 
 const startTimer = () => {
@@ -99,7 +98,7 @@ const startTimer = () => {
     updateTime();
 
     // 그 후 매 분마다 업데이트
-    intervalId.value = setInterval(updateTime, 60000);
+    intervalId.value = window.setInterval(updateTime, 60000);
   }, delay);
 };
 
