@@ -150,18 +150,18 @@ export const useMonthLogStore = defineStore("MonthLog", () => {
   // 달력에 보여줄 날짜 계산하기
   const calcOptions = () => {
     const options = [];
-    for (let year = FIRST_DAY.year; year <= showToday().getFullYear(); year++) {
-      if (year == FIRST_DAY.year) {
-        for (let month = FIRST_DAY.month - 1; month < 12; month++) {
-          options.push(`${year}. ${month + 1}`);
-        }
-        continue;
-      } else {
-        for (let month = 0; month <= showToday().getMonth(); month++) {
-          options.push(`${year}. ${month + 1}`);
-        }
+    const currentYear = showToday().getFullYear();
+    const currentMonth = showToday().getMonth();
+
+    for (let year = FIRST_DAY.year; year <= currentYear; year++) {
+      const startMonth = year === FIRST_DAY.year ? FIRST_DAY.month - 1 : 0;
+      const endMonth = year === currentYear ? currentMonth : 11;
+
+      for (let month = startMonth; month <= endMonth; month++) {
+        options.push(`${year}. ${month + 1}`);
       }
     }
+
     return options;
   };
 
