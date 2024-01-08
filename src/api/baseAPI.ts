@@ -30,7 +30,6 @@ instance.interceptors.response.use(
       error.response?.status === STATUS_401_UNAUTHORIZED ||
       error.response?.status === undefined
     ) {
-      localStorage.removeItem("isLogin");
       removeCookie();
       clearStorage();
       window.location.href = "/";
