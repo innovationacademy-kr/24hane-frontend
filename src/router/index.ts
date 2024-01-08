@@ -7,7 +7,8 @@ import MoreView from "@/views/MoreView.vue";
 import NotificationView from "@/views/NotificationView.vue";
 import NotFoundViewVue from "@/views/NotFoundView.vue";
 import ApplyCardViewVue from "@/views/ApplyCardView.vue";
-import { getCookie } from "@/api/cookie/cookies";
+import { getCookie, removeCookie } from "@/api/cookie/cookies";
+import { clearStorage } from "@/utils/localStorage";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,21 +62,25 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = getCookie();
-  const isLogin = localStorage.getItem("isLogin");
-  if (to.name === "login" && isLogin === "true" && !!token) {
-    next({ name: "home" });
+
+  // 이미 로그인된 상태에서 로그인 페이지로 이동 시 홈으로 리다이렉트
+  const isNavigatingToLogin = to.name === "login";
+  if (isNavigatingToLogin && token) {
+    return next({ name: "home" });
   }
 
-  if (
-    to.name !== "login" &&
-    to.name !== "auth" &&
-    (isLogin !== "true" || !token)
-  ) {
+  // 로그인 및 인증 페이지가 아니고, 토큰이 없는 경우 로그인 페이지로 이동
+  const isProtectedRoute = to.name !== "login" && to.name !== "auth";
+  if (isProtectedRoute && !token) {
+    removeCookie();
+    clearStorage();
     next({ name: "login" });
     alert("로그인 정보가 유효하지 않습니다.\n다시 로그인해주세요.");
-  } else {
-    next();
+    return;
   }
+
+  // 다른 경우는 정상적으로 라우트 진행
+  next();
 });
 
 export default router;
