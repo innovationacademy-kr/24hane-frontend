@@ -10,5 +10,6 @@ export const getCookie = () => {
 };
 
 export const removeCookie = (): void => {
-  document.cookie = `${tokenName}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  const domain = ".24hoursarenotenough.42seoul.kr";
+  document.cookie = `${tokenName}=; path=/; domain=${domain}; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 };
