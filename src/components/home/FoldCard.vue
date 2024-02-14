@@ -4,6 +4,7 @@ import ChevronIcon from "@/components/icons/IconChevron.vue";
 import CircleProgress from "@/components/home/CircleProgress.vue";
 import LoadingAnimationVue from "@/components/common/LoadingAnimation.vue";
 import { useHomeStore } from "@/stores/home";
+import { getStorage, saveStorage } from "@/utils/localStorage";
 
 const props = defineProps<{
   hour: number;
@@ -20,7 +21,7 @@ const {
 } = useHomeStore();
 
 const isLoading = ref(getIsLoading());
-const isOpen = ref(false);
+const isOpen = ref(getStorage("isDayCardOpen") || false);
 const goalTimeSet = () => {
   if (props.isMonth) {
     return Number(getGoalMonthHour());
@@ -51,6 +52,7 @@ const culculatePercent = () => {
 
 const clickHandler = () => {
   isOpen.value = !isOpen.value;
+  saveStorage("isDayCardOpen", isOpen.value);
   if (isOpen.value) {
     colorSet.value = false;
   } else {

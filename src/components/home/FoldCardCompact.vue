@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import ChevronIcon from "@/components/icons/IconChevron.vue";
 import LoadingAnimationVue from "@/components/common/LoadingAnimation.vue";
 import { useHomeStore } from "@/stores/home";
+import { getStorage, saveStorage } from "@/utils/localStorage";
 
 const props = defineProps<{
   hour: number;
@@ -14,7 +15,7 @@ const props = defineProps<{
 const { getIsLoading } = useHomeStore();
 const isLoading = ref(getIsLoading());
 
-const isOpen = ref(false);
+const isOpen = ref(getStorage("isMonthCardOpen") || false);
 
 watch(getIsLoading, (val) => {
   isLoading.value = val;
@@ -25,11 +26,16 @@ const checkColor = () => {
     return "#ffffff";
   }
 };
+
+const clickHandler = () => {
+  isOpen.value = !isOpen.value;
+  saveStorage("isMonthCardOpen", isOpen.value);
+};
 </script>
 
 <template>
   <div class="wrap" :class="{ on: isOpen, primaryColor: !isOpen }">
-    <div class="textWrap use tapHighlight" @click="isOpen = !isOpen">
+    <div class="textWrap use tapHighlight" @click="clickHandler">
       <h2>
         <slot name="title"></slot>
       </h2>
