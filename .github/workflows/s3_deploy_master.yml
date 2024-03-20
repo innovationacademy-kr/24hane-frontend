@@ -14,6 +14,7 @@ jobs:
       REACT_APP_SENTRY_DSN: ${{secrets.REACT_APP_SENTRY_DSN}}
       VITE_APP_API_URL: ${{secrets.VITE_APP_API_URL}}
       VITE_TOKEN: ${{secrets.VITE_TOKEN}}
+      VITE_GA_ID: ${{secrets.VITE_GA_ID}}
 
     steps:
       - uses: actions/checkout@v2
