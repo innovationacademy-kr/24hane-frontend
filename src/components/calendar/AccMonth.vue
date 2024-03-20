@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useMonthLogStore } from "@/stores/monthlog";
 import { ref, watch } from "vue";
+import { event } from "vue-gtag";
 const { getMonthAccTimeText, getMonthAcceptedTimeText, showLogs } =
   useMonthLogStore();
 
@@ -12,13 +13,22 @@ watch(showLogs, () => {
   monthText.value = getMonthAccTimeText();
   acceptedMonthText.value = getMonthAcceptedTimeText();
 });
+
+const handleClick = () => {
+  isClicked.value = !isClicked.value;
+  event("click", {
+    event_category: "Buttons",
+    event_label: "Click acceptTime Button",
+    value: 1,
+  });
+};
 </script>
 
 <template>
-  <div v-if="!isClicked" @click="isClicked = !isClicked" class="month">
+  <div v-if="!isClicked" @click="handleClick" class="month">
     총 {{ monthText.hour }}시간 {{ monthText.minute }}분
   </div>
-  <div v-else @click="isClicked = !isClicked" class="month acceptTime">
+  <div v-else @click="handleClick" class="month acceptTime">
     인정 시간 {{ acceptedMonthText.hour }}시간 {{ acceptedMonthText.minute }}분
   </div>
 </template>

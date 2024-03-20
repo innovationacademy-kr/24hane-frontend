@@ -16,6 +16,7 @@
     "pinia": "^2.0.28",
     "swiper": "^9.0.5",
     "vue": "^3.2.45",
+    "vue-gtag": "^2.0.1",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
