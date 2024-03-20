@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import LoadingAnimation from "@/components/common/LoadingAnimation.vue";
 import { ref } from "vue";
+import { event } from "vue-gtag";
 
 const ORIGIN_URL = window.location.origin;
 const BACKEND_URL = import.meta.env.VITE_APP_API_URL;
 const isClicked = ref(false);
+
+const handleClick = () => {
+  isClicked.value = true;
+  event("login", { method: "42OAuth Login" });
+};
 </script>
 
 <template>
@@ -12,7 +18,7 @@ const isClicked = ref(false);
     <LoadingAnimation v-if="isClicked" />
     <a
       v-else
-      @click="isClicked = true"
+      @click="handleClick"
       :href="`${BACKEND_URL}/user/login/42?redirect=${ORIGIN_URL}/auth`"
       >LOG IN</a
     >
