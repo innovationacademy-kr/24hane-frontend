@@ -1,4 +1,3 @@
-
 <a href="https://24hoursarenotenough.42seoul.kr/" target="_blank">
 <img width="100" alt="image" src="https://user-images.githubusercontent.com/72684256/222954950-6ab18005-81e1-4d0b-93d5-6097f11fee32.png">
 </a>
@@ -9,7 +8,7 @@
 
 안녕하세요:) 42서울 공식 체크인 서비스 24HANE입니다💌
 
-`"24 Hane" (24 hours are not enough)` 은 Cadet 여러분의 클러스터 출입 여부와 출입 누적 시간을 직접 확인할 수 있도록 개발된 서비스 입니다. 
+`"24 Hane" (24 hours are not enough)` 은 Cadet 여러분의 클러스터 출입 여부와 출입 누적 시간을 직접 확인할 수 있도록 개발된 서비스 입니다.
 
 원활하게 서비스를 이용할 수 있도록 기본 기능을 소개합니다. 👋
 
@@ -59,15 +58,16 @@
 </table>
 
 - **로그인**
+
   - Intra 로그인을 통해 서비스 로그인이 가능합니다.
 
 - **홈**
+
   - 로그인 후 바로 보이는 페이지로 본인의 정보와 출입 누적 시간(오늘, 이번 달) 현황을 한 눈에 볼 수 있습니다.
   - **`개인 정보`**
     - 본인의 인트라 사진과 ID를 통해 본인의 정보를 확인합니다.
   - **`출입 여부`**
-    - 입실 시 홈 화면의 전체 배경이 바뀝니다. 또한
-  인트라ID의 우측 상단에 있는 작은 원으로  출입 여부가 표시됩니다.
+    - 입실 시 홈 화면의 전체 배경이 바뀝니다. 또한 인트라ID의 우측 상단에 있는 작은 원으로 출입 여부가 표시됩니다.
     - **(초록색🟢)** 정상적으로 입실(check-in) 되었음을 의미합니다.
   - **`이용시간`**
     - 오늘의 클러스터 누적 시간을 표시합니다.
@@ -84,6 +84,7 @@
     - 개포, 서초 클러스터의 현재 체류 인원이 표시됩니다.
 
 - **캘린더**
+
   - 2022. 8(24HANE 서비스 시작 월)부터 현재까지의 기록을 확인 할 수 있습니다.
   - 월별로 총 누적시간을 확인할 수 있습니다.
   - 일별 진척도를 색상을 통해 확인할 수 있습니다. (3시간 단위)
@@ -110,7 +111,6 @@
     <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=black">
 </p>
 
-
 <br />
 <br />
 
@@ -126,7 +126,8 @@
 # 백엔드 url 주소
 VITE_APP_API_URL = http://localhost:2424
 # 토큰 이름
-VITE_TOKEN = accessToken
+VITE_ACCESS_TOKEN = accessToken
+VITE_REFRESH_TOKEN = refreshToken
 ```
 
 ### 앱 실행
